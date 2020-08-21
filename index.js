@@ -4,25 +4,32 @@ const configFile = require('./config.json');
 const quoteFile = require('./quotes.json');
 client.once('ready', () => {
     console.log('Ready!');
-    if (configFile.clientID.toString) {
+    if (configFile.clientID) {
         console.log(`Invite me using https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString()}`);
     } else {
         console.log("Use the Discord developer portal to get your bot's invite link.")
     }
-    console.log("The prefix is: " + configFile.prefix)
+    console.log("The prefix is: " + configFile.prefix);
+    quotes = [];
+    for (var x of Object.values(quoteFile)) {
+        quotes = quotes.concat(x);
+    }
 });
 client.login(configFile.token);
 client.on('message', message => {
     if (!message.content.startsWith(configFile.prefix) || message.author.bot) return;
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
+    //const args = message.content.slice(configFile.prefix.length).trim().split(/ +/);
+    //const command = args.shift().toLowerCase();
+    const command = message.content.slice(configFile.prefix.length).trim();
     switch (command) {
         case 'ping':
             message.channel.send('Pong!');
             break;
         case 'RandomQuote':
             // Do the json importing and random selection here
-            message.channel.reply('Sorry, this isn\'t finished yet')
+            var randQuote = quotes[Math.floor(Math.random() * quotes.length)];
+            message.channel.send(randQuote);
+            break;
         case 'Bibot':
             message.channel.send('Morbleu!');
             break;
