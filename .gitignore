@@ -105,3 +105,6 @@ dist
 
 # Auth file
 config.json
+
+# PNPM Lock
+pnpm-lock.yaml
