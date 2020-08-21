@@ -20,11 +20,14 @@ client.on('message', message => {
         case 'ping':
             message.channel.send('Pong!');
             break;
+        case 'RandomQuote':
+            // Do the json importing and random selection here
+            message.channel.reply('Sorry, this isn\'t finished yet')
         case 'Bibot':
             message.channel.send('Morbleu!');
             break;
         case 'IntenseLove':
-            message.channel.send('He seemed so devoted — a very slave—and there was a certain latent intensity in that love which had fascinated her.');
+            message.channel.send('He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.');
             break;
         case 'Contempt':
             message.channel.send('Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.');
@@ -36,10 +39,10 @@ client.on('message', message => {
             message.channel.send('Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.');
             break;
         case 'Brains':
-            message.channel.send('Money and titles may be hereditary,” she would say, “but brains are not.');
+            message.channel.send('"Money and titles may be hereditary,” she would say, “but brains are not."');
             break;
         case 'SPpoem':
-            message.channel.send('We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven?—Is he in hell? That demmed, elusive Pimpernel?');
+            message.channel.send('We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?');
             break;
         case 'Haters':
             message.channel.send('How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.');
