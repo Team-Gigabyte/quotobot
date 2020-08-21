@@ -1,0 +1,7 @@
+{
+    "prefix": ">>",
+    "token": "your-token-here-inside-these-quotes",
+    "instructions": "See the README.md file for info",
+    "clientID-example": "12345678901234",
+    "permissionValue": 0
+}
