@@ -2,10 +2,21 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const configFile = require('./config.json');
 const quoteFile = require('./quotes.json');
+const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
+const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
+const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
 };
+const simpleEmbed = (text, attr) => {
+    const toReturn = new Discord.MessageEmbed()
+        .setColor(6765239)
+        .setAuthor("Quote", quoteIcon)
+        .setFooter(`––${attr}`, emptyIcon)
+        .setDescription(`**${text}**`);
+    return toReturn;
+}
 client.once('ready', () => {
     console.log('Ready!');
     if (configFile.clientID) {
@@ -37,34 +48,34 @@ client.on('message', message => {
             // quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
             const rqEmbed = new Discord.MessageEmbed()
                 .setColor(6765239)
-                .setAuthor("Random Quote", "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png")
+                .setAuthor("Random Quote", quoteIcon)
                 .setFooter(`––${authorKey}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
-                .setDescription(`**${randQuote}**`)
+                .setDescription(`**${randQuote}**`);
             message.channel.send(rqEmbed);
             break;
         case 'Bibot':
-            message.channel.send('Morbleu!');
+            message.channel.send(simpleEmbed('Morbleu!', sp));
             break;
         case 'IntenseLove':
-            message.channel.send('He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.');
+            message.channel.send(simpleEmbed('He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.', sp));
             break;
         case 'Contempt':
-            message.channel.send('Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.');
+            message.channel.send(simpleEmbed('Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.', sp));
             break;
         case 'PercySmart':
-            message.channel.send('He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.');
+            message.channel.send(simpleEmbed('He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.', sp));
             break;
         case 'MoneyNoMatter':
-            message.channel.send('Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.');
+            message.channel.send(simpleEmbed('Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.', sp));
             break;
         case 'Brains':
-            message.channel.send('"Money and titles may be hereditary,” she would say, “but brains are not."');
+            message.channel.send(simpleEmbed('"Money and titles may be hereditary,” she would say, “but brains are not."', sp));
             break;
         case 'SPpoem':
-            message.channel.send('We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?');
+            message.channel.send(simpleEmbed('We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
             break;
         case 'Haters':
-            message.channel.send('How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.');
+            message.channel.send(simpleEmbed('How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
         default:
             break;
