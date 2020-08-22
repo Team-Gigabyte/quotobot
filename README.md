@@ -19,8 +19,8 @@ node index.js
 ```
 
 # Tentative Timeline
-Publish v1.0.1 of the bot: **August 23** (by the latest): **100+ NEW QUOTES! The quotes will be basic text quotes.**
+Publish v1.0.1 of the bot: **August 25** (by the latest): **100+ NEW QUOTES! The quotes will be basic text quotes.**
 
-Publish v1.0.2 of the bot: **August 30** (by the latest): **The quotes will be embeds with features such as icons!**
+Publish v1.0.2 of the bot: **September 1** (by the latest): **The quotes will be embeds with features such as icons!**
 
 Publish v.1.0.x of the bot: **We will periodically add more quotes and features, including general features unrelated to quotes! There is no deadline as school will restart and time to work on this project will be limited.**
