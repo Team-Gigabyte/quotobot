@@ -4,7 +4,6 @@
   "description": "A Discord bot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: There isn't a test yet for this program. Just run node index.js\" && exit 1",
     "start": "node index.js"
   },
   "repository": {
@@ -16,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/ssharker21/quotobot/issues"
   },
-  "homepage": "https://github.com/ed789d0/ssharker21/quotobot#readme",
+  "homepage": "https://github.com/ssharker21/quotobot#readme",
   "devDependencies": {
     "discord.js": "^12.2.0"
   },
