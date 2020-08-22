@@ -4,11 +4,11 @@ A Discord bot that tells quotes!
 ## How to set up the config.json
 Make a copy of config-example.json and call it config.json. Change the prefix if you like (keep it inside the quotes). Where it says *"your-token-here"*, paste in your token (also inside the quotes). If you want the bot to output its invite link, change
 ```json
-"clientID-example": "12345678901234",
+"clientID-example": "123456789012347",
 ```
 to
 ```json
-"clientID": "12345678901234",
+"clientID": "123456789012347",
 ```
 making sure to change the number to your client ID inside the quotes.
 ## Run the bot
