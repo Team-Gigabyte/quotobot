@@ -2,6 +2,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const configFile = require('./config.json');
 const quoteFile = require('./quotes.json');
+const randKey = obj => {
+    var keys = Object.keys(obj);
+    return keys[keys.length * Math.random() << 0];
+};
 client.once('ready', () => {
     console.log('Ready!');
     if (configFile.clientID) {
@@ -10,10 +14,10 @@ client.once('ready', () => {
         console.log("Use the Discord developer portal to get your bot's invite link.")
     }
     console.log("The prefix is: " + configFile.prefix);
-    quotes = [];
+    /* quotes = [];
     for (var x of Object.values(quoteFile)) {
         quotes = quotes.concat(x);
-    }
+    } */
 });
 client.login(configFile.token);
 client.on('message', message => {
@@ -26,9 +30,17 @@ client.on('message', message => {
             message.channel.send('Pong!');
             break;
         case 'RandomQuote':
-            // Do the json importing and random selection here
-            var randQuote = quotes[Math.floor(Math.random() * quotes.length)];
-            message.channel.send(randQuote);
+            // This selects a random key in the quote file, gets a random quote, and sends an embed.
+            const authorKey = randKey(quoteFile);
+            const authorRand = quoteFile[authorKey];
+            const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)];
+            // quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
+            const rqEmbed = new Discord.MessageEmbed()
+                .setColor(6765239)
+                .setAuthor("Random Quote", "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png")
+                .setFooter(`––${authorKey}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
+                .setDescription(`**${randQuote}**`)
+            message.channel.send(rqEmbed);
             break;
         case 'Bibot':
             message.channel.send('Morbleu!');
