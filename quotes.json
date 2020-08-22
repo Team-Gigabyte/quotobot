@@ -1,5 +1,5 @@
 {
-  "Jefferson": [
+  "Thomas Jefferson": [
     "Never put off till to-morrow what you can do to-day. ",
     "Never trouble another for what you can do yourself. ",
     "Never spend your money before you have it.",
@@ -11,7 +11,7 @@
     "Take things always by their smooth handle.",
     "When angry, count ten, before you speak; if very angry, a hundred."
   ]
-  , "Washington": [
+  , "George Washington": [
     "It is better to offer no excuse than a bad one. ",
     "It is better to be alone than in bad company. ",
     "If freedom of speech is taken away, then dumb and silent we may be led, like sheep to the slaughter.",
@@ -37,5 +37,22 @@
     "Citizens by birth or choice of a common country, that country has a right to concentrate your affections. The name of American, which belongs to you, in your national capacity, must always exalt the just pride of Patriotism, more than any appellation derived from local discriminations.",
     "We should not look back unless it is to derive useful lessons from past errors, and for the purpose of profiting by dearly bought experience."
   ]
+, "John Adams": [
+    "I read my eyes out and can't read half enough...the more one reads the more one sees we have to read.",
+    "Let us tenderly and kindly cherish therefore, the means of knowledge. Let us dare to read, think, speak, and write.",
+    "Facts are stubborn things; and whatever may be our wishes, our inclinations, or the dictates of our passion, they cannot alter the state of facts and evidence.",
+    "A Constitution of Government once changed from Freedom, can never be restored. Liberty, once lost, is lost forever.",
+    "The longer I live, the more I read, the more patiently I think, and the more anxiously I inquire, the less I seem to know...Do justly. Love mercy. Walk humbly. This is enough.",
+    "There is nothing which I dread so much as a division of the republic into two great parties, each arranged under its leader, and concerting measures in opposition to each other. This, in my humble apprehension, is to be dreaded as the greatest political evil under our Constitution.",
+    "Posterity! you will never know how much it cost the present generation to preserve your freedom! I hope you will make a good use of it.",
+    "I say, that Power must never be trusted without a check.",
+    "Children should be educated and instructed in the principles of freedom. Aristotle speaks plainly to this purpose, saying, 'that the institution of youth should be accommodated to that form of government under which they live; forasmuch as it makes exceedingly for the preservation of the present government, whatsoever it be.",
+    "Let the human mind loose. It must be loose. It will be loose. Superstition and dogmatism cannot confine it.",
+    "I must judge for myself, but how can I judge, how can any man judge, unless his mind has been opened and enlarged by reading.",
+    "To believe all men honest is folly. To believe none is something worse.",
+    " “Government has no right to hurt a hair on the head of an Atheist for his Opinions. Let him have a care of his Practices.",
+    "You will never be alone with a poet in your pocket."
+]
+
 }
 
