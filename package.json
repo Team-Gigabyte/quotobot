@@ -1,7 +1,7 @@
 {
-  "name": "silver-palm-tree",
+  "name": "quotobot",
   "version": "1.0.0",
-  "description": "A Discord bot",
+  "description": "A Discord bot that tells quotes",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
