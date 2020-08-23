@@ -11,7 +11,7 @@ const helpDomain = "quotobot.tk";
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
-};
+}; // gets random key from an object
 const simpleEmbed = (text, attr) => {
     const toReturn = new Discord.MessageEmbed()
         .setColor(6765239)
@@ -28,7 +28,7 @@ client.once('ready', () => {
         console.log("Use the Discord developer portal to get your bot's invite link.")
     }
     console.log("The prefix is: " + configFile.prefix);
-    client.user.setActivity(helpDomain, { type: 'WATCHING' });
+    client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching quotobot.tk"
     /* quotes = [];
     for (var x of Object.values(quoteFile)) {
         quotes = quotes.concat(x);
