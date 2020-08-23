@@ -49,7 +49,7 @@ client.on('message', message => {
         case 'randomquote':
         case 'randquote':
         case 'RandQuote':
-        case 'RandomQuote': 
+        case 'RandomQuote': {
             // This selects a random key in the quote file, gets a random quote, and sends an embed.
             const authorKey = randKey(quoteFile);
             const authorRand = quoteFile[authorKey];
@@ -61,7 +61,7 @@ client.on('message', message => {
                 .setDescription(`**${randQuote}**`);
             message.channel.send(rqEmbed);
             break;
-        
+        }
         case 'Bibot':
             message.channel.send(simpleEmbed('Morbleu!', sp));
             break;
