@@ -1,11 +1,13 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const configFile = require('./config.json');
+const token = configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
 const quoteFile = require('./quotes.json');
-            // quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
+// quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
 const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
 const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
+const helpDomain = "quotobot.tk";
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
@@ -26,17 +28,18 @@ client.once('ready', () => {
         console.log("Use the Discord developer portal to get your bot's invite link.")
     }
     console.log("The prefix is: " + configFile.prefix);
+    client.user.setActivity(helpDomain, { type: 'WATCHING' });
     /* quotes = [];
     for (var x of Object.values(quoteFile)) {
         quotes = quotes.concat(x);
     } */
 });
-client.login(configFile.token);
+client.login(token);
 client.on('message', message => {
     if (!message.content.startsWith(configFile.prefix) || message.author.bot) return;
     //const args = message.content.slice(configFile.prefix.length).trim().split(/ +/);
     //const command = args.shift().toLowerCase();
-    const command = message.content.slice(configFile.prefix.length).trim();
+    const command = message.content.slice(configFile.prefix.length).trim().toLowerCase();
     switch (command) {
         case 'ping':
             message.channel.send('Pong!');
