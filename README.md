@@ -1,7 +1,12 @@
 # Quotobot
 A Discord bot that tells quotes!
 
-## How to set up the config.json
+# INVITE THE BOT TO YOUR SERVER! (recommended)
+**Link: https://discord.com/api/oauth2/authorize?client_id=746889272992464958&permissions=18432&scope=bot**
+
+## Or do you want to host and tweak the bot yourself?
+
+### How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
 
 - Change the prefix if you like (keep it inside the quotes). 
@@ -17,14 +22,14 @@ to
 "clientID": "123456789012347",
 ```
 making sure to change the number to your client ID inside the quotes.
-## Run the bot
+### Run the bot
 Make sure you have NodeJS installed and open a command prompt/terminal in the folder where these files are. Then run:
 ```bash
 npm install
 node index.js
 ```
 
-# Tentative Timeline
+### Tentative Timeline
 Publish v1.0.1 of the bot: **August 27** (by the latest): **100+ NEW QUOTES! The quotes will be nice and embedded!**
 
 Publish v.1.0.x of the bot: **We will periodically add more quotes and features, including general features unrelated to quotes! There is no deadline as school will restart and time to work on this project will be limited.**
