@@ -1,6 +1,7 @@
 {
     "prefix": "~",
     "token": "your-token-here-inside-these-quotes",
+    "server-domain-example": "example.com",
     "instructions": "See the README.md file for info",
     "clientID-example": "type-in-your-clientID-here",
     "permissionValue": 0

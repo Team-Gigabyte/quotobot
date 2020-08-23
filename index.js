@@ -7,20 +7,22 @@ const quoteFile = require('./quotes.json');
 const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
 const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const serverDomain = "example.me";
+const serverDomain = configFile['server-domain'] ? configFile['server-domain'] : undefined;
 const helpDomain = "quotobot.tk";
 // start self-ping
-const http = require('http');
-const express = require('express');
-const app = express();
-app.get("/", (request, response) => {
-  console.log(Date.now() + " Ping Received");
-  response.sendStatus(200);
-});
-app.listen(process.env.PORT);
-setInterval(() => {
-  http.get(`https://${process.env.PROJECT_DOMAIN}.${serverDomain}/`);
-}, 280000);
+if (serverDomain) {
+    const http = require('http');
+    const express = require('express');
+    const app = express();
+    app.get("/", (request, response) => {
+        console.log(Date.now() + " Ping Received");
+        response.sendStatus(200);
+    });
+    app.listen(process.env.PORT);
+    setInterval(() => {
+        http.get(`https://${process.env.PROJECT_DOMAIN}.${serverDomain}/`);
+    }, 280000);
+}
 // end self-ping
 const randKey = obj => {
     var keys = Object.keys(obj);
