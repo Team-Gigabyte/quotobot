@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const configFile = require('./config.json');
 const quoteFile = require('./quotes.json');
+            // quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
 const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
 const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
@@ -48,7 +49,6 @@ client.on('message', message => {
             const authorKey = randKey(quoteFile);
             const authorRand = quoteFile[authorKey];
             const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)];
-            // quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
             const rqEmbed = new Discord.MessageEmbed()
                 .setColor(6765239)
                 .setAuthor("Random Quote", quoteIcon)
