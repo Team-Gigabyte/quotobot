@@ -29,3 +29,15 @@ jobs:
       run: |
         npm install eslint
         npx eslint index.js; npx eslint --fix-dry-run
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Discord Webhook Notify
+        # You may pin to the exact commit or the version.
+        # uses: rjstone/discord-webhook-notify@89b0bf43c2c8514f70d0dcba4a706b904e8a3112
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        with:
+          # Discord webhook URL. Should be stored in a secret and inserted as a context expression.
+          webhookUrl: {{ secrets.DISCORD_WEBHOOK }}
+          # Severity level - info, warn, or error
+          severity: war
