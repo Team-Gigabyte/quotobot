@@ -1,8 +1,8 @@
 # Quotobot
 A Discord bot that tells quotes!
 
-# [INVITE THE BOT TO YOUR SERVER!](https://discord.com/api/oauth2/authorize?client_id=746889272992464958&permissions=18432&scope=bot) (recommended)
-**[Invite Link](https://discord.com/api/oauth2/authorize?client_id=746889272992464958&permissions=18432&scope=bot)**
+# [INVITE THE BOT TO YOUR SERVER!](https://github.com/ssharker21/quotobot)
+**[Invite Link](https://github.com/ssharker21/quotobot)**
 
 ## Or do you want to host and tweak the bot yourself?
 
