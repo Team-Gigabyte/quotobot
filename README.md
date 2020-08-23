@@ -21,6 +21,7 @@ to
 ```json
 "clientID": "123456789012347",
 ```
+You can also change the help domain that's shown in the bot status in the same way.
 making sure to change the number to your client ID inside the quotes.
 ### Run the bot
 Make sure you have NodeJS installed and open a command prompt/terminal in the folder where these files are. Then run:
@@ -28,8 +29,7 @@ Make sure you have NodeJS installed and open a command prompt/terminal in the fo
 npm install
 node index.js
 ```
-
 ### Tentative Timeline
-Publish v1.0.1 of the bot: **August 27** (by the latest): **100+ NEW QUOTES! The quotes will be nice and embedded!**
+Publish v1.0.1 of the bot: **August 27** (by the latest): **100+ QUOTES! The quotes will be nice and embedded!**
 
-Publish v.1.0.x of the bot: **We will periodically add more quotes and features, including general features unrelated to quotes! There is no deadline as school will restart and time to work on this project will be limited.**
+Publish v.1.0.x of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! There is no deadline as school will restart and time to work on this project will be limited.**
