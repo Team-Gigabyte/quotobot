@@ -40,6 +40,9 @@ client.on('message', message => {
         case 'ping':
             message.channel.send('Pong!');
             break;
+        case 'randomquote':
+        case 'randquote':
+        case 'RandQuote':
         case 'RandomQuote':
             // This selects a random key in the quote file, gets a random quote, and sends an embed.
             const authorKey = randKey(quoteFile);
