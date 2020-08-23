@@ -1,5 +1,6 @@
 # Quotobot
 A Discord bot that tells quotes!
+
 ![Node.js CI](https://github.com/ssharker21/quotobot/workflows/Node.js%20CI/badge.svg)
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
