@@ -1,10 +1,10 @@
 # Quotobot
 A Discord bot that tells quotes!
 
-# INVITE THE BOT TO YOUR SERVER!
+# INVITE THE BOT TO YOUR SERVER! (recommended)
 **Link: https://discord.com/api/oauth2/authorize?client_id=746889272992464958&permissions=18432&scope=bot**
 
-## Do you want to host and tweak the bot yourself?
+## Or do you want to host and tweak the bot yourself?
 
 ### How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
