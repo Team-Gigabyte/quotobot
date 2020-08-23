@@ -2,7 +2,7 @@
 A Discord bot that tells quotes!
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
-[![Invite Link](
+![Invite Link](
 https://raw.githubusercontent.com/ssharker21/quotobot/master/invitebanner.PNG)(http://quotobot.ml)
 
 ## Or do you want to host and tweak the bot yourself?
