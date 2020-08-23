@@ -25,9 +25,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Look for errors
+    - name: Look for errors and show how to fix them
       run: |
         npm install eslint
-        npx eslint index.js
-    - name: Show how to fix the errors
-      run: npx eslint --fix-dry-run
+        npx eslint index.js; npx eslint --fix-dry-run
