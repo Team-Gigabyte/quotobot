@@ -25,7 +25,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Look for errors and fix broken JS code
-      uses: getsentry/action-eslint-fix@v1
-      with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Look for errors
+      run: |
+        npm install eslint
+        npx eslint index.js
+    - name: Show how to fix the errors
+      run: npx eslint --fix-dry-run
