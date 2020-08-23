@@ -7,7 +7,7 @@ const quoteFile = require('./quotes.json');
 const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
 const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const helpDomain = "quotobot.tk";
+const helpDomain = configFile['help-domain'] ? configFile['help-domain'] : undefined;
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
@@ -28,8 +28,9 @@ client.once('ready', () => {
         console.log("Use the Discord developer portal to get your bot's invite link.")
     }
     console.log("The prefix is: " + configFile.prefix);
-    client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching quotobot.tk"
-    /* quotes = [];
+    if (helpDomain) {
+        client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching quotobot.tk"
+    }/* quotes = [];
     for (var x of Object.values(quoteFile)) {
         quotes = quotes.concat(x);
     } */
