@@ -31,12 +31,8 @@ jobs:
         npx eslint index.js; npx eslint --fix-dry-run
     - name: Look for JSON errors
       uses: ocular-d/json-linter@0.0.1
-        
-  notify:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Notify if the code is broken
-        uses: sarisia/actions-status-discord@v1
-        if: failure()
-        with:
-          webhook: ${{ secrets.DISCORD_WEBHOOK }}
+    - name: Notify if the code is broken
+      uses: sarisia/actions-status-discord@v1
+      if: failure()
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
