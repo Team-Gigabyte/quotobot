@@ -11,7 +11,7 @@ on:
     branches: [ master, gl ]
 
 jobs:
-  build:
+  lint:
 
     runs-on: ubuntu-latest
 
@@ -25,23 +25,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Look for errors and show how to fix them
+    - name: Look for JS errors and show how to fix them
       run: |
         npm install eslint
         npx eslint index.js; npx eslint --fix-dry-run
+    - name: Look for JSON errors
+      uses: ocular-d/json-linter@0.0.1
         
   notify:
     runs-on: ubuntu-latest
     steps:
-      - name: Test Failure
-        uses: rjstone/discord-webhook-notify@v1
-        if: always()
-        with:
-            severity: error
-            details: Test Failed!
-            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
-      - name: Test failure 2
+      - name: Notify if the code is broken
         uses: sarisia/actions-status-discord@v1
-        if: always()
+        if: failure()
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
