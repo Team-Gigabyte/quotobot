@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Look for JS errors and show how to fix them
       run: |
-        npm install eslint; npm install jsonlint
+        npm i eslint; sudo npm i -g jsonlint
         npx eslint index.js; npx eslint --fix-dry-run; for i in *.json; do jsonlint $i; done
     - name: Notify if the code is broken
       uses: sarisia/actions-status-discord@v1
