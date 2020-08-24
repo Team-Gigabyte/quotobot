@@ -11,7 +11,7 @@ on:
     branches: [ master, gl ]
 
 jobs:
-  build:
+  lint:
 
     runs-on: ubuntu-latest
 
@@ -25,7 +25,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Look for errors and show how to fix them
+    - name: Look for JS errors and show how to fix them
       run: |
-        npm install eslint
-        npx eslint index.js; npx eslint --fix-dry-run
+        npm i eslint; sudo npm i -g jsonlint
+        npx eslint index.js; npx eslint --fix-dry-run; for i in *.json; do jsonlint -q $i; done
+    - name: Notify if the code is broken
+      uses: sarisia/actions-status-discord@v1
+      if: failure()
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
