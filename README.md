@@ -58,3 +58,4 @@ Any pull requests are appreciated.
 - [ ] Handle missing config.json entries and accept more environment variables
 - [ ] Running total of quotes
 - [ ] Quote author pictures embedded
+- [ ] Curly quote consistency in the quote file (automated)
