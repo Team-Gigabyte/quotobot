@@ -1,8 +1,9 @@
 # Discord Weather Bot
 
-Weather bot tells the weather of any given city.
+## Cloned from [UddeshJain's project](https://github.com/UddeshJain/Discord-Weather-Bot)
 
 ## Project Overview
+Weather bot tells the weather of any given city.
 
 This bot works with **Discord** and uses *Open Weather API*  to fetch weather information of a given city. You just need to invite it to your *Discord Server* and it starts working.
 
