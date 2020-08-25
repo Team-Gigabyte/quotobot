@@ -56,3 +56,5 @@ Any pull requests are appreciated.
 - [ ] Make and host a quote REST API that could be used in other bots
 - [ ] Modularize the [command code](https://discordjs.guide/command-handling/#dynamically-reading-command-files)
 - [ ] Handle missing config.json entries and accept more environment variables
+- [ ] Running total of quotes
+- [ ] Quote author pictures embedded
