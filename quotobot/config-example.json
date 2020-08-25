@@ -1,0 +1,8 @@
+{
+    "prefix": "~",
+    "token": "your-token-here-inside-these-quotes",
+    "instructions": "See the README.md file for info",
+    "help-domain-example": "example.com",
+    "clientID-example": "type-in-your-clientID-here",
+    "permissionValue": 0
+}
