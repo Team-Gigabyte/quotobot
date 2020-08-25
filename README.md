@@ -13,7 +13,7 @@ A Discord bot that tells quotes!
 
 - Change the prefix if you like (keep it inside the quotes). 
 
-- **Where it says *"your-token-here"*, paste in your token (also inside the quotes).** 
+- **Where it says `"your-token-here"`, paste in your Discord bot token (also inside the quotes).** If you want to make the bot use an environment variable, set QBTOKEN to your token and leave the config.json entry at `"your-token-here"`.
 
 - If you want the bot to output its invite link, change
 ```json
@@ -23,8 +23,20 @@ to
 ```json
 "clientID": "123456789012347",
 ```
-You can also change the help domain that's shown in the bot status in the same way.
+
 making sure to change the number to your client ID inside the quotes.
+
+You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` and adding your text in the vale for that. Example complete config file:
+```json
+{
+    "prefix": "&&",
+    "token": "abcdrkhjregjl.efghfioeigtj",
+    "instructions": "See the README.md file for info",
+    "help-domain": "my-bot-site.qb",
+    "clientID": "12343546798",
+    "permissionValue": 0
+}
+```
 ### Run the bot
 Make sure you have NodeJS installed and open a command prompt/terminal in the folder where these files are. Then run:
 ```bash
@@ -41,3 +53,4 @@ Publish v.1.0.x of the bot: **We might periodically add more quotes and features
 - [ ] Find the means to host the bot (and maybe auto-deploy)
 - [ ] Make and host a quote REST API that could be used in other bots
 - [ ] Modularize the [command code](https://discordjs.guide/command-handling/#dynamically-reading-command-files)
+- [ ] Handle missing config.json entries and accept more environment variables
