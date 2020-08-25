@@ -48,6 +48,8 @@ Publish v1.0.1 of the bot: **August 27** (by the latest): **100+ QUOTES! The quo
 
 Publish v.1.0.x of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! There is no deadline as school will restart and time to work on this project will be limited.**
 
+Any pull requests are appreciated.
+
 - [ ] Convert the quotes.json to an SQLite database
 - [ ] Add weather command
 - [ ] Find the means to host the bot (and maybe auto-deploy)
