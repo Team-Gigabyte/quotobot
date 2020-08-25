@@ -1,0 +1,36 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js CI
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ master, gl ]
+  pull_request:
+    branches: [ master, gl ]
+
+jobs:
+  lint:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Look for JS errors and show how to fix them
+      run: |
+        npm i eslint; sudo npm i -g jsonlint
+        npx eslint index.js; npx eslint --fix-dry-run; for i in *.json; do jsonlint -q $i; done
+    - name: Notify if the code is broken
+      uses: sarisia/actions-status-discord@v1
+      if: failure()
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
