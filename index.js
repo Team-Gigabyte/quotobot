@@ -40,9 +40,8 @@ client.once('ready', () => {
 client.login(token);
 client.on('message', message => {
     if (!message.content.startsWith(configFile.prefix) || message.author.bot) return;
-    //const args = message.content.slice(configFile.prefix.length).trim().split(/ +/);
-    //const command = args.shift().toLowerCase();
-    const command = message.content.slice(configFile.prefix.length).trim().toLowerCase();
+    const args = message.content.slice(configFile.prefix.length).trim().split(/ +/);
+    const command = args.shift().trim().toLowerCase();
     switch (command) {
         case 'ping':
             message.channel.send('Pong!');
