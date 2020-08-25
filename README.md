@@ -59,3 +59,4 @@ Any pull requests are appreciated.
 - [ ] Running total of quotes
 - [ ] Quote author pictures embedded
 - [ ] Curly quote consistency in the quote file (automated)
+- [ ] Commands for random quotes for a specific person
