@@ -10,8 +10,8 @@
     "How much pain have cost us the evils which have never happened.",
     "Take things always by their smooth handle.",
     "When angry, count ten, before you speak; if very angry, a hundred."
-  ]
-  , "George Washington": [
+  ],
+  "George Washington": [
     "It is better to offer no excuse than a bad one. ",
     "It is better to be alone than in bad company. ",
     "If freedom of speech is taken away, then dumb and silent we may be led, like sheep to the slaughter.",
@@ -36,8 +36,8 @@
     "Discipline is the soul of an army. It makes small numbers formidable; procures success to the weak, and esteem to all.",
     "Citizens by birth or choice of a common country, that country has a right to concentrate your affections. The name of American, which belongs to you, in your national capacity, must always exalt the just pride of Patriotism, more than any appellation derived from local discriminations.",
     "We should not look back unless it is to derive useful lessons from past errors, and for the purpose of profiting by dearly bought experience."
-  ]
-, "John Adams": [
+  ],
+  "John Adams": [
     "I read my eyes out and can't read half enough...the more one reads the more one sees we have to read.",
     "Let us tenderly and kindly cherish therefore, the means of knowledge. Let us dare to read, think, speak, and write.",
     "Facts are stubborn things; and whatever may be our wishes, our inclinations, or the dictates of our passion, they cannot alter the state of facts and evidence.",
@@ -69,7 +69,8 @@
     "The jaws of power are always open to devour, and her arm is always stretched out, if possible, to destroy the freedom of thinking, speaking, and writing.",
     "Abuse of words has been the great instrument of sophistry and chicanery, of party, faction, and division of society",
     "Property monopolized or in the possession of a few is a curse to mankind."
-]
-
+  ],
+  "QB Devs": [
+    "Work smarter, not harder--something we should've followed more when making this."
+  ]
 }
-
