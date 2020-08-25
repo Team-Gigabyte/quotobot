@@ -9,7 +9,7 @@ A Discord bot that tells quotes!
 ## Or do you want to host and tweak the bot yourself?
 
 ### How to set up the config.json
-- Make a copy of config-example.json and call it config.json. 
+- Open config.json
 
 - Change the prefix if you like (keep it inside the quotes). 
 
