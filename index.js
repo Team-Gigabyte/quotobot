@@ -46,22 +46,23 @@ client.on('message', message => {
         case 'ping':
             message.channel.send('Pong!');
             break;
+        /* case 'RandQuote':
+        case 'RandomQuote': */
         case 'randomquote':
         case 'randquote':
-        case 'RandQuote':
-        case 'RandomQuote': {
-            // This selects a random key in the quote file, gets a random quote, and sends an embed.
-            const authorKey = randKey(quoteFile);
-            const authorRand = quoteFile[authorKey];
-            const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)];
-            const rqEmbed = new Discord.MessageEmbed()
-                .setColor(6765239)
-                .setAuthor("Random Quote", quoteIcon)
-                .setFooter(`––${authorKey}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
-                .setDescription(`**${randQuote}**`);
-            message.channel.send(rqEmbed);
-            break;
-        }
+            {
+                // This selects a random key in the quote file, gets a random quote, and sends an embed.
+                const authorKey = randKey(quoteFile);
+                const authorRand = quoteFile[authorKey];
+                const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)];
+                const rqEmbed = new Discord.MessageEmbed()
+                    .setColor(6765239)
+                    .setAuthor("Random Quote", quoteIcon)
+                    .setFooter(`––${authorKey}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
+                    .setDescription(`**${randQuote}**`);
+                message.channel.send(rqEmbed);
+                break;
+            }
         case 'Bibot':
             message.channel.send(simpleEmbed('Morbleu!', sp));
             break;
