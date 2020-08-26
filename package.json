@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/ssharker21/quotobot#readme",
   "devDependencies": {
-    "discord.js": "^12.2.0",
     "eslint": "^7.7.0"
   },
   "dependencies": {
