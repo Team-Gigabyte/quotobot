@@ -9,38 +9,38 @@ const quoteFile = require('./quotes.json');
 const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
 const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const helpDomain = configFile['help-domain'] ? configFile['help-domain'] : undefined;
+const helpDomain = configFile['help-domain'] || undefined;
 const axios = require("axios");
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
 }; // gets random key from an object
 const exampleEmbed = (
-	temp,
-	maxTemp,
-	minTemp,
-	pressure,
-	humidity,
-	wind,
-	cloudness,
-	icon,
-	author,
-	profile,
-	cityName,
-	country
+    temp,
+    maxTemp,
+    minTemp,
+    pressure,
+    humidity,
+    wind,
+    cloudness,
+    icon,
+    author,
+    profile,
+    cityName,
+    country
 ) =>
-	new Discord.RichEmbed()
-		.setColor('#0099ff')
-		.setAuthor(`Hello, ${author}`, profile)
-		.setTitle(`There is ${temp}\u00B0 C in ${cityName}, ${country}`)
-		.addField(`Maximum Temperature:`, `${maxTemp}\u00B0 C`, true)
-		.addField(`Minimum Temperature:`, `${minTemp}\u00B0 C`, true)
-		.addField(`Humidity:`, `${humidity} %`, true)
-		.addField(`Wind Speed:`, `${wind} m/s`, true)
-		.addField(`Pressure:`, `${pressure} hpa`, true)
-		.addField(`Cloudiness:`, `${cloudness}`, true)
-		.setThumbnail(`http://openweathermap.org/img/w/${icon}.png`)
-		.setFooter('Made by the quotobot team');
+    new Discord.RichEmbed()
+        .setColor('#0099ff')
+        .setAuthor(`Hello, ${author}`, profile)
+        .setTitle(`There is ${temp}\u00B0 C in ${cityName}, ${country}`)
+        .addField(`Maximum Temperature:`, `${maxTemp}\u00B0 C`, true)
+        .addField(`Minimum Temperature:`, `${minTemp}\u00B0 C`, true)
+        .addField(`Humidity:`, `${humidity} %`, true)
+        .addField(`Wind Speed:`, `${wind} m/s`, true)
+        .addField(`Pressure:`, `${pressure} hpa`, true)
+        .addField(`Cloudiness:`, `${cloudness}`, true)
+        .setThumbnail(`http://openweathermap.org/img/w/${icon}.png`)
+        .setFooter('Made by the quotobot team');
 const simpleEmbed = (text, attr) => {
     const toReturn = new Discord.MessageEmbed()
         .setColor(6765239)
@@ -115,7 +115,8 @@ client.on('message', message => {
             message.channel.send(simpleEmbed('How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
         case 'weather':
-            message.channel.send(simpleEmbed(        axios
+            console.log(args);
+            message.channel.send(axios
                 .get(
                     `https://api.openweathermap.org/data/2.5/weather?q=${args}&units=metric&appid=${configFile["weather-token"]}`
                 )
@@ -136,7 +137,7 @@ client.on('message', message => {
                     message.channel.send(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, cityName, country));
                 }).catch(err => {
                     message.reply(`Enter a valid city name`)
-                })));
+                }));
             break;
         default:
             break;
