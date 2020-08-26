@@ -122,7 +122,7 @@ client.on('message', message => {
             break;
         case 'weather':
             let units = args[0] == "metric" || args[0] == "imperial" ? args[0] : "metric";
-            let city = !args[0] == "metric" || !args[0] == "imperial" ? args[0] : args[1];
+            let city = !(args[0] == "metric" || args[0] == "imperial") ? args.slice(0).join(" ") : args.slice(1).join(" ");
             axios.get(
                 `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"]}`
             )
@@ -137,12 +137,13 @@ client.on('message', message => {
                     let profile = message.author.displayAvatarURL;
                     let icon = apiData.data.weather[0].icon;
                     let country = apiData.data.sys.country;
+                    let displayCity = apiData.data.name;
                     let pressure = apiData.data.main.pressure;
                     let cloudness = apiData.data.weather[0].description;
-                    message.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, city, country));
+                    message.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country));
                 }).catch(err => {
-                    console.log(err);
-                    message.reply("There was an error getting the weather.")
+                    err.response.data.message
+                    message.reply(`there was an error. \`${err.response.data.cod}: ${err.response.data.message}\``)
                     //message.reply(`Enter a valid city name`)
                 });
             break;
