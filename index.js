@@ -29,18 +29,17 @@ const exampleEmbed = (
     cityName,
     country
 ) =>
-    new Discord.RichEmbed()
+    new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setAuthor(`Hello, ${author}`, profile)
-        .setTitle(`There is ${temp}\u00B0 C in ${cityName}, ${country}`)
-        .addField(`Maximum Temperature:`, `${maxTemp}\u00B0 C`, true)
-        .addField(`Minimum Temperature:`, `${minTemp}\u00B0 C`, true)
-        .addField(`Humidity:`, `${humidity} %`, true)
+        .setTitle(`It's ${temp}\u00B0 in ${cityName}, ${country}`)
+        .addField(`Maximum Temperature:`, `${maxTemp}\u00B0`, true)
+        .addField(`Minimum Temperature:`, `${minTemp}\u00B0`, true)
+        .addField(`Humidity:`, `${humidity}%`, true)
         .addField(`Wind Speed:`, `${wind} m/s`, true)
         .addField(`Pressure:`, `${pressure} hpa`, true)
         .addField(`Cloudiness:`, `${cloudness}`, true)
-        .setThumbnail(`http://openweathermap.org/img/w/${icon}.png`)
-        .setFooter('Made by the quotobot team');
+        .setThumbnail(`http://openweathermap.org/img/w/${icon}.png`);
 const simpleEmbed = (text, attr) => {
     const toReturn = new Discord.MessageEmbed()
         .setColor(6765239)
@@ -116,9 +115,9 @@ client.on('message', message => {
             break;
         case 'weather':
             console.log(args);
-            message.channel.send(axios
-                .get(
-                    `https://api.openweathermap.org/data/2.5/weather?q=${args}&units=metric&appid=${configFile["weather-token"]}`
+            let units = args[0] == "metric" || args[0] == "imperial" ? args[0] : "metric";
+            axios.get(
+                    `https://api.openweathermap.org/data/2.5/weather?q=${args[1]}&units=${units}&APPID=${configFile["weather-token"]}`
                 )
                 .then(response => {
                     let apiData = response;
@@ -130,14 +129,15 @@ client.on('message', message => {
                     let author = message.author.username
                     let profile = message.author.displayAvatarURL
                     let icon = apiData.data.weather[0].icon
-                    let cityName = args
+                    let cityName = args[1]
                     let country = apiData.data.sys.country
                     let pressure = apiData.data.main.pressure;
                     let cloudness = apiData.data.weather[0].description;
-                    message.channel.send(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, cityName, country));
+                    message.channel.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, cityName, country));
                 }).catch(err => {
-                    message.reply(`Enter a valid city name`)
-                }));
+                    console.log(err);
+                    //message.reply(`Enter a valid city name`)
+                });
             break;
         default:
             break;
