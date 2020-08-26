@@ -6,8 +6,8 @@ A Discord bot that tells quotes!
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
 [Invite Link](http://quotobot.ml)
 
-### Special thank you to [Uddesh](https://github.com/UddeshJain/Discord-Weather-Bot)
-We used his code and slightly modified it for our project. Thank you Uddesh!
+### Special thank you to [Uddesh](https://github.com/UddeshJain)
+We used his [code](https://github.com/UddeshJain/Discord-Weather-Bot) and slightly modified it for our project.
 
 ## Or do you want to host and tweak the bot yourself?
 
