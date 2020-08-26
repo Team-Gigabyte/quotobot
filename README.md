@@ -29,7 +29,7 @@ to
 
 making sure to change the number to your client ID inside the quotes.
 
-You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` and adding your text in the vale for that. Example complete config file:
+You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` and adding your text in the value for that. Example complete config file:
 ```json
 {
     "prefix": "&&",
