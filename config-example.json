@@ -5,5 +5,5 @@
     "help-domain-example": "example.com",
     "clientID-example": "type-in-your-clientID-here",
     "permissionValue": 0,
-    "weather-token": "OpenWeatherMap-token-here”
+    "weather-token": "OpenWeatherMap-token-here"
 }
