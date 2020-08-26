@@ -1,10 +1,10 @@
 # Quotobot
 A Discord bot that tells quotes!
 
-[![Node.js CI](https://github.com/ssharker21/quotobot/workflows/Node.js%20CI/badge.svg)](https://github.com/ssharker21/quotobot/actions)  [![GitHub license](https://img.shields.io/github/license/ssharker21/quotobot)](https://github.com/ssharker21/quotobot/blob/master/LICENSE)
+[![Node.js CI](https://github.com/ssharker21/quotobot/workflows/Node.js%20CI/badge.svg)](https://github.com/ssharker21/quotobot/actions)  [![GitHub license](https://img.shields.io/github/license/ssharker21/quotobot)](https://github.com/ssharker21/quotobot/blob/master/LICENSE)  [![Click to invite to your server](https://img.shields.io/badge/Invite%20to-your%20Discord%20server-7289DA)](http://quotobot.ml)
+
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
-[![Click to invite to your server](https://img.shields.io/badge/Invite%20to-your%20Discord%20server-7289DA)](http://quotobot.ml)
 
 ### Special thank you to [Uddesh](https://github.com/UddeshJain)
 We used his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and slightly modified it for our project.
