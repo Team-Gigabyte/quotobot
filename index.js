@@ -120,7 +120,7 @@ client.on('message', message => {
             message.channel.send(simpleEmbed(
                 'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
-        case 'weather':
+        case 'weather': {
             let units = args[0] == "metric" || args[0] == "imperial" ? args[0] : "metric";
             let city = !(args[0] == "metric" || args[0] == "imperial") ? args.slice(0).join(" ") : args.slice(1).join(" ");
             axios.get(
@@ -146,6 +146,7 @@ client.on('message', message => {
                     message.reply(`there was an error. \`${err.response.data.cod}: ${err.response.data.message}\``)
                     //message.reply(`Enter a valid city name`)
                 });
+        }
             break;
         default:
             break;
