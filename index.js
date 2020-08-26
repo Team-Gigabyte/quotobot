@@ -93,37 +93,44 @@ client.on('message', message => {
             message.channel.send(simpleEmbed('Morbleu!', sp));
             break;
         case 'IntenseLove':
-            message.channel.send(simpleEmbed('He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.', sp));
+            message.channel.send(simpleEmbed(
+                'He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.', sp));
             break;
         case 'Contempt':
-            message.channel.send(simpleEmbed('Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.', sp));
+            message.channel.send(simpleEmbed(
+                'Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.', sp));
             break;
         case 'PercySmart':
-            message.channel.send(simpleEmbed('He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.', sp));
+            message.channel.send(simpleEmbed(
+                'He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.', sp));
             break;
         case 'MoneyNoMatter':
-            message.channel.send(simpleEmbed('Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.', sp));
+            message.channel.send(simpleEmbed(
+                'Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.', sp));
             break;
         case 'Brains':
-            message.channel.send(simpleEmbed('"Money and titles may be hereditary,” she would say, “but brains are not."', sp));
+            message.channel.send(simpleEmbed(
+                '"Money and titles may be hereditary,” she would say, “but brains are not."', sp));
             break;
         case 'SPpoem':
-            message.channel.send(simpleEmbed('We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
+            message.channel.send(simpleEmbed(
+                'We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
             break;
         case 'Haters':
-            message.channel.send(simpleEmbed('How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
+            message.channel.send(simpleEmbed(
+                'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
         case 'weather':
-            console.log(args);
             let units = args[0] == "metric" || args[0] == "imperial" ? args[0] : "metric";
+            let city = !args[0] == "metric" || !args[0] == "imperial" ? args[0] : args[1];
             axios.get(
-                    `https://api.openweathermap.org/data/2.5/weather?q=${args[1]}&units=${units}&APPID=${configFile["weather-token"]}`
-                )
+                `https://api.openweathermap.org/data/2.5/weather?q=${args[1]}&units=${units}&APPID=${configFile["weather-token"]}`
+            )
                 .then(response => {
                     let apiData = response;
-                    let currentTemp = Math.ceil(apiData.data.main.temp)
-                    let maxTemp = apiData.data.main.temp_max;
-                    let minTemp = apiData.data.main.temp_min;
+                    let currentTemp = Math.round(apiData.data.main.temp)
+                    let maxTemp = Math.round(apiData.data.main.temp_max);
+                    let minTemp = Math.round(apiData.data.main.temp_min);
                     let humidity = apiData.data.main.humidity;
                     let wind = apiData.data.wind.speed;
                     let author = message.author.username
@@ -133,9 +140,10 @@ client.on('message', message => {
                     let country = apiData.data.sys.country
                     let pressure = apiData.data.main.pressure;
                     let cloudness = apiData.data.weather[0].description;
-                    message.channel.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, cityName, country));
+                    message.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, cityName, country));
                 }).catch(err => {
                     console.log(err);
+                    message.reply("There was an error getting the weather.")
                     //message.reply(`Enter a valid city name`)
                 });
             break;
