@@ -4,7 +4,8 @@
   "description": "A Discord bot that tells quotes",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "count": "node countQuotes.js"
   },
   "repository": {
     "type": "git",
