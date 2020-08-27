@@ -15,7 +15,7 @@ const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
 }; // gets random key from an object
-const exampleEmbed = (
+const exampleEmbed = ( // formats the embed for the weather
     temp,
     maxTemp,
     minTemp,
@@ -36,7 +36,7 @@ const exampleEmbed = (
         .addField(`Maximum Temperature:`, `${maxTemp}\u00B0`, true)
         .addField(`Minimum Temperature:`, `${minTemp}\u00B0`, true)
         .addField(`Humidity:`, `${humidity}%`, true)
-        .addField(`Wind Speed:`, `${wind} m/s`, true)
+        .addField(`Wind Speed:`, `${wind}`, true)
         .addField(`Pressure:`, `${pressure} hpa`, true)
         .addField(`Cloudiness:`, `${cloudness}`, true)
         .setThumbnail(`http://openweathermap.org/img/w/${icon}.png`);
@@ -121,8 +121,9 @@ client.on('message', message => {
                 'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
         case 'weather': {
-            let units = args[0] == "metric" || args[0] == "imperial" ? args[0] : "metric";
+            let units = args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial" ? args[0].toLowerCase() : "metric";
             let city = !(args[0] == "metric" || args[0] == "imperial") ? args.slice(0).join(" ") : args.slice(1).join(" ");
+            let windUnits = units == "imperial" ? "mph" : "m/s";
             axios.get(
                 `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"]}`
             )
@@ -132,7 +133,7 @@ client.on('message', message => {
                     let maxTemp = Math.round(apiData.data.main.temp_max);
                     let minTemp = Math.round(apiData.data.main.temp_min);
                     let humidity = apiData.data.main.humidity;
-                    let wind = apiData.data.wind.speed;
+                    let wind = apiData.data.wind.speed + " " + windUnits;
                     let author = message.author.username;
                     let profile = message.author.displayAvatarURL;
                     let icon = apiData.data.weather[0].icon;
