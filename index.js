@@ -8,6 +8,7 @@ const quoteFile = require('./quotes.json');
 // quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
 const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
 const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
+const infoIcon = "https://cdn.discordapp.com/attachments/449680513683292162/748682998022537287/information_2139.png"; // from Twemoji
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const helpDomain = configFile['help-domain'] || undefined;
 const axios = require("axios");
@@ -28,7 +29,7 @@ const exampleEmbed = ( // formats the embed for the weather
     author,
     profile,
     cityName,
-    country
+    country, units
 ) =>
     new Discord.MessageEmbed()
         .setColor('#0099ff')
@@ -40,6 +41,7 @@ const exampleEmbed = ( // formats the embed for the weather
         .addField(`Wind Speed:`, `${wind}`, true)
         .addField(`Pressure:`, `${pressure} hpa`, true)
         .addField(`Cloudiness:`, `${cloudness}`, true)
+        .setFooter(`Using ${units} — you can try \`${configFile.prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, infoIcon)
         .setThumbnail(`http://openweathermap.org/img/w/${icon}.png`);
 const simpleEmbed = (text, attr) => {
     const toReturn = new Discord.MessageEmbed()
@@ -146,7 +148,7 @@ client.on('message', message => {
                     let displayCity = apiData.data.name;
                     let pressure = apiData.data.main.pressure;
                     let cloudness = apiData.data.weather[0].description;
-                    message.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country));
+                    message.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
                 }).catch(err => {
                     err.response.data.message
                     message.reply(`there was an error. \`${err.response.data.cod}: ${err.response.data.message}\``)
