@@ -123,6 +123,7 @@ client.on('message', message => {
             message.channel.send(simpleEmbed(
                 'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
+        case 'weathermetric':
         case 'weather': {
             /* if (!(args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial")) {
                 message.reply(`you didn't specify the units, so metric will be used. Next time, do \`${configFile.prefix}weather imperial City Name\` if you want imperial measurements.`);
