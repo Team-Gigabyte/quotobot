@@ -32,7 +32,7 @@ const exampleEmbed = ( // formats the embed for the weather
     country, units
 ) =>
     new Discord.MessageEmbed()
-        .setColor('#0099ff')
+        .setColor("ff9800") // yellow
         .setAuthor(`Hello, ${author}`, profile)
         .setTitle(`It's ${temp}\u00B0 in ${cityName}, ${country}`)
         .addField(`Maximum Temperature:`, `${maxTemp}\u00B0`, true)
@@ -84,12 +84,11 @@ client.on('message', message => {
                 const authorKey = randKey(quoteFile);
                 const authorRand = quoteFile[authorKey];
                 const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)];
-                const rqEmbed = new Discord.MessageEmbed()
-                    .setColor(6765239)
+                message.channel.send(new Discord.MessageEmbed()
+                    .setColor(6765239) // 673ab7 purple
                     .setAuthor("Random Quote", quoteIcon)
                     .setFooter(`––${authorKey}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
-                    .setDescription(`**${randQuote}**`);
-                message.channel.send(rqEmbed);
+                    .setDescription(`**${randQuote}**`));
                 break;
             }
         case 'Bibot':
@@ -128,8 +127,8 @@ client.on('message', message => {
             /* if (!(args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial")) {
                 message.reply(`you didn't specify the units, so metric will be used. Next time, do \`${configFile.prefix}weather imperial City Name\` if you want imperial measurements.`);
             } */
-            let units = args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial" ? args[0].toLowerCase() : "metric";
-            let city = !(args[0] == "metric" || args[0] == "imperial") ? args.slice(0).join(" ") : args.slice(1).join(" ");
+            let units = ['metric', 'imperial'].includes(args[0].toLowerCase()) ? args[0].toLowerCase() : "metric";
+            let city = !(['metric', 'imperial'].includes(args[0].toLowerCase())) ? args.slice(0).join(" ") : args.slice(1).join(" ");
             let windUnits = units == "imperial" ? "mph" : "m/s";
             axios.get(
                 `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"]}`
