@@ -11,6 +11,7 @@ const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const helpDomain = configFile['help-domain'] || undefined;
 const axios = require("axios");
+const cFlags = require("country-flag-emoji");
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
