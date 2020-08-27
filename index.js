@@ -122,6 +122,9 @@ client.on('message', message => {
                 'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
         case 'weather': {
+            if (!(args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial")) {
+                message.reply(`you didn't specify the units, so metric will be used. Next time, do \`${configFile.prefix}weather imperial City Name\` if you want imperial measurements.`);
+            }
             let units = args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial" ? args[0].toLowerCase() : "metric";
             let city = !(args[0] == "metric" || args[0] == "imperial") ? args.slice(0).join(" ") : args.slice(1).join(" ");
             let windUnits = units == "imperial" ? "mph" : "m/s";
