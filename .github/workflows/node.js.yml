@@ -6,9 +6,7 @@ name: Node.js CI
 on:
   workflow_dispatch:
   push:
-    branches: [ master, gl ]
   pull_request:
-    branches: [ master, gl ]
 
 jobs:
   lint:
