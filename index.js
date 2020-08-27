@@ -41,7 +41,7 @@ const exampleEmbed = ( // formats the embed for the weather
         .addField(`Wind Speed:`, `${wind}`, true)
         .addField(`Pressure:`, `${pressure} hpa`, true)
         .addField(`Cloudiness:`, `${cloudness}`, true)
-        .setFooter(`Using ${units} — you can try \`${configFile.prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, infoIcon)
+        .setFooter(`The above is in ${units} units — you can try \`${configFile.prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, infoIcon)
         .setThumbnail(`http://openweathermap.org/img/w/${icon}.png`);
 const simpleEmbed = (text, attr) => {
     const toReturn = new Discord.MessageEmbed()
