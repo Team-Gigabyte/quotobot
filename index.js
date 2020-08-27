@@ -142,6 +142,7 @@ client.on('message', message => {
                     let profile = message.author.displayAvatarURL;
                     let icon = apiData.data.weather[0].icon;
                     let country = apiData.data.sys.country;
+                    country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                     let displayCity = apiData.data.name;
                     let pressure = apiData.data.main.pressure;
                     let cloudness = apiData.data.weather[0].description;
