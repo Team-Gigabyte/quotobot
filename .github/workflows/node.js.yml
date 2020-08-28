@@ -26,7 +26,7 @@ jobs:
     - name: Look for JS errors and show how to fix them
       run: |
         echo Number of quotes:
-        npm count
+        npm run count
         echo Installing eslint and jsonlint...
         npm i eslint; sudo npm i -g jsonlint
         echo Checking for errors...
