@@ -78,8 +78,6 @@ client.on('message', message => {
         case 'ping':
             message.channel.send('Pong!');
             break;
-        /* case 'RandQuote':
-        case 'RandomQuote': */
         case 'randomquote':
         case 'randquote':
             {
@@ -151,21 +149,14 @@ client.on('message', message => {
                 let maxTemp = Math.round(temp_max);
                 let minTemp = Math.round(temp_min);
                 let { humidity, pressure } = apiData.data.main;
-                //let humidity = apiData.main.humidity;
                 let wind = apiData.data.wind.speed + " " + windUnits;
                 let { username: author, displayAvatarURL: profile } = message.author;
-                //let author = message.author.username;
-                //let profile = message.author.displayAvatarURL;
                 let {icon, description: cloudness} = apiData.data.weather[0];
-                //let icon = apiData.weather[0].icon;
                 let country = apiData.data.sys.country;
                 country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                 let displayCity = apiData.data.name;
-                //let pressure = apiData.main.pressure;
-                //let cloudness = apiData.weather[0].description;
                 message.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
             } catch (err) {
-                //err.response.data.message
                 message.reply(`there was an error. \`${err.response.data.cod}: ${err.response.data.message}\``)
             }
 
