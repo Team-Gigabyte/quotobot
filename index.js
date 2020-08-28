@@ -13,11 +13,13 @@ const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const helpDomain = configFile['help-domain'] || undefined;
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
-const { exit } = require('process');
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
 }; // gets random key from an object
+const norm = text => { // "normalize" text
+    return text.trim().toLowerCase().replace(/\s+/, " ");
+}
 const exampleEmbed = ( // formats the embed for the weather
     temp,
     maxTemp,
@@ -132,8 +134,8 @@ client.on('message', message => {
                 message.reply("you didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name.");
                 return null;
             }
-            let units = ['metric', 'imperial'].includes(args[0].toLowerCase()) ? args[0].toLowerCase() : "metric";
-            let city = !(['metric', 'imperial'].includes(args[0].toLowerCase())) ? args.slice(0).join(" ") : args.slice(1).join(" ");
+            let units = ['metric', 'imperial'].includes(norm(args[0])) ? norm(args[0]) : "metric";
+            let city = !(['metric', 'imperial'].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
             if (!city) {
                 message.reply("you didn't include a city name. Re-run the command with the city name.");
                 return null;
