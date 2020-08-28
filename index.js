@@ -130,7 +130,7 @@ client.on('message', message => {
             /* if (!(args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial")) {
                 message.reply(`you didn't specify the units, so metric will be used. Next time, do \`${configFile.prefix}weather imperial City Name\` if you want imperial measurements.`);
             } */
-            if (!args[0]){
+            if (!args[0]) {
                 message.reply("you didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name.");
                 return null;
             }
@@ -146,19 +146,23 @@ client.on('message', message => {
                 let apiData = await axios.get(
                     `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"]}`
                 );
-                let currentTemp = Math.round(apiData.data.main.temp);
-                let maxTemp = Math.round(apiData.data.main.temp_max);
-                let minTemp = Math.round(apiData.data.main.temp_min);
-                let humidity = apiData.data.main.humidity;
+                let { temp, temp_max, temp_min } = apiData.data.main;
+                let currentTemp = Math.round(temp);
+                let maxTemp = Math.round(temp_max);
+                let minTemp = Math.round(temp_min);
+                let { humidity, pressure } = apiData.data.main;
+                //let humidity = apiData.main.humidity;
                 let wind = apiData.data.wind.speed + " " + windUnits;
-                let author = message.author.username;
-                let profile = message.author.displayAvatarURL;
-                let icon = apiData.data.weather[0].icon;
+                let { username: author, displayAvatarURL: profile } = message.author;
+                //let author = message.author.username;
+                //let profile = message.author.displayAvatarURL;
+                let {icon, description: cloudness} = apiData.data.weather[0];
+                //let icon = apiData.weather[0].icon;
                 let country = apiData.data.sys.country;
                 country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                 let displayCity = apiData.data.name;
-                let pressure = apiData.data.main.pressure;
-                let cloudness = apiData.data.weather[0].description;
+                //let pressure = apiData.main.pressure;
+                //let cloudness = apiData.weather[0].description;
                 message.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
             } catch (err) {
                 //err.response.data.message
