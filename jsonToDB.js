@@ -1,5 +1,5 @@
 const sqlite = require("sqlite3").verbose();
-const q = require("./quotes.json")["Thomas Jefferson"];
+const q = require("./quotes.json")["George Washington"];
 // Quotes(quote text not null, id int not null primary key, source text not null, usage int not null)
 let db = new sqlite.Database('./quotes.db', sqlite.OPEN_READWRITE, (err) => {
     if (err) {
@@ -7,7 +7,7 @@ let db = new sqlite.Database('./quotes.db', sqlite.OPEN_READWRITE, (err) => {
     }
     console.log('Connected to the database.');
 });
-let count = 0;
+let count = 10;
 q.forEach(key => {
     count++;
     db.run(`insert into Quotes(quote, id, source, usage) values('${key}', ${count}, 'Thomas Jefferson', 0)`);
