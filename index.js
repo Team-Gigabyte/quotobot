@@ -50,7 +50,7 @@ const simpleEmbed = (text, attr) => {
     const toReturn = new Discord.MessageEmbed()
         .setColor(6765239)
         .setAuthor("Quote", quoteIcon)
-        .setFooter(`––${attr}`, emptyIcon)
+        .setFooter(`—${attr}`, emptyIcon)
         .setDescription(`**${text}**`);
     return toReturn;
 }
