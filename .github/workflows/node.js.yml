@@ -35,6 +35,11 @@ jobs:
       run: for i in ./db/*.db; do sqlite3 $i .dump > $i.dump; done
       #  git checkout -b origin/$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)' | head -1) 
       #  git log | head -1 | sed 's/commit//g' 
+    - name: Commit the SQLite dump
+      uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
+      with:
+        commit_message: SQLite database dump
+        file_pattern: "db/*.dump"
     - name: Notify if the code is broken
       uses: sarisia/actions-status-discord@v1
       if: failure()
