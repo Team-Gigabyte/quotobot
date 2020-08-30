@@ -13,6 +13,7 @@ const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const helpDomain = configFile['help-domain'] || undefined;
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
+const sqlite3 = require("sqlite3");
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
