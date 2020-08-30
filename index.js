@@ -4,7 +4,6 @@ const process = require('process');
 const client = new Discord.Client();
 const configFile = require('./config.json');
 const token = configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
-const quoteFile = require('./quotes.json');
 // quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
 const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
 const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
@@ -14,11 +13,6 @@ const helpDomain = configFile['help-domain'] || undefined;
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
-const { randomBytes } = require('crypto');
-const randKey = obj => {
-    var keys = Object.keys(obj);
-    return keys[keys.length * Math.random() << 0];
-}; // gets random key from an object
 const norm = text => { // "normalize" text
     return text.trim().toLowerCase().replace(/\s+/, " ");
 }
@@ -84,10 +78,6 @@ client.on('message', message => {
         case 'randomquote':
         case 'randquote':
             {
-                // This selects a random key in the quote file, gets a random quote, and sends an embed.
-                /* const authorKey = randKey(quoteFile);
-                const authorRand = quoteFile[authorKey];
-                const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)]; */
                 db.each("Select * from Quotes order by RANDOM() limit 1;", (error, randomQuote) => {
                     if (error) { console.error(error.message); }
                     message.channel.send(new Discord.MessageEmbed()
