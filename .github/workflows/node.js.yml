@@ -42,6 +42,7 @@ jobs:
   sqlitedump:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Dump the SQLite
       run: for i in ./db/*.db; do sqlite3 $i .dump > $i.dump; done
     - name: Commit the SQLite dump
