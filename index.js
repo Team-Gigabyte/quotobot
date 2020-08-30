@@ -14,6 +14,7 @@ const helpDomain = configFile['help-domain'] || undefined;
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
+const { randomBytes } = require('crypto');
 const randKey = obj => {
     var keys = Object.keys(obj);
     return keys[keys.length * Math.random() << 0];
@@ -21,6 +22,7 @@ const randKey = obj => {
 const norm = text => { // "normalize" text
     return text.trim().toLowerCase().replace(/\s+/, " ");
 }
+const db = new sqlite3.Database('./db/quotes.db');
 const exampleEmbed = ( // formats the embed for the weather
     temp,
     maxTemp,
@@ -83,14 +85,21 @@ client.on('message', message => {
         case 'randquote':
             {
                 // This selects a random key in the quote file, gets a random quote, and sends an embed.
-                const authorKey = randKey(quoteFile);
+                /* const authorKey = randKey(quoteFile);
                 const authorRand = quoteFile[authorKey];
-                const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)];
-                message.channel.send(new Discord.MessageEmbed()
-                    .setColor(6765239) // 673ab7 purple
-                    .setAuthor("Random Quote", quoteIcon)
-                    .setFooter(`––${authorKey}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
-                    .setDescription(`**${randQuote}**`));
+                const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)]; */
+                db.each("Select * from Quotes order by RANDOM() limit 1;", (error, randomQuote) => {
+                    if (error) { console.error(error.message); }
+                    message.channel.send(new Discord.MessageEmbed()
+                        .setColor(6765239) // 673ab7 purple
+                        .setAuthor("Random Quote", quoteIcon)
+                        .setFooter(`––${randomQuote.source} (I've given this quote ${randomQuote.usage} times before)`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
+                        .setDescription(`**${randomQuote.quote}**`));
+                    db.run(`Update Quotes set usage = ? where id = ${randomQuote.id}`,
+                        [randomQuote.usage + 1],
+                        (error) => { if (error) { console.log(error.message); } }
+                    );
+                });
                 break;
             }
         case 'Bibot':
@@ -152,7 +161,7 @@ client.on('message', message => {
                 let { humidity, pressure } = apiData.data.main;
                 let wind = apiData.data.wind.speed + " " + windUnits;
                 let { username: author, displayAvatarURL: profile } = message.author;
-                let {icon, description: cloudness} = apiData.data.weather[0];
+                let { icon, description: cloudness } = apiData.data.weather[0];
                 let country = apiData.data.sys.country;
                 country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                 let displayCity = apiData.data.name;
