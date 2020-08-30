@@ -16,7 +16,7 @@ INSERT INTO Quotes VALUES('It is better to be alone than in bad company. }',12,'
 INSERT INTO Quotes VALUES('If freedom of speech is taken away, then dumb and silent we may be led, like sheep to the slaughter.}',13,'George Washington',0);
 INSERT INTO Quotes VALUES('But lest some unlucky event should happen unfavorable to my reputation, I beg it may be remembered by every gentleman in the room that I this day declare with the utmost sincerity, I do not think myself equal to the command I am honored with.}',14,'George Washington',0);
 INSERT INTO Quotes VALUES('A primary object should be the education of our youth in the science of government. In a republic, what species of knowledge can be equally important? And what duty more pressing than communicating it to those who are to be the future guardians of the liberties of the country?}',15,'George Washington',0);
-INSERT INTO Quotes VALUES('Be courteous to all, but intimate with few, and let those few be well tried before you give them your confidence. True friendship is a plant of slow growth, and must undergo and withstand the shocks of adversity before it is entitled to appellation.}',16,'George Washington',0);
+INSERT INTO Quotes VALUES('Be courteous to all, but intimate with few, and let those few be well tried before you give them your confidence. True friendship is a plant of slow growth, and must undergo and withstand the shocks of adversity before it is entitled to appellation.}',16,'George Washington',1);
 INSERT INTO Quotes VALUES('A free people ought not only to be armed, but disciplined; to which end a uniform and well-digested plan is requisite; and their safety and interest require that they should promote such manufactories as tend to render them independent of others for essential, particularly military, supplies.}',17,'George Washington',0);
 INSERT INTO Quotes VALUES('Human happiness and moral duty are inseparably connected.}',18,'George Washington',0);
 INSERT INTO Quotes VALUES('However [political parties] may now and then answer popular ends, they are likely in the course of time and things, to become potent engines, by which cunning, ambitious, and unprincipled men will be enabled to subvert the power of the people and to usurp for themselves the reins of government, destroying afterwards the very engines which have lifted them to unjust dominion.}',19,'George Washington',0);
@@ -46,7 +46,7 @@ INSERT INTO Quotes VALUES('I say, that Power must never be trusted without a che
 INSERT INTO Quotes VALUES('Children should be educated and instructed in the principles of freedom. Aristotle speaks plainly to this purpose, saying, ''that the institution of youth should be accommodated to that form of government under which they live; forasmuch as it makes exceedingly for the preservation of the present government, whatsoever it be.',43,'John Adams',0);
 INSERT INTO Quotes VALUES('Let the human mind loose. It must be loose. It will be loose. Superstition and dogmatism cannot confine it.',44,'John Adams',0);
 INSERT INTO Quotes VALUES('I must judge for myself, but how can I judge, how can any man judge, unless his mind has been opened and enlarged by reading.',45,'John Adams',0);
-INSERT INTO Quotes VALUES('To believe all men honest is folly. To believe none is something worse.',46,'John Adams',0);
+INSERT INTO Quotes VALUES('To believe all men honest is folly. To believe none is something worse.',46,'John Adams',1);
 INSERT INTO Quotes VALUES('Government has no right to hurt a hair on the head of an Atheist for his Opinions. Let him have a care of his Practices.',47,'John Adams',0);
 INSERT INTO Quotes VALUES('You will never be alone with a poet in your pocket.',48,'John Adams',0);
 INSERT INTO Quotes VALUES('The way to secure liberty is to place it in the people''s hands, that is, to give them the power at all times to defend it in the legislature and in the courts of justice.',49,'John Adams',0);
@@ -58,7 +58,7 @@ INSERT INTO Quotes VALUES('Without the pen of Paine, the sword of Washington wou
 INSERT INTO Quotes VALUES('Laws for the liberal education of youth, especially of the lower class of people, are so extremely wise and useful, that, to a humane and generous mind, no expense for this purpose would be thought extravagant.',55,'John Adams',0);
 INSERT INTO Quotes VALUES('Old minds are like old horses; you must exercise them if you wish to keep them in working order.',56,'John Adams',0);
 INSERT INTO Quotes VALUES('Nineteen twentieths of [mankind is] opaque and unenlightened. Intimacy with most people will make you acquainted with vices and errors and follies enough to make you despise them.',57,'John Adams',0);
-INSERT INTO Quotes VALUES('If worthless men are sometimes at the head of affairs, it is, I believe, because worthless men are at the tail and the middle',58,'John Adams',0);
+INSERT INTO Quotes VALUES('If worthless men are sometimes at the head of affairs, it is, I believe, because worthless men are at the tail and the middle',58,'John Adams',1);
 INSERT INTO Quotes VALUES('When legislature is corrupted, the people are undone.',59,'John Adams',0);
 INSERT INTO Quotes VALUES('The true source of our sufferings has been our timidity.',60,'John Adams',0);
 INSERT INTO Quotes VALUES('Everything in life should be done with reflection.',61,'John Adams',0);
