@@ -78,7 +78,7 @@ client.on('message', message => {
         case 'randomquote':
         case 'randquote':
             {
-                db.each("Select * from Quotes order by RANDOM() limit 1;", (error, randomQuote) => {
+                db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM table ORDER BY RANDOM() LIMIT 1);", (error, randomQuote) => {
                     if (error) { console.error(error.message); }
                     message.channel.send(new Discord.MessageEmbed()
                         .setColor(6765239) // 673ab7 purple
