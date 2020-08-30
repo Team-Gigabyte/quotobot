@@ -1,7 +1,7 @@
 # This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Node.js CI and SQLite Dump
 
 on:
   workflow_dispatch:
@@ -31,10 +31,19 @@ jobs:
         npm i eslint; sudo npm i -g jsonlint
         echo "\u001b[36m" Checking for code errors...
         for i in *.js; do npx eslint $i; npx eslint --fix-dry-run $i; done; for i in *.json; do jsonlint -q $i; done
-    - name: Dump the SQLite
-      run: for i in ./db/*.db; do sqlite3 $i .dump > $i.dump; done
+    
       #  git checkout -b origin/$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)' | head -1) 
       #  git log | head -1 | sed 's/commit//g' 
+    - name: Notify if the code is broken
+      uses: sarisia/actions-status-discord@v1
+      if: failure()
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
+  sqlitedump:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump the SQLite
+      run: for i in ./db/*.db; do sqlite3 $i .dump > $i.dump; done
     - name: Commit the SQLite dump
       uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
       with:
