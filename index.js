@@ -61,10 +61,7 @@ client.once('ready', () => {
     console.log("The prefix is: " + configFile.prefix);
     if (helpDomain) {
         client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching quotobot.tk"
-    }/* quotes = [];
-    for (var x of Object.values(quoteFile)) {
-        quotes = quotes.concat(x);
-    } */
+    }
 });
 client.login(token);
 client.on('message', message => {
@@ -117,7 +114,7 @@ client.on('message', message => {
             break;
         case 'SPpoem':
             message.channel.send(simpleEmbed(
-                'We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
+                'We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
             break;
         case 'Haters':
             message.channel.send(simpleEmbed(
@@ -125,9 +122,6 @@ client.on('message', message => {
             break;
         case 'weathermetric':
         case 'weather': (async function () {
-            /* if (!(args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial")) {
-                message.reply(`you didn't specify the units, so metric will be used. Next time, do \`${configFile.prefix}weather imperial City Name\` if you want imperial measurements.`);
-            } */
             if (!args[0]) {
                 message.reply("you didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name.");
                 return null;
