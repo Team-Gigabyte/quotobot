@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "count": "node countQuotes.js"
+    "count": "node countQuotes.js",
+    "add": "node addQuote.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +23,8 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "country-flag-emoji": "^1.0.3",
     "discord.js": "^12.2.0",
-    "country-flag-emoji": "^1.0.3"
+    "sqlite3": "^5.0.0"
   }
 }

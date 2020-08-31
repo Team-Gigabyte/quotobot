@@ -1,10 +1,10 @@
+#!/usr/bin/env node
 "use strict";
 const Discord = require('discord.js');
 const process = require('process');
 const client = new Discord.Client();
 const configFile = require('./config.json');
 const token = configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
-const quoteFile = require('./quotes.json');
 // quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
 const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
 const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
@@ -13,13 +13,11 @@ const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const helpDomain = configFile['help-domain'] || undefined;
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
-const randKey = obj => {
-    var keys = Object.keys(obj);
-    return keys[keys.length * Math.random() << 0];
-}; // gets random key from an object
+const sqlite3 = require("sqlite3");
 const norm = text => { // "normalize" text
     return text.trim().toLowerCase().replace(/\s+/, " ");
 }
+const db = new sqlite3.Database('./db/quotes.db');
 const exampleEmbed = ( // formats the embed for the weather
     temp,
     maxTemp,
@@ -64,10 +62,7 @@ client.once('ready', () => {
     console.log("The prefix is: " + configFile.prefix);
     if (helpDomain) {
         client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching quotobot.tk"
-    }/* quotes = [];
-    for (var x of Object.values(quoteFile)) {
-        quotes = quotes.concat(x);
-    } */
+    }
 });
 client.login(token);
 client.on('message', message => {
@@ -81,15 +76,19 @@ client.on('message', message => {
         case 'randomquote':
         case 'randquote':
             {
-                // This selects a random key in the quote file, gets a random quote, and sends an embed.
-                const authorKey = randKey(quoteFile);
-                const authorRand = quoteFile[authorKey];
-                const randQuote = authorRand[Math.floor(Math.random() * authorRand.length)];
-                message.channel.send(new Discord.MessageEmbed()
-                    .setColor(6765239) // 673ab7 purple
-                    .setAuthor("Random Quote", quoteIcon)
-                    .setFooter(`––${authorKey}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
-                    .setDescription(`**${randQuote}**`));
+                db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM table ORDER BY RANDOM() LIMIT 1);", (error, randomQuote) => {
+                    if (error) { console.error(error.message); }
+                    message.channel.send(new Discord.MessageEmbed()
+                        .setColor(6765239) // 673ab7 purple
+                        .setAuthor("Random Quote", quoteIcon)
+                        .setFooter(`––${randomQuote.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
+                        .setDescription(`**${randomQuote.quote}**`));
+                    //  (I've given this quote ${randomQuote.usage} times before)
+                    /* db.run(`Update Quotes set usage = ? where id = ${randomQuote.id}`,
+                        [randomQuote.usage + 1],
+                        (error) => { if (error) { console.log(error.message); } }
+                    ); */
+                });
                 break;
             }
         case 'Bibot':
@@ -117,7 +116,7 @@ client.on('message', message => {
             break;
         case 'SPpoem':
             message.channel.send(simpleEmbed(
-                'We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
+                'We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
             break;
         case 'Haters':
             message.channel.send(simpleEmbed(
@@ -125,9 +124,6 @@ client.on('message', message => {
             break;
         case 'weathermetric':
         case 'weather': (async function () {
-            /* if (!(args[0].toLowerCase() == "metric" || args[0].toLowerCase() == "imperial")) {
-                message.reply(`you didn't specify the units, so metric will be used. Next time, do \`${configFile.prefix}weather imperial City Name\` if you want imperial measurements.`);
-            } */
             if (!args[0]) {
                 message.reply("you didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name.");
                 return null;
@@ -151,7 +147,7 @@ client.on('message', message => {
                 let { humidity, pressure } = apiData.data.main;
                 let wind = apiData.data.wind.speed + " " + windUnits;
                 let { username: author, displayAvatarURL: profile } = message.author;
-                let {icon, description: cloudness} = apiData.data.weather[0];
+                let { icon, description: cloudness } = apiData.data.weather[0];
                 let country = apiData.data.sys.country;
                 country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                 let displayCity = apiData.data.name;

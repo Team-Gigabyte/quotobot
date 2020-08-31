@@ -106,5 +106,6 @@ dist
 # Auth file
 config.json
 
-# PNPM Lock
+# PNPM and Yarn Lock
 pnpm-lock.yaml
+yarn.lock
