@@ -53,3 +53,5 @@ Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes
 Publish v.1.0.x of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! There is no deadline as school will restart and time to work on this project will be limited.**
 
 Any pull requests are appreciated.
+## Technical Notes
+This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (Ignore the quotes-legacy.json file, as we don't use JSON for the quotes anymore. If you want to see the quotes without using SQLite, take a look at the quotes.db.csv file.)
