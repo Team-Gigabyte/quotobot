@@ -4,13 +4,15 @@ const Discord = require('discord.js');
 const process = require('process');
 const client = new Discord.Client();
 const configFile = require('./config.json');
-const token = configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
-// quote icon from: https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
-const quoteIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png";
-const emptyIcon = "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png";
-const infoIcon = "https://cdn.discordapp.com/attachments/449680513683292162/748682998022537287/information_2139.png"; // from Twemoji
+const prefix = configFile.prefix || process.env.QBPREFIX;
+const token = configFile.token != "your-token-here-inside-these-quotes" || configFile.token ? configFile.token : process.env.QBTOKEN;
+const icons = {
+    quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",
+    empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png", // from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
+    info: "https://cdn.discordapp.com/attachments/449680513683292162/748682998022537287/information_2139.png" // from Twemoji license under CC-BY 4.0
+}
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const helpDomain = configFile['help-domain'] || undefined;
+const helpDomain = configFile['help-domain'] || process.env.QBSTATUS || undefined;
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
@@ -42,32 +44,32 @@ const exampleEmbed = ( // formats the embed for the weather
         .addField(`Wind Speed:`, `${wind}`, true)
         .addField(`Pressure:`, `${pressure} hpa`, true)
         .addField(`Cloudiness:`, `${cloudness}`, true)
-        .setFooter(`The above is in ${units} units — you can try \`${configFile.prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, infoIcon)
+        .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
         .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`);
 const simpleEmbed = (text, attr) => {
     const toReturn = new Discord.MessageEmbed()
         .setColor(6765239)
-        .setAuthor("Quote", quoteIcon)
-        .setFooter(`—${attr}`, emptyIcon)
+        .setAuthor("Quote", icons.quote)
+        .setFooter(`—${attr}`, icons.empty)
         .setDescription(`**${text}**`);
     return toReturn;
 }
 client.once('ready', () => {
     console.log('Ready!');
     if (configFile.clientID) {
-        console.log(`Invite me using https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString()}`);
+        console.log(`Invite me using https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "0"}`);
     } else {
         console.log("Use the Discord developer portal to get your bot's invite link.")
     }
-    console.log("The prefix is: " + configFile.prefix);
+    console.log("The prefix is: " + prefix);
     if (helpDomain) {
-        client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching quotobot.tk"
+        client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
     }
 });
 client.login(token);
 client.on('message', message => {
-    if (!message.content.startsWith(configFile.prefix) || message.author.bot) return;
-    const args = message.content.slice(configFile.prefix.length).trim().split(/ +/);
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
         case 'ping':
@@ -76,11 +78,11 @@ client.on('message', message => {
         case 'randomquote':
         case 'randquote':
             {
-                db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM table ORDER BY RANDOM() LIMIT 1);", (error, randomQuote) => {
+                db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);", (error, randomQuote) => {
                     if (error) { console.error(error.message); }
                     message.channel.send(new Discord.MessageEmbed()
                         .setColor(6765239) // 673ab7 purple
-                        .setAuthor("Random Quote", quoteIcon)
+                        .setAuthor("Random Quote", icons.quote)
                         .setFooter(`––${randomQuote.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
                         .setDescription(`**${randomQuote.quote}**`));
                     //  (I've given this quote ${randomQuote.usage} times before)
