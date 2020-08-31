@@ -25,6 +25,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Look for JS errors and show how to fix them
       run: |
+        echo "\u001b[36m" Installing sqlite3...
+        npm i sqlite3
         echo "\u001b[36m" Number of quotes:
         npm run count
         echo "\u001b[36m" Installing eslint and jsonlint...

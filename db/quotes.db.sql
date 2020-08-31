@@ -76,4 +76,5 @@ INSERT INTO Quotes VALUES('"Money and titles may be hereditary," she would say, 
 INSERT INTO Quotes VALUES('We seek him here, we seek him there, Those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?',73,'Scarlet Pimpernel by Baroness Orczy',0);
 INSERT INTO Quotes VALUES('How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.',74,'Scarlet Pimpernel by Baroness Orczy',0);
 INSERT INTO Quotes VALUES('This is an example.',75,'QB Devs',0);
+INSERT INTO Quotes VALUES('Ask not what your country can do for you; ask what you can do for your country.',76,'John F. Kennedy',0);
 COMMIT;
