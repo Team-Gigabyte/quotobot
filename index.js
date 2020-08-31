@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 "use strict";
 const Discord = require('discord.js');
 const process = require('process');
@@ -80,12 +81,13 @@ client.on('message', message => {
                     message.channel.send(new Discord.MessageEmbed()
                         .setColor(6765239) // 673ab7 purple
                         .setAuthor("Random Quote", quoteIcon)
-                        .setFooter(`––${randomQuote.source} (I've given this quote ${randomQuote.usage} times before)`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
+                        .setFooter(`––${randomQuote.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
                         .setDescription(`**${randomQuote.quote}**`));
-                    db.run(`Update Quotes set usage = ? where id = ${randomQuote.id}`,
+                    //  (I've given this quote ${randomQuote.usage} times before)
+                    /* db.run(`Update Quotes set usage = ? where id = ${randomQuote.id}`,
                         [randomQuote.usage + 1],
                         (error) => { if (error) { console.log(error.message); } }
-                    );
+                    ); */
                 });
                 break;
             }
