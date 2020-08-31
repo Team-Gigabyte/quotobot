@@ -1,0 +1,25 @@
+name: SQLite Dump
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  sqlitedump:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Dump the SQLite to a SQL File
+      run: for i in ./db/*.db; do sqlite3 $i .dump > $i.sql; done
+    - name: Dump the SQLite to CSV
+      run: for i in ./db/*.db; do sqlite3 -header -csv $i "select * from Quotes;" > $i.csv; done
+    - name: Commit the SQLite dumps
+      uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
+      with:
+        commit_message: SQLite database dump
+        file_pattern: "db/*.db.*"
+    - name: Notify if the code is broken
+      uses: sarisia/actions-status-discord@v1
+      if: failure()
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}
