@@ -8,6 +8,7 @@ const rl = readline.createInterface({
 rl.question("What is the quote? ", function (qt) {
     rl.question("Who wrote it? ", function (src) {
         db.each("SELECT * FROM Quotes ORDER BY id DESC limit 1;", function (error, row) {
+            if (error) { console.error(error) }
             db.run(`INSERT INTO Quotes(quote, id, source, usage) VALUES(?,?,?,?)`,
                 [qt, row.id + 1, src, 0], function (error) {
                     if (error) { console.error(error) }
