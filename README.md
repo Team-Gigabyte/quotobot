@@ -1,7 +1,9 @@
 # Quotobot
-A Discord bot that tells quotes!
+A Discord bot that tells quotes, gets the weather, and more!
 
 [![Node.js CI](https://github.com/ssharker21/quotobot/workflows/Node.js%20CI/badge.svg)](https://github.com/ssharker21/quotobot/actions)  [![GitHub license](https://img.shields.io/github/license/ssharker21/quotobot)](https://github.com/ssharker21/quotobot/blob/master/LICENSE)  [![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](http://quotobot.ml)
+
+![Quotes screenshot](https://user-images.githubusercontent.com/25331232/91901407-2e907c00-ec6e-11ea-96a7-e7d8dc3ada8a.png)
 
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
