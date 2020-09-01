@@ -2,10 +2,11 @@
 "use strict";
 const Discord = require('discord.js');
 const process = require('process');
+const util = require('util');
 const client = new Discord.Client();
 const configFile = require('./config.json');
 const prefix = configFile.prefix || process.env.QBPREFIX;
-const token = configFile.token != "your-token-here-inside-these-quotes" || configFile.token ? configFile.token : process.env.QBTOKEN;
+const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png", // from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
@@ -20,6 +21,7 @@ const norm = text => { // "normalize" text
     return text.trim().toLowerCase().replace(/\s+/, " ");
 }
 const db = new sqlite3.Database('./db/quotes.db');
+db.each = util.promisify(db.each);
 const exampleEmbed = ( // formats the embed for the weather
     temp,
     maxTemp,
@@ -77,20 +79,24 @@ client.on('message', message => {
             break;
         case 'randomquote':
         case 'randquote':
+        case 'quote':
             {
-                db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);", (error, randomQuote) => {
-                    if (error) { console.error(error.message); }
-                    message.channel.send(new Discord.MessageEmbed()
-                        .setColor(6765239) // 673ab7 purple
-                        .setAuthor("Random Quote", icons.quote)
-                        .setFooter(`––${randomQuote.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
-                        .setDescription(`**${randomQuote.quote}**`));
-                    //  (I've given this quote ${randomQuote.usage} times before)
-                    /* db.run(`Update Quotes set usage = ? where id = ${randomQuote.id}`,
-                        [randomQuote.usage + 1],
-                        (error) => { if (error) { console.log(error.message); } }
-                    ); */
-                });
+                (async () => {
+                    try {
+                        let quoteToSend = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
+                        message.channel.send(new Discord.MessageEmbed()
+                            .setColor(6765239) // 673ab7 purple
+                            .setAuthor("Random Quote", icons.quote)
+                            .setFooter(`––${quoteToSend.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
+                            .setDescription(`**${quoteToSend.quote}**`));
+                    } catch (err) { console.error(err.message); }
+                })();
+                //  (I've given this quote ${randomQuote.usage} times before)
+                /* db.run(`Update Quotes set usage = ? where id = ${randomQuote.id}`,
+                    [randomQuote.usage + 1],
+                    (error) => { if (error) { console.log(error.message); } }
+                ); */
+
                 break;
             }
         case 'Bibot':
