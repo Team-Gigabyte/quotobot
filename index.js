@@ -146,7 +146,7 @@ client.on('message', message => {
 
             try {
                 let apiData = await axios.get(
-                    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || process.env.QBWEATHER}}`
+                    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || process.env.QBWEATHER}`
                 );
                 let { temp, temp_max, temp_min } = apiData.data.main;
                 let currentTemp = Math.round(temp);
