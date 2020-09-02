@@ -4,9 +4,28 @@ const Discord = require('discord.js');
 const process = require('process');
 const util = require('util');
 const client = new Discord.Client();
-const configFile = require('./config.json');
-const prefix = configFile.prefix || process.env.QBPREFIX;
-const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
+let configFile/*  = require('./config.json') */;
+try {
+    configFile = require("./config.json");
+} catch (e) {
+    if (e.code !== 'MODULE_NOT_FOUND') {
+        throw e;
+    }
+    configFile = JSON.parse('{"help-domain": "quotobot.tk","permissionValue": 0}')
+}
+const prefix = configFile.prefix || process.env.QBPREFIX || "~";
+//const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
+const norm = text => { // "normalize" text
+    return text
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/, " ");
+}
+let token = undefined;
+if (configFile.token == "your-token-here-inside-these-quotes") {
+    token = process.env.QBTOKEN;
+} else if (!configFile.token) { token = process.env.QBTOKEN; }
+else { token = configFile.token; }
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png", // from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
@@ -17,47 +36,35 @@ const helpDomain = configFile['help-domain'] || process.env.QBSTATUS || undefine
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
-const norm = text => { // "normalize" text
-    return text.trim().toLowerCase().replace(/\s+/, " ");
-}
 const db = new sqlite3.Database('./db/quotes.db');
 db.each = util.promisify(db.each);
-const exampleEmbed = ( // formats the embed for the weather
-    temp,
-    maxTemp,
-    minTemp,
-    pressure,
-    humidity,
-    wind,
-    cloudness,
-    icon,
-    author,
-    profile,
-    cityName,
-    country, units
-) =>
+const weatherEmbed = ( // formats the embed for the weather
+    temp, maxTemp, minTemp,
+    pressure, humidity, wind,
+    cloudness, icon,
+    author, profile,
+    cityName, country, units) =>
     new Discord.MessageEmbed()
         .setColor("ff9800") // yellow
         .setAuthor(`Hello, ${author}`, profile)
         .setTitle(`It's ${temp}\u00B0 in ${cityName}, ${country}`)
-        .addField(`Maximum Temperature:`, `${maxTemp}\u00B0`, true)
-        .addField(`Minimum Temperature:`, `${minTemp}\u00B0`, true)
-        .addField(`Humidity:`, `${humidity}%`, true)
-        .addField(`Wind Speed:`, `${wind}`, true)
-        .addField(`Pressure:`, `${pressure} hpa`, true)
-        .addField(`Cloudiness:`, `${cloudness}`, true)
+        .addField(`🌡 Maximum Temperature:`, `${maxTemp}\u00B0`, true)
+        .addField(`🌡 Minimum Temperature:`, `${minTemp}\u00B0`, true)
+        .addField(`💧 Humidity:`, `${humidity}%`, true)
+        .addField(`💨 Wind Speed:`, `${wind}`, true)
+        .addField(`📊 Pressure:`, `${pressure} hpa`, true)
+        .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
         .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
         .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`);
 const simpleEmbed = (text, attr) => {
-    const toReturn = new Discord.MessageEmbed()
+    return new Discord.MessageEmbed()
         .setColor(6765239)
         .setAuthor("Quote", icons.quote)
         .setFooter(`—${attr}`, icons.empty)
         .setDescription(`**${text}**`);
-    return toReturn;
 }
 client.once('ready', () => {
-    console.log('Ready!');
+    console.log("Ready!");
     if (configFile.clientID) {
         console.log(`Invite me using https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "0"}`);
     } else {
@@ -68,6 +75,9 @@ client.once('ready', () => {
         client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
     }
 });
+if (!token) {
+    throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
+}
 client.login(token);
 client.on('message', message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -159,7 +169,7 @@ client.on('message', message => {
                 let country = apiData.data.sys.country;
                 country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                 let displayCity = apiData.data.name;
-                message.reply(exampleEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
+                message.reply(weatherEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
             } catch (err) {
                 message.reply(`there was an error. \`${err.response.data.cod}: ${err.response.data.message}\``)
             }
