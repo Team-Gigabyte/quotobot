@@ -11,7 +11,7 @@ try {
     if (e.code !== 'MODULE_NOT_FOUND') {
         throw e;
     }
-    configFile = JSON.parse('{"help-domain": "quotobot.tk","permissionValue": 0}')
+    configFile = {"help-domain": "quotobot.tk","permissionValue": 0};
 }
 const prefix = configFile.prefix || process.env.QBPREFIX || "~";
 //const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
