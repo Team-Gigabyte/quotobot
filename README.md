@@ -9,7 +9,7 @@ A Discord bot that tells quotes, gets the weather, and more!
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
 
 ### Special thank you to [Uddesh](https://github.com/UddeshJain)
-We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and slightly modified it for our project.
+We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
 
 ## Or do you want to host and tweak the bot yourself?
 
@@ -33,6 +33,8 @@ to
 
 making sure to change the number to your client ID inside the quotes.
 
+Add an (OpenWeatherMap API key)[https://openweathermap.org/guide#how] (the free plan is really generous) in the same way. 
+
 You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` and adding your text in the value for that. Example complete config file:
 ```json
 {
@@ -40,9 +42,18 @@ You can also change the status that the bot shows (it'll be prefixed with *Watch
     "token": "abcdrkhjregjl.efghfioeigtj",
     "help-domain": "my-bot-site.qb",
     "clientID": "12343546798",
-    "permissionValue": 0
+    "permissionValue": 0,
+    "weather-token": "1jf920fk3"
 }
 ```
+### Environment Variables instead of `config.json`
+Instead of using the config.json, you can set these environment variables:
+```bash
+QBTOKEN="YourTokenHere"
+QBPREFIX=">>" # optional, default ~
+QBWEATHER="WeatherKey103949"
+```
+Note that there is currently no way to change stuff like the client ID and the bot status this way.
 ### Run the bot
 Make sure you have NodeJS installed and open a command prompt/terminal in the folder where these files are. Then run:
 ```bash
@@ -50,10 +61,10 @@ npm install
 node index.js
 ```
 ### Tentative Timeline
-Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**
+~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
 
-Publish v.1.0.x of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! There is no deadline as school will restart and time to work on this project will be limited.**
+Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
 
 Any pull requests are appreciated.
 ## Technical Notes
-This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (Ignore the quotes-legacy.json file, as we don't use JSON for the quotes anymore. If you want to see the quotes without using SQLite, take a look at the quotes.db.csv file.)
+This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (Ignore the quotes-legacy.json file, as the code doesn't use JSON for the quotes anymore. If you want to see the quotes without using SQLite, take a look at the quotes.db.csv file.)
