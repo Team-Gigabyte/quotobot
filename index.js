@@ -1,19 +1,24 @@
 #!/usr/bin/env node
 "use strict";
+// NPM modules {
 const Discord = require('discord.js');
-const process = require('process');
-const util = require('util');
-const client = new Discord.Client();
-let configFile/*  = require('./config.json') */;
+const { env: envVars } = require('process');
+const axios = require("axios").default;
+const cFlags = require("country-flag-emoji");
+const sqlite3 = require("sqlite3");
+const { promisify } = require('util');
+// }
+const bot = new Discord.Client();
+let configFile;
 try {
     configFile = require("./config.json");
 } catch (e) {
     if (e.code !== 'MODULE_NOT_FOUND') {
         throw e;
     }
-    configFile = {"help-domain": "quotobot.tk","permissionValue": 0};
+    configFile = { "help-domain": "quotobot.tk", "permissionValue": 0 };
 }
-const prefix = configFile.prefix || process.env.QBPREFIX || "~";
+const prefix = configFile.prefix || envVars.QBPREFIX || "~";
 //const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
 const norm = text => { // "normalize" text
     return text
@@ -23,21 +28,18 @@ const norm = text => { // "normalize" text
 }
 let token = undefined;
 if (configFile.token == "your-token-here-inside-these-quotes") {
-    token = process.env.QBTOKEN;
-} else if (!configFile.token) { token = process.env.QBTOKEN; }
+    token = envVars.QBTOKEN;
+} else if (!configFile.token) { token = envVars.QBTOKEN; }
 else { token = configFile.token; }
+const helpDomain = configFile['help-domain'] || envVars.QBSTATUS || undefined;
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png", // from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     info: "https://cdn.discordapp.com/attachments/449680513683292162/748682998022537287/information_2139.png" // from Twemoji license under CC-BY 4.0
 }
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const helpDomain = configFile['help-domain'] || process.env.QBSTATUS || undefined;
-const axios = require("axios").default;
-const cFlags = require("country-flag-emoji");
-const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database('./db/quotes.db');
-db.each = util.promisify(db.each);
+db.each = promisify(db.each);
 const weatherEmbed = ( // formats the embed for the weather
     temp, maxTemp, minTemp,
     pressure, humidity, wind,
@@ -63,7 +65,7 @@ const simpleEmbed = (text, attr) => {
         .setFooter(`—${attr}`, icons.empty)
         .setDescription(`**${text}**`);
 }
-client.once('ready', () => {
+bot.once('ready', () => {
     console.log("Ready!");
     if (configFile.clientID) {
         console.log(`Invite me using https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "0"}`);
@@ -72,14 +74,14 @@ client.once('ready', () => {
     }
     console.log("The prefix is: " + prefix);
     if (helpDomain) {
-        client.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
+        bot.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
     }
 });
 if (!token) {
     throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
 }
-client.login(token);
-client.on('message', message => {
+bot.login(token);
+bot.on('message', message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
@@ -99,7 +101,10 @@ client.on('message', message => {
                             .setAuthor("Random Quote", icons.quote)
                             .setFooter(`––${quoteToSend.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
                             .setDescription(`**${quoteToSend.quote}**`));
-                    } catch (err) { console.error(err.message); }
+                    } catch (err) {
+                        message.reply("There was an error on our end. Try again later.");
+                        console.error(err.message);
+                    }
                 })();
                 //  (I've given this quote ${randomQuote.usage} times before)
                 /* db.run(`Update Quotes set usage = ? where id = ${randomQuote.id}`,
@@ -156,7 +161,7 @@ client.on('message', message => {
 
             try {
                 let apiData = await axios.get(
-                    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || process.env.QBWEATHER}`
+                    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || envVars.QBWEATHER}`
                 );
                 let { temp, temp_max, temp_min } = apiData.data.main;
                 let currentTemp = Math.round(temp);
