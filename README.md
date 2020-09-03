@@ -33,7 +33,7 @@ to
 
 making sure to change the number to your client ID inside the quotes.
 
-Add an (OpenWeatherMap API key)[https://openweathermap.org/guide#how] (the free plan is really generous) in the same way. 
+Add an [OpenWeatherMap API key](https://openweathermap.org/guide#how) (the free plan is really generous) in the same way. 
 
 You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` and adding your text in the value for that. Example complete config file:
 ```json
