@@ -20,7 +20,7 @@ We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Wea
 
 - Change the prefix if you like (keep it inside the quotes). 
 
-- **Where it says `"your-token-here"`, paste in your Discord bot token (also inside the quotes).** If you want to make the bot use an environment variable, set QBTOKEN to your token and leave the config.json entry at `"your-token-here"`.
+- **Where it says `"your-token-here"`, paste in your Discord bot token (also inside the quotes).**
 
 - If you want the bot to output its invite link on startup, change
 ```json
