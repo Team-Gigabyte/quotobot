@@ -97,9 +97,8 @@ if (!token) {
 }
 bot.login(token);
 bot.on('message', message => {
-    if (!message.content.startsWith(prefix) || !message.content.startsWith(`<@${bot.user.id}>`) || message.author.bot) return;
-    const sliced = message.content.replace(prefix, '').replace(`<@${bot.user.id}>`, '')
-    const args = sliced.trim().split(/ +/);
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
         case 'activatedm':
