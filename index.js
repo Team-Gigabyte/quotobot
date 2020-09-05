@@ -93,6 +93,9 @@ bot.on('message', message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
+        case 'activatedm':
+            message.author.send("DMs activated! You can now send commands here.");
+            break;
         case 'ping':
             message.channel.send('Pong!');
             break;
