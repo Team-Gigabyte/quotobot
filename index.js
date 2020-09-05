@@ -16,7 +16,7 @@ try {
     if (e.code !== 'MODULE_NOT_FOUND') {
         throw e;
     }
-    configFile = { "help-domain": "quotobot.tk", "permissionValue": 0 };
+    configFile = { "help-domain": "quotobot.tk" };
 }
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
 //const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
@@ -58,21 +58,28 @@ const weatherEmbed = ( // formats the embed for the weather
         .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
         .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
         .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`);
-const simpleEmbed = (text, attr) => {
+const simpleEmbed = (text, attr, title = "Quote") => {
     return new Discord.MessageEmbed()
         .setColor(6765239)
-        .setAuthor("Quote", icons.quote)
+        .setAuthor(title, icons.quote)
         .setFooter(`—${attr}`, icons.empty)
         .setDescription(`**${text}**`);
 }
 bot.once('ready', () => {
     console.log("Ready!");
+    let invText;
     if (configFile.clientID) {
-        console.log(`Invite me using https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "0"}`);
+        invText = `https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "280576"}`;
     } else {
-        console.log("Use the Discord developer portal to get your bot's invite link.")
+        invText = 'Available in the Discord developer portal';
     }
-    console.log("The prefix is: " + prefix);
+    console.table({
+        "prefix": prefix,
+        "username": "@" + bot.user.username + "#" + bot.user.discriminator,
+        "invite link": invText, "status": helpDomain,
+        "server count": bot.guilds.cache.size,
+        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫")
+    })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
     }
@@ -95,12 +102,8 @@ bot.on('message', message => {
             {
                 (async () => {
                     try {
-                        let quoteToSend = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
-                        message.channel.send(new Discord.MessageEmbed()
-                            .setColor(6765239) // 673ab7 purple
-                            .setAuthor("Random Quote", icons.quote)
-                            .setFooter(`—${quoteToSend.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
-                            .setDescription(`**${quoteToSend.quote}**`));
+                        let { quote, source } = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
+                        message.channel.send(simpleEmbed(quote, source, "Random Quote"));
                     } catch (err) {
                         message.reply("There was an error on our end. Try again later.");
                         console.error(err.message);
@@ -111,7 +114,6 @@ bot.on('message', message => {
                     [randomQuote.usage + 1],
                     (error) => { if (error) { console.log(error.message); } }
                 ); */
-
                 break;
             }
         case 'Bibot':
@@ -147,6 +149,10 @@ bot.on('message', message => {
             break;
         case 'weathermetric':
         case 'weather': (async function () {
+            if (!configFile["weather-token"] || !envVars.QBWEATHER) {
+                message.reply("weather isn't currently working. Sorry about that. `ERR_FALSY_WEATHER_KEY`");
+                return;
+            }
             if (!args[0]) {
                 message.reply("you didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name.");
                 return null;
