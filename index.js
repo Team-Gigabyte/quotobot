@@ -99,7 +99,7 @@ bot.on('message', message => {
                         message.channel.send(new Discord.MessageEmbed()
                             .setColor(6765239) // 673ab7 purple
                             .setAuthor("Random Quote", icons.quote)
-                            .setFooter(`––${quoteToSend.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
+                            .setFooter(`—${quoteToSend.source}`, "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png")
                             .setDescription(`**${quoteToSend.quote}**`));
                     } catch (err) {
                         message.reply("There was an error on our end. Try again later.");
