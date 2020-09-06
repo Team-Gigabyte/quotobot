@@ -86,7 +86,8 @@ bot.once('ready', () => {
         "username": "@" + bot.user.username + "#" + bot.user.discriminator,
         "invite link": invText, "status": helpDomain,
         "server count": bot.guilds.cache.size,
-        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫")
+        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫"
+        ), "help link": (configFile.helpURL || "default")
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
@@ -101,8 +102,14 @@ bot.on('message', message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
-        case 'activatedm':
-            message.author.send("DMs activated! You can now send commands here.");
+        case 'testdm':
+            message.author.send("Looks like the DM worked! You can send commands in here.");
+            break;
+        case 'help':
+            message.channel.send(new Discord.MessageEmbed()
+                .setTitle("Click here for the commands.")
+                .setColor("009688")
+                .setURL(configFile.helpURL || "https://github.com/ssharker21/quotobot/wiki"));
             break;
         case 'ping':
             message.channel.send('Pong!');
