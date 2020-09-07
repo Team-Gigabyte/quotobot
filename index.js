@@ -113,7 +113,7 @@ bot.on('message', message => {
                     if (error.message == "Cannot send messages to this user") {
                         message.reply("Oof, you seem to have DMs off.");
                     } else {
-                        console.table(error);
+                        console.error(error);
                     }
                 });
             break;
