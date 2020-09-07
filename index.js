@@ -41,11 +41,16 @@ const icons = {
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const db = new sqlite3.Database('./db/quotes.db');
 db.each = promisify(db.each);
-const errorEmbed = (description, code, title = "Error") => {
+const errorEmbed = (description, code = "", title = "Error") => {
+    if (!code) {
+        code = '';
+    } else {
+        code = "`" + code + "`";
+    }
     return new Discord.MessageEmbed()
         .setColor("ff0000")
         .setAuthor(title, icons.warn)
-        .setDescription(`${description} \`${code}\``);
+        .setDescription(`${description} ${code}`);
 }
 const weatherEmbed = ( // formats the embed for the weather
     temp, maxTemp, minTemp,
@@ -103,7 +108,14 @@ bot.on('message', message => {
     const command = args.shift().trim().toLowerCase();
     switch (command) {
         case 'testdm':
-            message.author.send("Looks like the DM worked! You can send commands in here.");
+            message.author.send("Looks like the DM worked! You can send commands in here.")
+                .catch(error => {
+                    if (error.message == "Cannot send messages to this user") {
+                        message.reply("Oof, you seem to have DMs off.");
+                    } else {
+                        console.table(error);
+                    }
+                });
             break;
         case 'help':
             message.channel.send(new Discord.MessageEmbed()
