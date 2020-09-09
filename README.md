@@ -60,6 +60,12 @@ Make sure you have NodeJS installed and open a command prompt/terminal in the fo
 npm install
 node index.js
 ```
+Press <kbd>Control</kbd> + <kbd>C</kbd> (even on a Mac) to stop the bot.
+### Adding quotes
+- Use the addQuote.js script, which will prompt you for the required info and add it to db/quotes.db.
+- Don't modify anything in the .csv or the .sql files, since those are auto-generated dumps.
+- Make sure to make your quotes the *last* commits before you push, otherwise you'll get merge conflicts.
+You can also take a look at the csvToDb.py file and experiment with that. (You'll need Python and SQLite for that, and you need to modify the file name in the script.)
 ### Tentative Timeline
 ~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
 
