@@ -1,7 +1,8 @@
 # Quotobot
 A Discord bot that tells quotes, gets the weather, and more!
 
-[![Node.js CI](https://github.com/ssharker21/quotobot/workflows/Node.js%20CI/badge.svg)](https://github.com/ssharker21/quotobot/actions)  [![GitHub license](https://img.shields.io/github/license/ssharker21/quotobot)](https://github.com/ssharker21/quotobot/blob/master/LICENSE)  [![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](http://quotobot.ml)
+[![Node.js CI](https://github.com/ssharker21/quotobot/workflows/Node.js%20CI/badge.svg)](https://github.com/ssharker21/quotobot/actions) [![GitHub license](https://img.shields.io/github/license/ssharker21/quotobot)](https://github.com/ssharker21/quotobot/blob/master/LICENSE)[![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](http://quotobot.ml) ![Program Size](https://img.shields.io/github/languages/code-size/Team-Gigabyte/quotobot)[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/ssharker21/quotobot?logo=github&sort=semver)](https://github.com/ssharker21/quotobot/releases)
+
 
 ![Quotes screenshot](https://user-images.githubusercontent.com/25331232/91901407-2e907c00-ec6e-11ea-96a7-e7d8dc3ada8a.png)
 
@@ -60,6 +61,12 @@ Make sure you have NodeJS installed and open a command prompt/terminal in the fo
 npm install
 node index.js
 ```
+Press <kbd>Control</kbd> + <kbd>C</kbd> (even on a Mac) to stop the bot.
+### Adding quotes
+- Use the addQuote.js script, which will prompt you for the required info and add it to db/quotes.db.
+- Don't modify anything in the .csv or the .sql files, since those are auto-generated dumps.
+- Make sure to make your quotes the *last* commits before you push, otherwise you'll get merge conflicts.
+You can also take a look at the csvToDb.py file and experiment with that. (You'll need Python and SQLite for that, and you need to modify the file name in the script.)
 ### Tentative Timeline
 ~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
 

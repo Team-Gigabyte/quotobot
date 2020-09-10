@@ -8,6 +8,7 @@ const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require('util');
 // }
+const { version: qbVersion } = require('./package.json');
 const bot = new Discord.Client();
 let configFile;
 try {
@@ -41,11 +42,16 @@ const icons = {
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const db = new sqlite3.Database('./db/quotes.db');
 db.each = promisify(db.each);
-const errorEmbed = (description, code, title = "Error") => {
+const errorEmbed = (description, code = "", title = "Error") => {
+    if (!code) {
+        code = '';
+    } else {
+        code = "`" + code + "`";
+    }
     return new Discord.MessageEmbed()
         .setColor("ff0000")
         .setAuthor(title, icons.warn)
-        .setDescription(`${description} \`${code}\``);
+        .setDescription(`${description} ${code}`);
 }
 const weatherEmbed = ( // formats the embed for the weather
     temp, maxTemp, minTemp,
@@ -82,11 +88,13 @@ bot.once('ready', () => {
         invText = 'Available in the Discord developer portal';
     }
     console.table({
+        "bot version": qbVersion,
         "prefix": prefix,
         "username": "@" + bot.user.username + "#" + bot.user.discriminator,
         "invite link": invText, "status": helpDomain,
         "server count": bot.guilds.cache.size,
-        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫")
+        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫"
+        ), "help link": (configFile.helpURL || "default")
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
@@ -97,13 +105,25 @@ if (!token) {
 }
 bot.login(token);
 bot.on('message', message => {
-    if (!message.content.startsWith(prefix) || !message.content.startsWith(`<@${bot.user.id}>`) || message.author.bot) return;
-    const sliced = message.content.replace(prefix, '').replace(`<@${bot.user.id}>`, '')
-    const args = sliced.trim().split(/ +/);
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    const args = message.content.slice(prefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
-        case 'activatedm':
-            message.author.send("DMs activated! You can now send commands here.");
+        case 'testdm':
+            message.author.send("Looks like the DM worked! You can send commands in here.")
+                .catch(error => {
+                    if (error.message == "Cannot send messages to this user") {
+                        message.reply("Oof, you seem to have DMs off.");
+                    } else {
+                        console.error(error);
+                    }
+                });
+            break;
+        case 'help':
+            message.channel.send(new Discord.MessageEmbed()
+                .setTitle("Click here for the commands.")
+                .setColor("009688")
+                .setURL(configFile.helpURL || "https://github.com/ssharker21/quotobot/wiki"));
             break;
         case 'ping':
             message.channel.send('Pong!');
