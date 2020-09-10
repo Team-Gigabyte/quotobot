@@ -1,0 +1,4 @@
+name: CSV convert
+on:
+  workflow_dispatch:
+jobs:
