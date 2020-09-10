@@ -8,6 +8,7 @@ const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require('util');
 // }
+const { version: qbVersion } = require('./package.json');
 const bot = new Discord.Client();
 let configFile;
 try {
@@ -87,6 +88,7 @@ bot.once('ready', () => {
         invText = 'Available in the Discord developer portal';
     }
     console.table({
+        "bot version": qbVersion,
         "prefix": prefix,
         "username": "@" + bot.user.username + "#" + bot.user.discriminator,
         "invite link": invText, "status": helpDomain,
