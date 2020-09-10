@@ -27,6 +27,7 @@ const norm = text => { // "normalize" text
         .toLowerCase()
         .replace(/\s+/, " ");
 }
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 let token = undefined;
 if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
@@ -93,8 +94,8 @@ bot.once('ready', () => {
         "username": "@" + bot.user.username + "#" + bot.user.discriminator,
         "invite link": invText, "status": helpDomain,
         "server count": bot.guilds.cache.size,
-        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫"
-        ), "help link": (configFile.helpURL || "default")
+        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫"),
+        "help link": (configFile.helpURL || "default"),
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
@@ -105,8 +106,10 @@ if (!token) {
 }
 bot.login(token);
 bot.on('message', message => {
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
-    const args = message.content.slice(prefix.length).trim().split(/ +/);
+    const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
+    if ((!prefixRegex.test(message.content))||message.author.bot) return;
+    const [matchedPrefix] = message.content.match(prefixRegex);
+	const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
         case 'testdm':
