@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "count": "node countQuotes.js",
-    "add": "node addQuote.js"
+    "add": "node addQuote.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",

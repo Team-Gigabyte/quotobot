@@ -10,7 +10,10 @@ const { promisify } = require("util");
 // } 
 // config stuff {
 const { version: qbVersion } = require("./package.json");
-const bot = new Discord.Client();
+const bot = new Discord.Client({ ws: { intents: ["GUILD_MESSAGES", "DIRECT_MESSAGES"] } });
+/* see https://discordjs.guide/popular-topics/intents.html#enabling-intents
+add intents GUILD_MESSAGE_REACTIONS and DIRECT_MESSAGE_REACTIONS for reactions
+and GUILDS might be needed in the future */
 let configFile;
 try {
     configFile = require("./config.json");
@@ -86,6 +89,7 @@ const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 // }
 bot.once('ready', () => {
+    console.log(`Server count: ${bot.guilds.cache.size}`)
     console.info("Ready!");
     let invText;
     if (configFile.clientID) {
