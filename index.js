@@ -7,7 +7,8 @@ const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require('util');
-// }
+// } 
+// config stuff {
 const { version: qbVersion } = require('./package.json');
 const bot = new Discord.Client();
 let configFile;
@@ -20,7 +21,14 @@ try {
     configFile = { "help-domain": "quotobot.tk" };
 }
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
-//const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
+let token = undefined;
+if (configFile.token == "your-token-here-inside-these-quotes") {
+    token = envVars.QBTOKEN;
+} else if (!configFile.token) { token = envVars.QBTOKEN; }
+else { token = configFile.token; }
+const helpDomain = configFile['help-domain'] || envVars.QBSTATUS || undefined;
+// } 
+// functions and icons {
 const norm = text => { // "normalize" text
     return text
         .trim()
@@ -28,21 +36,12 @@ const norm = text => { // "normalize" text
         .replace(/\s+/, " ");
 }
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-let token = undefined;
-if (configFile.token == "your-token-here-inside-these-quotes") {
-    token = envVars.QBTOKEN;
-} else if (!configFile.token) { token = envVars.QBTOKEN; }
-else { token = configFile.token; }
-const helpDomain = configFile['help-domain'] || envVars.QBSTATUS || undefined;
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
     info: "https://cdn.discordapp.com/attachments/449680513683292162/748682998022537287/information_2139.png", // this and below from Twemoji license under CC-BY 4.0
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
 }
-const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const db = new sqlite3.Database('./db/quotes.db');
-db.each = promisify(db.each);
 const errorEmbed = (description, code = "", title = "Error") => {
     if (!code) {
         code = '';
@@ -80,8 +79,14 @@ const simpleEmbed = (text, attr, title = "Quote") => {
         .setFooter(`—${attr}`, icons.empty)
         .setDescription(`**${text}**`);
 }
+const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
+// } 
+// database {
+const db = new sqlite3.Database('./db/quotes.db');
+db.each = promisify(db.each);
+// }
 bot.once('ready', () => {
-    console.log("Ready!");
+    console.info("Ready!");
     let invText;
     if (configFile.clientID) {
         invText = `https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "280576"}`;
@@ -105,6 +110,9 @@ if (!token) {
     throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
 }
 bot.login(token);
+bot.on('debug', m => console.debug('debug', m));
+bot.on('warn', m => console.warn('warn', m));
+bot.on('error', err => console.error(err));
 bot.on('message', message => {
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
@@ -116,7 +124,7 @@ bot.on('message', message => {
             message.author.send("Looks like the DM worked! You can send commands in here.")
                 .catch(error => {
                     if (error.message == "Cannot send messages to this user") {
-                        message.reply("Oof, you seem to have DMs off.");
+                        message.reply("you seem to have DMs off.");
                     } else { console.error(error); }
                 });
             break;
@@ -127,7 +135,7 @@ bot.on('message', message => {
                 .setURL(configFile.helpURL || "https://github.com/ssharker21/quotobot/wiki"));
             break;
         case 'ping':
-            message.channel.send('Pong!');
+            message.channel.send("Pong!");
             break;
         case 'randomquote':
         case 'randquote':
