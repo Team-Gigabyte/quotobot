@@ -31,7 +31,7 @@ if (configFile.token == "your-token-here-inside-these-quotes") {
 else { token = configFile.token; }
 const helpDomain = configFile["help-domain"] || envVars.QBSTATUS || undefined;
 // } 
-// functions and icons {
+// functions, icons, etc {
 const norm = text => { // "normalize" text
     return text
         .trim()
@@ -83,14 +83,20 @@ const simpleEmbed = (text, attr, title = "Quote") => {
         .setDescription(`**${text}**`);
 }
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
+const asciiLogo = `
+___              _         _          _   
+/ _ \\  _  _  ___ | |_  ___ | |__  ___ | |_ 
+| (_) || || |/ _ \\|  _|/ _ \\| '_ \\/ _ \\|  _|
+\\__\\_\\ \\_,_|\\___/ \\__|\\___/|_.__/\\___/ \\__|`
 // } 
 // database {
 const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 // }
 bot.once('ready', () => {
+    console.log(asciiLogo);
     console.log(`Server count: ${bot.guilds.cache.size}`)
-    console.info("Ready!");
+    console.log("Ready!");
     let invText;
     if (configFile.clientID) {
         invText = `https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "280576"}`;
