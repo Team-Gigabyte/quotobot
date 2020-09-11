@@ -1,21 +1,21 @@
 #!/usr/bin/env node
 "use strict";
 // NPM modules {
-const Discord = require('discord.js');
-const { env: envVars } = require('process');
+const Discord = require("discord.js");
+const { env: envVars } = require("process");
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
-const { promisify } = require('util');
+const { promisify } = require("util");
 // } 
 // config stuff {
-const { version: qbVersion } = require('./package.json');
+const { version: qbVersion } = require("./package.json");
 const bot = new Discord.Client();
 let configFile;
 try {
     configFile = require("./config.json");
 } catch (e) {
-    if (e.code !== 'MODULE_NOT_FOUND') {
+    if (e.code !== "MODULE_NOT_FOUND") {
         throw e;
     }
     configFile = { "help-domain": "quotobot.tk" };
@@ -26,7 +26,7 @@ if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
 } else if (!configFile.token) { token = envVars.QBTOKEN; }
 else { token = configFile.token; }
-const helpDomain = configFile['help-domain'] || envVars.QBSTATUS || undefined;
+const helpDomain = configFile["help-domain"] || envVars.QBSTATUS || undefined;
 // } 
 // functions and icons {
 const norm = text => { // "normalize" text
@@ -35,7 +35,7 @@ const norm = text => { // "normalize" text
         .toLowerCase()
         .replace(/\s+/, " ");
 }
-const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
@@ -44,7 +44,7 @@ const icons = {
 }
 const errorEmbed = (description, code = "", title = "Error") => {
     if (!code) {
-        code = '';
+        code = "";
     } else {
         code = "`" + code + "`";
     }
@@ -82,7 +82,7 @@ const simpleEmbed = (text, attr, title = "Quote") => {
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 // } 
 // database {
-const db = new sqlite3.Database('./db/quotes.db');
+const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 // }
 bot.once('ready', () => {
@@ -103,24 +103,24 @@ bot.once('ready', () => {
         "help link": (configFile.helpURL || "default"),
     })
     if (helpDomain) {
-        bot.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
+        bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
     }
 });
 if (!token) {
     throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
 }
 bot.login(token);
-bot.on('debug', m => console.debug('debug', m));
-bot.on('warn', m => console.warn('warn', m));
-bot.on('error', err => console.error(err));
-bot.on('message', message => {
+bot.on("debug", m => console.debug("Info: ", m));
+bot.on("warn", m => console.warn("Warning: ", m));
+bot.on("error", err => console.error(err));
+bot.on("message", message => {
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
     const [matchedPrefix] = message.content.match(prefixRegex);
     const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
-        case 'testdm':
+        case "testdm":
             message.author.send("Looks like the DM worked! You can send commands in here.")
                 .catch(error => {
                     if (error.message == "Cannot send messages to this user") {
@@ -128,18 +128,18 @@ bot.on('message', message => {
                     } else { console.error(error); }
                 });
             break;
-        case 'help':
+        case "help":
             message.channel.send(new Discord.MessageEmbed()
                 .setTitle("Click here for the commands.")
                 .setColor("009688")
                 .setURL(configFile.helpURL || "https://github.com/ssharker21/quotobot/wiki"));
             break;
-        case 'ping':
+        case "ping":
             message.channel.send("Pong!");
             break;
-        case 'randomquote':
-        case 'randquote':
-        case 'quote':
+        case "randomquote":
+        case "randquote":
+        case "quote":
             {
                 (async () => {
                     try {
@@ -157,18 +157,18 @@ bot.on('message', message => {
                 ); */
                 break;
             }
-        case 'Bibot':
-            message.channel.send(simpleEmbed('Morbleu!', sp));
+        case "Bibot":
+            message.channel.send(simpleEmbed("Morbleu!", sp));
             break;
         case 'IntenseLove':
             message.channel.send(simpleEmbed(
                 'He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.', sp));
             break;
-        case 'Contempt':
+        case "Contempt":
             message.channel.send(simpleEmbed(
                 'Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.', sp));
             break;
-        case 'PercySmart':
+        case "PercySmart":
             message.channel.send(simpleEmbed(
                 'He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.', sp));
             break;
@@ -176,20 +176,20 @@ bot.on('message', message => {
             message.channel.send(simpleEmbed(
                 'Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.', sp));
             break;
-        case 'Brains':
+        case "Brains":
             message.channel.send(simpleEmbed(
                 '"Money and titles may be hereditary,” she would say, “but brains are not."', sp));
             break;
-        case 'SPpoem':
+        case "SPpoem":
             message.channel.send(simpleEmbed(
-                'We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
+                "We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?", sp));
             break;
-        case 'Haters':
+        case "Haters":
             message.channel.send(simpleEmbed(
                 'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
-        case 'weathermetric':
-        case 'weather': (async function () {
+        case "weathermetric":
+        case "weather": (async function () {
             if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
                 message.reply(errorEmbed("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
                 console.error("The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
@@ -199,8 +199,8 @@ bot.on('message', message => {
                 message.reply(errorEmbed("You didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name."));
                 return null;
             }
-            let units = ['metric', 'imperial'].includes(norm(args[0])) ? norm(args[0]) : "metric";
-            let city = !(['metric', 'imperial'].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
+            let units = ["metric", "imperial"].includes(norm(args[0])) ? norm(args[0]) : "metric";
+            let city = !(["metric", "imperial"].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
             if (!city) {
                 message.reply(errorEmbed("You didn't include a city name. Re-run the command with the city name.", `args: ${args.toString()}`));
                 return null;
