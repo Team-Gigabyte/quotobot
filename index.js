@@ -141,7 +141,7 @@ bot.on("message", message => {
             message.channel.send(new Discord.MessageEmbed()
                 .setTitle("Click here for the commands.")
                 .setColor("009688")
-                .setURL(configFile.helpURL || "https://github.com/ssharker21/quotobot/wiki"));
+                .setURL(configFile.helpURL || "https://github.com/Team-Gigabyte/quotobot/wiki"));
             break;
         case "ping":
             message.channel.send("Pong!");
