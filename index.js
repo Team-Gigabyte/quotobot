@@ -94,56 +94,7 @@ const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 // }
 bot.once('ready', () => {
-    console.log(`   ```   ```   ```   ```    ``    `..-:/+ooosssssssssoo++//:-.`  ``    ```   ```   ```   ```   ``` 
-`                             `.:/ossssssssssssssssssssssssssssss+/:.`     `---/:./:.-..-:-/:./:` ` 
-````   ```   ```   ```   `.-/osssssssssssssssssssssssssssssssssssssssso/.` `/:.:-:/-::/-/:`-::/:- ` 
-`   ```   ```   ```   `.:ossssssssssssssssssssssssssssssssssssssssssssssss+:.````  ````   ```   ``` 
-`   ``    ```    `` .:osssssssssssssssssssssssssssssssssssssssssssssssssssssso/.    ``    ```    `` 
-````   ```   ```  -+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss+-``   ```   ```  ` 
-`   ```   ```  `:ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssso:```   ```   ``` 
-`   ```   ````:ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss:`   ```   ``` 
-````   ```  :ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss:``   ```  ` 
-`   ```   .osssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssso.```   ``` 
-`   ```  :sssssssssssss+-.````````````````````````````````````````````````.-+sssssssssssss:``   ``` 
-````   .+sssssssssssso.                                                      .ossssssssssss+````  ` 
-`   ``.osssssssssssss.                                                        .ssssssssssssso`  ``` 
-`   `.ossssssssssssss`                                                        `sssssssssssssso. ``` 
-`````osssssssssssssss`                                                        `ssssssssssssssso.  ` 
-`  `ossssssssssssssss`                 ``````           ``````                `sssssssssssssssso``` 
-`  /sssssssssssssssss`                -sssss:          `ossss+                `sssssssssssssssss/`` 
-``-ssssssssssssssssss`               .sssss:          `ossss+`                `ssssssssssssssssss.` 
-` +ssssssssssssssssss`              .sssss/          `osssso`                 `ssssssssssssssssss+` 
-`.sssssssssssssssssss`             .sssss/           +sssso`                  `sssssssssssssssssss- 
-`/sssssssssssssssssss`             :ssssssooooo`    `ssssssooooo-             `sssssssssssssssssss/ 
-`osssssssssssssssssss`             :sssssssssss`    `sssssssssss:             `ssssssssssssssssssso 
-.ssssssssssssssssssss`             :sssssssssss`    `sssssssssss:             `ssssssssssssssssssss`
-.ssssssssssssssssssss`             :sssssssssss`    `sssssssssss:             `ssssssssssssssssssss.
--ssssssssssssssssssss`             :sssssssssss`    `sssssssssss:             `ssssssssssssssssssss.
-.ssssssssssssssssssss`             -ooooooooooo`    `ooooooooooo-             `ssssssssssssssssssss.
-.ssssssssssssssssssss`                                                        `ssssssssssssssssssss`
-`osssssssssssssssssss`                                                        `ssssssssssssssssssso 
-`:sssssssssssssssssss`                                                        `sssssssssssssssssss/ 
-`.sssssssssssssssssss`                                                        `sssssssssssssssssss. 
-``+ssssssssssssssssss.                                                        .ssssssssssssssssss+` 
-` `sssssssssssssssssso`                                                      `ossssssssssssssssss.` 
-```:sssssssssssssssssss/-`                                                `-/sssssssssssssssssss: ` 
-`  `+sssssssssssssssssssssssssssssssss:              `:ssssssssssssssssssssssssssssssssssssssss/` ` 
-`   `ossssssssssssssssssssssssssssssss:            `:sssssssssssssssssssssssssssssssssssssssss+ ``` 
-```` `+sssssssssssssssssssssssssssssss:          `:sssssssssssssssssssssssssssssssssssssssssso``  ` 
-```   `+ssssssssssssssssssssssssssssss:        `:sssssssssssssssssssssssssssssssssssssssssss+```  ` 
-`   ``` :sssssssssssssssssssssssssssss/      `/ssssssssssssssssssssssssssssssssssssssssssss/`   ``` 
-````   ``-ossssssssssssssssssssssssssss/-..-/sssssssssssssssssssssssssssssssssssssssssssso.  ```  ` 
-```    ````/ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss/`   ```  ` 
-`   ```   ``-+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss+.  ```   ``` 
-````   ```   `-osssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssso. ```   ```  ` 
-````   ```   ```-+ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss+-   ```   ```  ` 
-`   ```   ```   ``./osssssssssssssssssssssssssssssssssssssssssssssssssssssssssss/`  ```   ```   ``` 
-````   ```   ```   ``-/ssssssssssssssssssssssssssssssssssssssssssssssssssssss+.  ```   ```   ```  ` 
-````   ```   ```   ```  ./osssssssssssssssssssssssssssssssssssssssssssssso/-`    ```   ```   ```  ` 
-`   ```   ```   ```   ```  `-/osssssssssssssssssssssssssssssssssssssso/-.``   ```   ```   ```   ``` 
-````   ```   ```    ``    ``   `-:/+osssssssssssssssssssssssssso+/-.```    ```   ```   ```   ```  ` 
- ```   ```   ```   ```   ````  ````  `.--:///++ooooo+++///:--.```   ````   ```   ```   ```   ```    
-);
+    console.log(ascii);
     console.log(`Server count: ${bot.guilds.cache.size}`)
     console.log("Ready!");
     let invText;
