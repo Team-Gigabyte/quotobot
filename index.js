@@ -94,7 +94,6 @@ const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 // }
 bot.once('ready', () => {
-    console.log(asciiLogo);
     console.log(`Server count: ${bot.guilds.cache.size}`)
     console.log("Ready!");
     let invText;
