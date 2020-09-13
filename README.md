@@ -67,7 +67,7 @@ Press <kbd>Control</kbd> + <kbd>C</kbd> (even on a Mac) to stop the bot.
 #### Bulk CSV method (recommended)
 You can do all of this from the GitHub web interface.
 1. Put your quotes in db/newQuotes.csv (the first column has the quote, the second is the author). Make sure the first column doesn't say what the columns are.
-2. Go to https://github.com/Team-Gigabyte/quotobot/actions?query=workflow%3A%22CSV+convert%22 and click Run Workflow. Use the workflow from the master branch.
+2. Go [here](https://github.com/Team-Gigabyte/quotobot/actions?query=workflow%3A%22CSV+convert%22) and click Run Workflow. Use the workflow from the master branch.
 3. After that's done (assuming there aren't any errors), check if the quotes are in db/quotes.db.csv. If they are, get rid of the quotes in newQuotes.csv.
 #### JS method (sometimes doesn't work)
 - Use the addQuote.js script, which will prompt you for the required info and add it to db/quotes.db.
