@@ -9,7 +9,7 @@ A Discord bot that tells quotes, gets the weather, and more!
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
 
-### Special thank you to [Uddesh](https://github.com/UddeshJain)
+#### Special thank you to [Uddesh](https://github.com/UddeshJain)
 We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
 
 ## Or do you want to host and tweak the bot yourself?
@@ -63,11 +63,17 @@ node index.js
 ```
 Press <kbd>Control</kbd> + <kbd>C</kbd> (even on a Mac) to stop the bot.
 ### Adding quotes
+- Don't modify anything in the quotes.db.csv or the .sql files, since those are auto-generated dumps.
+#### Bulk CSV method (recommended)
+You can do all of this from the GitHub web interface.
+1. Put your quotes in newQuotes.csv (the first column has the quote, the second is the author). Make sure the first column doesn't say what the columns are.
+2. Go to https://github.com/Team-Gigabyte/quotobot/actions?query=workflow%3A%22CSV+convert%22 and click Run Workflow. Use the workflow from the master branch.
+3. After that's done (assuming there aren't any errors), check if the quotes are in db/quotes.db.csv. If they are, get rid of the quotes in newQuotes.csv.
+#### JS method (sometimes doesn't work)
 - Use the addQuote.js script, which will prompt you for the required info and add it to db/quotes.db.
-- Don't modify anything in the .csv or the .sql files, since those are auto-generated dumps.
 - Make sure to make your quotes the *last* commits before you push, otherwise you'll get merge conflicts.
 You can also take a look at the csvToDb.py file and experiment with that. (You'll need Python and SQLite for that, and you need to modify the file name in the script.)
-### Tentative Timeline
+## Tentative Timeline
 ~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
 
 Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
