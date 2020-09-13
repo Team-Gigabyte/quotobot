@@ -128,4 +128,5 @@ INSERT INTO Quotes VALUES('Vigor of government is essential to the security of l
 INSERT INTO Quotes VALUES('It will be of little avail to the people, that the laws are made by men of their own choice, if the laws be so voluminous that they cannot be read, or so incoherent that they cannot be understood',125,'Alexander Hamilton',0);
 INSERT INTO Quotes VALUES('The inquiry constantly is what will please, not what will benefit the people. In such a government there can be nothing but temporary expedient, fickleness, and folly.',126,'Alexander Hamilton',0);
 INSERT INTO Quotes VALUES('The mark of a pro coder is `Build Passing`',127,'QB Devs',0);
+INSERT INTO Quotes VALUES('If a teacher gives you several days for an assignment, there is a reason for that; there is a lot of work.',128,'QB Devs',0);
 COMMIT;
