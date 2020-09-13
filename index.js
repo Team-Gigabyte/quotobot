@@ -187,7 +187,7 @@ bot.on("message", message => {
             break;
         case "Brains":
             message.channel.send(simpleEmbed(
-                '"Money and titles may be hereditary,” she would say, “but brains are not."', sp));
+                '"Money and titles may be hereditary," she would say, "but brains are not."', sp));
             break;
         case "SPpoem":
             message.channel.send(simpleEmbed(
@@ -195,7 +195,7 @@ bot.on("message", message => {
             break;
         case "Haters":
             message.channel.send(simpleEmbed(
-                'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
+                'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round "the cleverest woman in Europe," as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
         case "weathermetric":
         case "weather": (async function () {
