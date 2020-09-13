@@ -104,4 +104,5 @@ INSERT INTO Quotes VALUES('It is you, the young and fearless at heart, the most 
 INSERT INTO Quotes VALUES('No matter who you are or what you look like, how you started off, or how and who you love, America is a place where you can write your own destiny.',101,'Barack Obama',0);
 INSERT INTO Quotes VALUES('That''s the America I know. That''s the country we love. Clear-eyed. Big-hearted. Undaunted by challenge.',102,'Barack Obama',0);
 INSERT INTO Quotes VALUES('The long sweep of America has been defined by forward motion, a constant widening of our founding creed to embrace all and not just some.',103,'Barack Obama',0);
+INSERT INTO Quotes VALUES('To quote or not to quote, that is the question.',104,'QB Devs',0);
 COMMIT;
