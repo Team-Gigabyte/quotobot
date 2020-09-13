@@ -9,7 +9,7 @@ on:
   pull_request:
 
 jobs:
-  lint:
+  js-lint:
 
     runs-on: ubuntu-latest
 
@@ -32,7 +32,7 @@ jobs:
         echo -e "\033[0;36m" Installing eslint, pylint, and jsonlint...
         npm i eslint; sudo npm i -g jsonlint; sudo apt-get install pylint
         echo -e "\033[0;36m" Checking for code errors...
-        for i in *.js; do npx eslint $i; npx eslint --fix-dry-run $i; done; for i in *.json; do jsonlint -q $i; done; for i in *.py; do pylint $i; done
+        for i in *.js; do npx eslint $i; npx eslint --fix-dry-run $i; done; for i in *.json; do jsonlint -q $i; done
       #  git checkout -b origin/$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)' | head -1) 
       #  git log | head -1 | sed 's/commit//g' 
     - name: Notify if the code is broken
@@ -40,3 +40,18 @@ jobs:
       if: failure()
       with:
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
+  py-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v2
+      - name: Install pylint
+        run: |
+          echo -e "\033[0;36m" Installing pylint...
+          sudo apt-get install pylint
+          for i in *.py; do pylint $i; done
+      - name: Notify if the code is broken
+        uses: sarisia/actions-status-discord@v1
+        if: failure()
+        with:
+          webhook: ${{ secrets.DISCORD_WEBHOOK }}
