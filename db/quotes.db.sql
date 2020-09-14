@@ -105,7 +105,6 @@ INSERT INTO Quotes VALUES('No matter who you are or what you look like, how you 
 INSERT INTO Quotes VALUES('That''s the America I know. That''s the country we love. Clear-eyed. Big-hearted. Undaunted by challenge.',102,'Barack Obama',0);
 INSERT INTO Quotes VALUES('The long sweep of America has been defined by forward motion, a constant widening of our founding creed to embrace all and not just some.',103,'Barack Obama',0);
 INSERT INTO Quotes VALUES('To quote or not to quote, that is the question.',104,'QB Devs',0);
-INSERT INTO Quotes VALUES('To quote or not to quote, that is the question.',105,'QB Devs',0);
 INSERT INTO Quotes VALUES('Men give me credit for some genius. All the genius I have lies in this; when I have a subject in hand, I study it profoundly. Day and night it is before me. My mind becomes pervaded with it. Then the effort that I have made is what people are pleased to call the fruit of genius. It is the fruit of labor and thought.',106,'Alexander Hamilton',0);
 INSERT INTO Quotes VALUES('Those who stand for nothing fall for everything.',107,'Alexander Hamilton',0);
 INSERT INTO Quotes VALUES('Give all the power to the many, they will oppress the few. Give all the power to the few, they will oppress the many.',108,'Alexander Hamilton',0);
@@ -129,4 +128,6 @@ INSERT INTO Quotes VALUES('It will be of little avail to the people, that the la
 INSERT INTO Quotes VALUES('The inquiry constantly is what will please, not what will benefit the people. In such a government there can be nothing but temporary expedient, fickleness, and folly.',126,'Alexander Hamilton',0);
 INSERT INTO Quotes VALUES('The mark of a pro coder is `Build Passing`',127,'QB Devs',0);
 INSERT INTO Quotes VALUES('If a teacher gives you several days for an assignment, there is a reason for that; there is a lot of work.',128,'QB Devs',0);
+INSERT INTO Quotes VALUES('You can’t let your failures define you. You have to let your failures teach you.',105,'Barack Obama',0);
+CREATE UNIQUE INDEX main_quotes on Quotes(quote);
 COMMIT;
