@@ -1,53 +1,51 @@
 #!/usr/bin/env node
 "use strict";
 // NPM modules {
-const Discord = require("discord.js");
-const { env: envVars } = require("process");
+const Discord = require('discord.js');
+const { env: envVars } = require('process');
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
-const { promisify } = require("util");
-// } 
-// config stuff {
-const { version: qbVersion } = require("./package.json");
-const bot = new Discord.Client({ ws: { intents: ["GUILD_MESSAGES", "DIRECT_MESSAGES"] } });
-/* see https://discordjs.guide/popular-topics/intents.html#enabling-intents
-add intents GUILD_MESSAGE_REACTIONS and DIRECT_MESSAGE_REACTIONS for reactions
-and GUILDS might be needed in the future */
+const { promisify } = require('util');
+// }
+const { version: qbVersion } = require('./package.json');
+const bot = new Discord.Client();
 let configFile;
 try {
     configFile = require("./config.json");
 } catch (e) {
-    if (e.code !== "MODULE_NOT_FOUND") {
+    if (e.code !== 'MODULE_NOT_FOUND') {
         throw e;
     }
     configFile = { "help-domain": "quotobot.tk" };
 }
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
-let token = undefined;
-if (configFile.token == "your-token-here-inside-these-quotes") {
-    token = envVars.QBTOKEN;
-} else if (!configFile.token) { token = envVars.QBTOKEN; }
-else { token = configFile.token; }
-const helpDomain = configFile["help-domain"] || envVars.QBSTATUS || undefined;
-// } 
-// functions, icons, etc {
+//const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
 const norm = text => { // "normalize" text
     return text
         .trim()
         .toLowerCase()
         .replace(/\s+/, " ");
 }
-const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+let token = undefined;
+if (configFile.token == "your-token-here-inside-these-quotes") {
+    token = envVars.QBTOKEN;
+} else if (!configFile.token) { token = envVars.QBTOKEN; }
+else { token = configFile.token; }
+const helpDomain = configFile['help-domain'] || envVars.QBSTATUS || undefined;
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
     info: "https://cdn.discordapp.com/attachments/449680513683292162/748682998022537287/information_2139.png", // this and below from Twemoji license under CC-BY 4.0
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
 }
+const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
+const db = new sqlite3.Database('./db/quotes.db');
+db.each = promisify(db.each);
 const errorEmbed = (description, code = "", title = "Error") => {
     if (!code) {
-        code = "";
+        code = '';
     } else {
         code = "`" + code + "`";
     }
@@ -82,19 +80,7 @@ const simpleEmbed = (text, attr, title = "Quote") => {
         .setFooter(`—${attr}`, icons.empty)
         .setDescription(`**${text}**`);
 }
-const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const asciiLogo = `
-___              _         _          _   
-/ _ \\  _  _  ___ | |_  ___ | |__  ___ | |_ 
-| (_) || || |/ _ \\|  _|/ _ \\| '_ \\/ _ \\|  _|
-\\__\\_\\ \\_,_|\\___/ \\__|\\___/|_.__/\\___/ \\__|`
-// } 
-// database {
-const db = new sqlite3.Database("./db/quotes.db");
-db.each = promisify(db.each);
-// }
 bot.once('ready', () => {
-    console.log(asciiLogo);
     console.log("Ready!");
     let invText;
     if (configFile.clientID) {
@@ -112,43 +98,40 @@ bot.once('ready', () => {
         "help link": (configFile.helpURL || "default"),
     })
     if (helpDomain) {
-        bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
+        bot.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
     }
 });
 if (!token) {
     throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
 }
 bot.login(token);
-bot.on("debug", m => console.debug("Info: ", m));
-bot.on("warn", m => console.warn("Warning: ", m));
-bot.on("error", err => console.error(err));
-bot.on("message", message => {
+bot.on('message', message => {
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
     const [matchedPrefix] = message.content.match(prefixRegex);
     const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
-        case "testdm":
+        case 'testdm':
             message.author.send("Looks like the DM worked! You can send commands in here.")
                 .catch(error => {
                     if (error.message == "Cannot send messages to this user") {
-                        message.reply("you seem to have DMs off.");
+                        message.reply("Oof, you seem to have DMs off.");
                     } else { console.error(error); }
                 });
             break;
-        case "help":
+        case 'help':
             message.channel.send(new Discord.MessageEmbed()
                 .setTitle("Click here for the commands.")
                 .setColor("009688")
-                .setURL(configFile.helpURL || "https://github.com/Team-Gigabyte/quotobot/wiki"));
+                .setURL(configFile.helpURL || "https://github.com/ssharker21/quotobot/wiki"));
             break;
-        case "ping":
-            message.channel.send("Pong!");
+        case 'ping':
+            message.channel.send('Pong!');
             break;
-        case "randomquote":
-        case "randquote":
-        case "quote":
+        case 'randomquote':
+        case 'randquote':
+        case 'quote':
             {
                 (async () => {
                     try {
@@ -166,18 +149,18 @@ bot.on("message", message => {
                 ); */
                 break;
             }
-        case "bibot":
-            message.channel.send(simpleEmbed("Morbleu!", sp));
+        case 'bibot':
+            message.channel.send(simpleEmbed('Morbleu!', sp));
             break;
         case 'intenselove':
             message.channel.send(simpleEmbed(
                 'He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.', sp));
             break;
-        case "contempt":
+        case 'contempt':
             message.channel.send(simpleEmbed(
                 'Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.', sp));
             break;
-        case "percysmart":
+        case 'percysmart':
             message.channel.send(simpleEmbed(
                 'He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.', sp));
             break;
@@ -185,20 +168,20 @@ bot.on("message", message => {
             message.channel.send(simpleEmbed(
                 'Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.', sp));
             break;
-        case "brains":
+        case 'brains':
             message.channel.send(simpleEmbed(
-                '"Money and titles may be hereditary," she would say, "but brains are not."', sp));
+                '"Money and titles may be hereditary,” she would say, “but brains are not."', sp));
             break;
-        case "sppoem":
+        case 'sppoem':
             message.channel.send(simpleEmbed(
-                "We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?", sp));
+                'We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
             break;
-        case "haters":
+        case 'haters':
             message.channel.send(simpleEmbed(
-                'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round "the cleverest woman in Europe," as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
+                'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
-        case "weathermetric":
-        case "weather": (async function () {
+        case 'weathermetric':
+        case 'weather': (async function () {
             if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
                 message.reply(errorEmbed("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
                 console.error("The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
@@ -208,8 +191,8 @@ bot.on("message", message => {
                 message.reply(errorEmbed("You didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name."));
                 return null;
             }
-            let units = ["metric", "imperial"].includes(norm(args[0])) ? norm(args[0]) : "metric";
-            let city = !(["metric", "imperial"].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
+            let units = ['metric', 'imperial'].includes(norm(args[0])) ? norm(args[0]) : "metric";
+            let city = !(['metric', 'imperial'].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
             if (!city) {
                 message.reply(errorEmbed("You didn't include a city name. Re-run the command with the city name.", `args: ${args.toString()}`));
                 return null;
