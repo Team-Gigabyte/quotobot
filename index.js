@@ -166,34 +166,34 @@ bot.on("message", message => {
                 ); */
                 break;
             }
-        case "Bibot":
+        case "bibot":
             message.channel.send(simpleEmbed("Morbleu!", sp));
             break;
-        case 'IntenseLove':
+        case 'intenselove':
             message.channel.send(simpleEmbed(
                 'He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.', sp));
             break;
-        case "Contempt":
+        case "contempt":
             message.channel.send(simpleEmbed(
                 'Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.', sp));
             break;
-        case "PercySmart":
+        case "percysmart":
             message.channel.send(simpleEmbed(
                 'He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.', sp));
             break;
-        case 'MoneyNoMatter':
+        case 'moneynomatter':
             message.channel.send(simpleEmbed(
                 'Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.', sp));
             break;
-        case "Brains":
+        case "brains":
             message.channel.send(simpleEmbed(
                 '"Money and titles may be hereditary," she would say, "but brains are not."', sp));
             break;
-        case "SPpoem":
+        case "sppoem":
             message.channel.send(simpleEmbed(
                 "We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?", sp));
             break;
-        case "Haters":
+        case "haters":
             message.channel.send(simpleEmbed(
                 'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round "the cleverest woman in Europe," as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
