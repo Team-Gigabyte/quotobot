@@ -14,7 +14,7 @@ jobs:
     - name: Dump the SQLite to CSV
       run: for i in ./db/*.db; do sqlite3 -header -csv $i "select * from Quotes;" > $i.csv; done
     - name: Commit the SQLite dumps
-      uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
+      uses: stefanzweifel/git-auto-commit-action@c7ad0bdb15809dc9825b3017c243da42dec21324
       with:
         commit_message: SQLite database dump
         file_pattern: "db/*.db.*"
