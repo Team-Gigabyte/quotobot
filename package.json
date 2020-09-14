@@ -27,5 +27,8 @@
     "country-flag-emoji": "^1.0.3",
     "discord.js": "^12.2.0",
     "sqlite3": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=0.12"
   }
 }
