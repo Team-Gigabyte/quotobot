@@ -23,6 +23,15 @@ try {
     }
     configFile = { "help-domain": "quotobot.tk" };
 }
+let avatars;
+try {
+    avatars = require("./avatars.json");
+} catch (e) {
+    if (e.code !== "MODULE_NOT_FOUND") {
+        throw e;
+    }
+    avatars = {};
+}
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
 let token = undefined;
 if (configFile.token == "your-token-here-inside-these-quotes") {
@@ -39,6 +48,8 @@ const norm = text => { // "normalize" text
         .replace(/\s+/, " ");
 }
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+// eslint-disable-next-line no-useless-escape
+const urlRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/g;
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
@@ -75,11 +86,14 @@ const weatherEmbed = ( // formats the embed for the weather
         .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
         .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`);
 }
-const simpleEmbed = (text, attr, title = "Quote") => {
+const simpleEmbed = (text, attr, title = "Quote", icon = icons.empty) => {
+    if (!icon.match(urlRegex)) {
+        icon = icons.empty
+    }
     return new Discord.MessageEmbed()
         .setColor(6765239)
         .setAuthor(title, icons.quote)
-        .setFooter(`—${attr}`, icons.empty)
+        .setFooter(`—${attr}`, icon)
         .setDescription(`**${text}**`);
 }
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
@@ -148,12 +162,14 @@ bot.on("message", message => {
             break;
         case "randomquote":
         case "randquote":
+        case "rquote":
         case "quote":
             {
                 (async () => {
                     try {
-                        let { quote, source } = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
-                        message.channel.send(simpleEmbed(quote, source, "Random Quote"));
+                        const { quote, source } = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
+                        const authorIcon = avatars[source] ? avatars[source] : icons.empty;
+                        message.channel.send(simpleEmbed(quote, source, "Random Quote", authorIcon));
                     } catch (err) {
                         message.reply(errorEmbed("There was an error on our end. Try again later.", "ERR_DATABASE"));
                         console.error(err.message);
