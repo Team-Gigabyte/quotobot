@@ -46,7 +46,7 @@ const asciiLogo = `
 / _ \\  _  _  ___ | |_  ___ | |__  ___ | |_ 
 | (_) || || |/ _ \\|  _|/ _ \\| '_ \\/ _ \\|  _|
 \\__\\_\\ \\_,_|\\___/ \\__|\\___/|_.__/\\___/ \\__|`
-const db = new sqlite3.Database('./db/quotes.db');
+const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 const embed = {
     "error": (description, code = "", title = "Error") => {
@@ -86,14 +86,14 @@ const simpleEmbed = (text, attr, title = "Quote") => {
         .setFooter(`—${attr}`, icons.empty)
         .setDescription(`**${text}**`);
 }
-bot.once('ready', () => {
+bot.once("ready", () => {
     console.log("Ready!");
     console.log(asciiLogo);
     let invText;
     if (configFile.clientID) {
         invText = `https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "280576"}`;
     } else {
-        invText = 'Available in the Discord developer portal';
+        invText = "Available in the Discord developer portal";
     }
     console.table({
         "bot version": qbVersion,
@@ -105,7 +105,7 @@ bot.once('ready', () => {
         "help link": (configFile.helpURL || "default"),
     })
     if (helpDomain) {
-        bot.user.setActivity(helpDomain, { type: 'WATCHING' }); // Custom status "Watching example.qb"
+        bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
     }
 });
 if (!token) {
@@ -114,7 +114,7 @@ if (!token) {
 bot.login(token);
 bot.on("warn", m => console.warn("Warning: ", m));
 bot.on("error", err => console.error(err));
-bot.on('message', message => {
+bot.on("message", message => {
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
     const [matchedPrefix] = message.content.match(prefixRegex);
@@ -160,35 +160,35 @@ bot.on('message', message => {
                 break;
             }
         case "bibot":
-            message.channel.send(simpleEmbed('Morbleu!', sp));
+            message.channel.send(simpleEmbed("Morbleu!", sp));
             break;
         case "intenselove":
             message.channel.send(simpleEmbed(
-                'He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.', sp));
+                "He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.", sp));
             break;
         case "contempt":
             message.channel.send(simpleEmbed(
-                'Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.', sp));
+                "Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.", sp));
             break;
         case "percysmart":
             message.channel.send(simpleEmbed(
-                'He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.', sp));
+                "He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.", sp));
             break;
         case "moneynomatter":
             message.channel.send(simpleEmbed(
-                'Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.', sp));
+                "Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.", sp));
             break;
         case "brains":
             message.channel.send(simpleEmbed(
-                '"Money and titles may be hereditary,” she would say, “but brains are not."', sp));
+                '"Money and titles may be hereditary," she would say, "but brains are not."', sp));
             break;
         case "sppoem":
             message.channel.send(simpleEmbed(
-                'We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
+                "We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?", sp));
             break;
         case "haters":
             message.channel.send(simpleEmbed(
-                'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
+                "How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.", sp));
             break;
         case "weathermetric":
         case "weather": (async function () {
@@ -201,8 +201,8 @@ bot.on('message', message => {
                 message.reply(embed.error("You didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name."));
                 return null;
             }
-            let units = ['metric', 'imperial'].includes(norm(args[0])) ? norm(args[0]) : "metric";
-            let city = !(['metric', 'imperial'].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
+            let units = ["metric", "imperial"].includes(norm(args[0])) ? norm(args[0]) : "metric";
+            let city = !(["metric", "imperial"].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
             if (!city) {
                 message.reply(embed.error("You didn't include a city name. Re-run the command with the city name.", `args: ${args.toString()}`));
                 return null;
