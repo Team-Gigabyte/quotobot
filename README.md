@@ -105,4 +105,4 @@ Any pull requests are appreciated.
 This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (Ignore the quotes-legacy.json file, as the code doesn't use JSON for the quotes anymore. If you want to see the quotes without using SQLite, take a look at the quotes.db.csv file.)
 
 ## Donate?
-Thank you for reading to the end. If you learned something from the bot, or have enjoyed using it, please consider donating here: https://github.com/ssharker21/donate/blob/master/README.md. All donations help us continue maintain this, which we have spent countless hours working on. **Thank you!**
+Thank you for reading to the end. If you learned something from the bot, or have enjoyed using it, please consider donating here: https://github.com/ssharker21/donate. All donations help us continue maintain this, which we have spent countless hours working on. **Thank you!**
