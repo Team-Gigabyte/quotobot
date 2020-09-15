@@ -17,7 +17,7 @@ try {
     if (e.code !== "MODULE_NOT_FOUND") {
         throw e;
     }
-    configFile = { "help-domain": "quotobot.js.org" };
+    configFile = {};
 }
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
 //const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
