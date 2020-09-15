@@ -7,11 +7,11 @@ A Discord bot that tells quotes, gets the weather, and more!
 ![Quotes screenshot](https://user-images.githubusercontent.com/25331232/91901407-2e907c00-ec6e-11ea-96a7-e7d8dc3ada8a.png)
 
 
-## [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
+# [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
 
-## Or do you want to host and tweak the bot yourself?
+# Or do you want to host and tweak the bot yourself?
 
-### How to set up the config.json
+## How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
 
 - Delete the entire line with `"instructions"` if you want to.
@@ -44,7 +44,7 @@ You can also change the status that the bot shows (it'll be prefixed with *Watch
     "weather-token": "1jf920fk3"
 }
 ```
-### Environment Variables instead of `config.json`
+## Environment Variables instead of `config.json`
 Instead of using the config.json, you can set these environment variables:
 ```bash
 QBTOKEN="YourTokenHere"
@@ -52,14 +52,14 @@ QBPREFIX=">>" # optional, default ~
 QBWEATHER="WeatherKey103949"
 ```
 Note that there is currently no way to change stuff like the client ID and the bot status this way.
-### Run the bot
+## Run the bot
 Make sure you have [Node.js >= 12](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:
 ```bash
 npm install
 node index.js
 ```
 Press <kbd>Control</kbd> + <kbd>C</kbd> (even on a Mac) to stop the bot.
-### Keeping your copy up to date
+## Keeping your copy up to date
 If you used the `git clone` command to download the bot, just do 
 ```bash
 git pull origin
@@ -73,7 +73,7 @@ and replace 2.1.2 with whatever [version](https://github.com/Team-Gigabyte/quoto
 git checkout master
 ```
 We follow semver, so as long as the first number in the digit is the same as your old release, you shouldn't have to change anything to make the new release work.
-### Adding quotes
+## Adding quotes
 - Don't modify anything in the quotes.db.csv or the .sql files, since those are auto-generated dumps.
 ### Bulk CSV method (recommended)
 You can do all of this from the GitHub web interface.
@@ -94,12 +94,12 @@ You can also take a look at the csvToDb.py file and experiment with that. (You'l
 
 We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
 
-## Tentative Timeline
+# Tentative Timeline
 ~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
 
 Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
 
 Any pull requests are appreciated.
 
-## Technical Notes
+# Technical Notes
 This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (Ignore the quotes-legacy.json file, as the code doesn't use JSON for the quotes anymore. If you want to see the quotes without using SQLite, take a look at the quotes.db.csv file.)
