@@ -42,7 +42,7 @@ const icons = {
 }
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const asciiLogo = `
-___              _         _          _   
+ ___              _         _          _   
 / _ \\  _  _  ___ | |_  ___ | |__  ___ | |_ 
 | (_) || || |/ _ \\|  _|/ _ \\| '_ \\/ _ \\|  _|
 \\__\\_\\ \\_,_|\\___/ \\__|\\___/|_.__/\\___/ \\__|`
@@ -78,7 +78,6 @@ const embed = {
             .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
             .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
             .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
-
 }
 const simpleEmbed = (text, attr, title = "Quote") => {
     return new Discord.MessageEmbed()
