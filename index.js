@@ -122,7 +122,7 @@ bot.on('message', message => {
     const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
     switch (command) {
-        case 'testdm':
+        case "testdm":
             message.author.send("Looks like the DM worked! You can send commands in here.")
                 .catch(error => {
                     if (error.message == "Cannot send messages to this user") {
@@ -130,18 +130,18 @@ bot.on('message', message => {
                     } else { console.error(error); }
                 });
             break;
-        case 'help':
+        case "help":
             message.channel.send(new Discord.MessageEmbed()
                 .setTitle("Click here for the commands.")
                 .setColor("009688")
                 .setURL(configFile.helpURL || "https://github.com/Team-Gigabyte/quotobot/wiki"));
             break;
-        case 'ping':
+        case "ping":
             message.channel.send('Pong!');
             break;
-        case 'randomquote':
-        case 'randquote':
-        case 'quote':
+        case "randomquote":
+        case "randquote":
+        case "quote":
             {
                 (async () => {
                     try {
@@ -159,39 +159,39 @@ bot.on('message', message => {
                 ); */
                 break;
             }
-        case 'bibot':
+        case "bibot":
             message.channel.send(simpleEmbed('Morbleu!', sp));
             break;
-        case 'intenselove':
+        case "intenselove":
             message.channel.send(simpleEmbed(
                 'He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.', sp));
             break;
-        case 'contempt':
+        case "contempt":
             message.channel.send(simpleEmbed(
                 'Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.', sp));
             break;
-        case 'percysmart':
+        case "percysmart":
             message.channel.send(simpleEmbed(
                 'He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.', sp));
             break;
-        case 'moneynomatter':
+        case "moneynomatter":
             message.channel.send(simpleEmbed(
                 'Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.', sp));
             break;
-        case 'brains':
+        case "brains":
             message.channel.send(simpleEmbed(
                 '"Money and titles may be hereditary,” she would say, “but brains are not."', sp));
             break;
-        case 'sppoem':
+        case "sppoem":
             message.channel.send(simpleEmbed(
                 'We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?', sp));
             break;
-        case 'haters':
+        case "haters":
             message.channel.send(simpleEmbed(
                 'How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.', sp));
             break;
-        case 'weathermetric':
-        case 'weather': (async function () {
+        case "weathermetric":
+        case "weather": (async function () {
             if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
                 message.reply(embed.error("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
                 console.error("The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
