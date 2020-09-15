@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ssharker21/quotobot"
+    "url": "git+https://github.com/Team-Gigabyte/quotobot"
   },
-  "author": "ssharker21 and other contributors",
+  "author": "Team Gigabyte",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ssharker21/quotobot/issues"
+    "url": "https://github.com/Team-Gigabyte/quotobot/issues"
   },
-  "homepage": "https://github.com/ssharker21/quotobot#readme",
+  "homepage": "https://github.com/Team-Gigabyte/quotobot#readme",
   "devDependencies": {
     "eslint": "^7.9.0"
   },
