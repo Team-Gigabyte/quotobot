@@ -137,7 +137,7 @@ bot.on('message', message => {
                 .setURL(configFile.helpURL || "https://github.com/Team-Gigabyte/quotobot/wiki"));
             break;
         case "ping":
-            message.channel.send('Pong!');
+            message.channel.send("Pong!");
             break;
         case "randomquote":
         case "randquote":
