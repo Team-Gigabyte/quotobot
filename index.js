@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 "use strict";
 // NPM modules {
-const Discord = require('discord.js');
-const { env: envVars } = require('process');
+const Discord = require("discord.js");
+const { env: envVars } = require("process");
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
-const { promisify } = require('util');
+const { promisify } = require("util");
 // }
-const { version: qbVersion } = require('./package.json');
+const { version: qbVersion } = require("./package.json");
 const bot = new Discord.Client();
 let configFile;
 try {
