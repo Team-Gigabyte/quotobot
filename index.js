@@ -141,6 +141,7 @@ bot.on('message', message => {
             break;
         case "randomquote":
         case "randquote":
+        case "rquote":
         case "quote":
             {
                 (async () => {
