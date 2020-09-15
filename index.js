@@ -17,7 +17,7 @@ try {
     if (e.code !== "MODULE_NOT_FOUND") {
         throw e;
     }
-    configFile = {};
+    configFile = { "help-domain": "quotobot.js.org"};
 }
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
 //const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
@@ -33,7 +33,7 @@ if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
 } else if (!configFile.token) { token = envVars.QBTOKEN; }
 else { token = configFile.token; }
-const helpDomain = configFile["help-domain"] || envVars.QBSTATUS || undefined;
+const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/746829338816544889/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
