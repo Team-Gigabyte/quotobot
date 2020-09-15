@@ -195,7 +195,7 @@ bot.on('message', message => {
         case "weather": (async function () {
             if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
                 message.reply(embed.error("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
-                console.error("The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
+                console.error("Error: The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
                 return;
             }
             if (!args[0]) {
