@@ -41,37 +41,44 @@ const icons = {
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
 }
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
+const asciiLogo = `
+___              _         _          _   
+/ _ \\  _  _  ___ | |_  ___ | |__  ___ | |_ 
+| (_) || || |/ _ \\|  _|/ _ \\| '_ \\/ _ \\|  _|
+\\__\\_\\ \\_,_|\\___/ \\__|\\___/|_.__/\\___/ \\__|`
 const db = new sqlite3.Database('./db/quotes.db');
 db.each = promisify(db.each);
-const errorEmbed = (description, code = "", title = "Error") => {
-    if (!code) {
-        code = '';
-    } else {
-        code = "`" + code + "`";
-    }
-    return new Discord.MessageEmbed()
-        .setColor("ff0000")
-        .setAuthor(title, icons.warn)
-        .setDescription(`${description} ${code}`);
-}
-const weatherEmbed = ( // formats the embed for the weather
-    temp, maxTemp, minTemp,
-    pressure, humidity, wind,
-    cloudness, icon,
-    author, profile,
-    cityName, country, units) => {
-    return new Discord.MessageEmbed()
-        .setColor("ff9800") // yellow
-        .setAuthor(`Hello, ${author}`, profile)
-        .setTitle(`It's ${temp}\u00B0 in ${cityName}, ${country}`)
-        .addField(`🌡 Maximum Temperature:`, `${maxTemp}\u00B0`, true)
-        .addField(`🌡 Minimum Temperature:`, `${minTemp}\u00B0`, true)
-        .addField(`💧 Humidity:`, `${humidity}%`, true)
-        .addField(`💨 Wind Speed:`, `${wind}`, true)
-        .addField(`📊 Pressure:`, `${pressure} hpa`, true)
-        .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
-        .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
-        .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`);
+const embed = {
+    "error": (description, code = "", title = "Error") => {
+        if (!code) {
+            code = "";
+        } else {
+            code = "`" + code + "`";
+        }
+        return new Discord.MessageEmbed()
+            .setColor("ff0000")
+            .setAuthor(title, icons.warn)
+            .setDescription(`${description} ${code}`);
+    },
+    "currWeather": ( // formats the embed for the weather
+        temp, maxTemp, minTemp,
+        pressure, humidity, wind,
+        cloudness, icon,
+        author, profile,
+        cityName, country, units) =>
+        new Discord.MessageEmbed()
+            .setColor("ff9800") // yellow
+            .setAuthor(`Hello, ${author}`, profile)
+            .setTitle(`It's ${temp}\u00B0 in ${cityName}, ${country}`)
+            .addField(`🌡 Maximum Temperature:`, `${maxTemp}\u00B0`, true)
+            .addField(`🌡 Minimum Temperature:`, `${minTemp}\u00B0`, true)
+            .addField(`💧 Humidity:`, `${humidity}%`, true)
+            .addField(`💨 Wind Speed:`, `${wind}`, true)
+            .addField(`📊 Pressure:`, `${pressure} hpa`, true)
+            .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
+            .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
+            .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
+
 }
 const simpleEmbed = (text, attr, title = "Quote") => {
     return new Discord.MessageEmbed()
@@ -82,6 +89,7 @@ const simpleEmbed = (text, attr, title = "Quote") => {
 }
 bot.once('ready', () => {
     console.log("Ready!");
+    console.log(asciiLogo);
     let invText;
     if (configFile.clientID) {
         invText = `https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "280576"}`;
@@ -94,7 +102,7 @@ bot.once('ready', () => {
         "username": "@" + bot.user.username + "#" + bot.user.discriminator,
         "invite link": invText, "status": helpDomain,
         "server count": bot.guilds.cache.size,
-        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫"),
+        "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫 weather will not work"),
         "help link": (configFile.helpURL || "default"),
     })
     if (helpDomain) {
@@ -105,6 +113,8 @@ if (!token) {
     throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
 }
 bot.login(token);
+bot.on("warn", m => console.warn("Warning: ", m));
+bot.on("error", err => console.error(err));
 bot.on('message', message => {
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
@@ -124,7 +134,7 @@ bot.on('message', message => {
             message.channel.send(new Discord.MessageEmbed()
                 .setTitle("Click here for the commands.")
                 .setColor("009688")
-                .setURL(configFile.helpURL || "https://github.com/ssharker21/quotobot/wiki"));
+                .setURL(configFile.helpURL || "https://github.com/Team-Gigabyte/quotobot/wiki"));
             break;
         case 'ping':
             message.channel.send('Pong!');
@@ -138,7 +148,7 @@ bot.on('message', message => {
                         let { quote, source } = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
                         message.channel.send(simpleEmbed(quote, source, "Random Quote"));
                     } catch (err) {
-                        message.reply(errorEmbed("There was an error on our end. Try again later.", "ERR_DATABASE"));
+                        message.reply(embed.error("There was an error on our end. Try again later.", "ERR_DATABASE"));
                         console.error(err.message);
                     }
                 })();
@@ -183,18 +193,18 @@ bot.on('message', message => {
         case 'weathermetric':
         case 'weather': (async function () {
             if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
-                message.reply(errorEmbed("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
+                message.reply(embed.error("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
                 console.error("The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
                 return;
             }
             if (!args[0]) {
-                message.reply(errorEmbed("You didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name."));
+                message.reply(embed.error("You didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name."));
                 return null;
             }
             let units = ['metric', 'imperial'].includes(norm(args[0])) ? norm(args[0]) : "metric";
             let city = !(['metric', 'imperial'].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
             if (!city) {
-                message.reply(errorEmbed("You didn't include a city name. Re-run the command with the city name.", `args: ${args.toString()}`));
+                message.reply(embed.error("You didn't include a city name. Re-run the command with the city name.", `args: ${args.toString()}`));
                 return null;
             }
             let windUnits = units == "imperial" ? "mph" : "m/s";
@@ -214,9 +224,9 @@ bot.on('message', message => {
                 let country = apiData.data.sys.country;
                 country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                 let displayCity = apiData.data.name;
-                message.reply(weatherEmbed(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
+                message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
             } catch (err) {
-                message.reply(errorEmbed("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
+                message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
             }
 
         })();
