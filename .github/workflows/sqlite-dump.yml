@@ -13,9 +13,9 @@ jobs:
       run: for i in ./db/*.db; do sqlite3 $i .dump > $i.sql; done
     - name: Dump the SQLite to CSV
       run: for i in ./db/*.db; do sqlite3 -header -csv $i "select * from Quotes order by id Asc;" > $i.csv; done
-    - name: Count the quotes
+    - name: Count the quotes and write it to a YAML file
       run: |
-        cd ./db; COUNT=$(sqlite quotes.db "Select Count(*) from Quotes"); echo "count: $COUNT" > quotes.count.yml
+        cd ./db; COUNT=$(sqlite3 quotes.db "Select Count(*) from Quotes"); echo "count: $COUNT" > quotes.count.yml
     - name: Commit the SQLite dumps
       uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
       with:
