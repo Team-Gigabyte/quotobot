@@ -191,8 +191,9 @@ bot.on("message", message => {
             break;
         case "weathermetric":
         case "weather":
+            let timeout = configFile.weatherTimeout || envVars.QBWTIMEOUT || 15000
             if (talkedRecently.has(message.author.id)) {
-                message.reply("wait 30 seconds before asking for the weather again.");
+                message.reply(`you need to wait ${timeout / 1000} seconds before asking for the weather again.`);
             } else {
                 (async function () {
                     if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
@@ -231,9 +232,9 @@ bot.on("message", message => {
                         // Adds the user to the set so that they can't talk for a minute
                         talkedRecently.add(message.author.id);
                         setTimeout(() => {
-                            // Removes the user from the set after 30 seconds
+                            // Removes the user from the set after 15 seconds
                             talkedRecently.delete(message.author.id);
-                        }, 30000);
+                        }, 15000);
                     } catch (err) {
                         message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
                     }
