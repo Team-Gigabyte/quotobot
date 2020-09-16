@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 "use strict";
-// NPM modules {
+// NPM modules and stuff
 const Discord = require("discord.js");
 const { env: envVars } = require("process");
 const axios = require("axios").default;
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
-// }
 const { version: qbVersion } = require("./package.json");
 const bot = new Discord.Client();
+// config stuff
 let configFile;
 try {
     configFile = require("./config.json");
@@ -17,23 +17,21 @@ try {
     if (e.code !== "MODULE_NOT_FOUND") {
         throw e;
     }
-    configFile = { "help-domain": "quotobot.js.org"};
+    configFile = { "help-domain": "quotobot.js.org" };
 }
-const prefix = configFile.prefix || envVars.QBPREFIX || "~";
-//const token = configFile.token || configFile.token != "your-token-here-inside-these-quotes" ? configFile.token : process.env.QBTOKEN;
-const norm = text => { // "normalize" text
-    return text
-        .trim()
-        .toLowerCase()
-        .replace(/\s+/, " ");
-}
-const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 let token = undefined;
 if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
 } else if (!configFile.token) { token = envVars.QBTOKEN; }
-else { token = configFile.token; }
+else { token = configFile.token; } // uses env var if configFile.token isn't there or is the placeholder
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
+// constants and functions
+const prefix = configFile.prefix || envVars.QBPREFIX || "~";
+const norm = text => text
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/, " "); //"normalize" text
+const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/755533965657505843/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
@@ -41,11 +39,12 @@ const icons = {
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
 }
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
+const talkedRecently = new Set();
 const asciiLogo = `
- ___              _         _          _   
-/ _ \\  _  _  ___ | |_  ___ | |__  ___ | |_ 
-| (_) || || |/ _ \\|  _|/ _ \\| '_ \\/ _ \\|  _|
-\\__\\_\\ \\_,_|\\___/ \\__|\\___/|_.__/\\___/ \\__|`
+ ____            __       __        __ 
+/ __ \\__ _____  / /____  / /  ___  / /_
+/ /_/ / // / _ \\/ __/ _ \\/ _ \\/ _ \\/ __/
+\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/`
 const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 const embed = {
@@ -191,45 +190,55 @@ bot.on("message", message => {
                 "How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.", sp));
             break;
         case "weathermetric":
-        case "weather": (async function () {
-            if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
-                message.reply(embed.error("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
-                console.error("Error: The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
-                return;
-            }
-            if (!args[0]) {
-                message.reply(embed.error("You didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name."));
-                return null;
-            }
-            let units = ["metric", "imperial"].includes(norm(args[0])) ? norm(args[0]) : "metric";
-            let city = !(["metric", "imperial"].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
-            if (!city) {
-                message.reply(embed.error("You didn't include a city name. Re-run the command with the city name.", `args: ${args.toString()}`));
-                return null;
-            }
-            let windUnits = units == "imperial" ? "mph" : "m/s";
+        case "weather":
+            if (talkedRecently.has(message.author.id)) {
+                message.reply("wait 30 seconds before asking for the weather again.");
+            } else {
+                (async function () {
+                    if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
+                        message.reply(embed.error("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
+                        console.error("Error: The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
+                        return;
+                    }
+                    if (!args[0]) {
+                        message.reply(embed.error("You didn't include any arguments. Re-run the command with *metric* or *imperial* and the city name."));
+                        return null;
+                    }
+                    let units = ["metric", "imperial"].includes(norm(args[0])) ? norm(args[0]) : "metric";
+                    let city = !(["metric", "imperial"].includes(norm(args[0]))) ? args.slice(0).join(" ") : args.slice(1).join(" ");
+                    if (!city) {
+                        message.reply(embed.error("You didn't include a city name. Re-run the command with the city name.", `args: ${args.toString()}`));
+                        return null;
+                    }
+                    let windUnits = units == "imperial" ? "mph" : "m/s";
 
-            try {
-                let apiData = await axios.get(
-                    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || envVars.QBWEATHER}`
-                );
-                let { temp, temp_max, temp_min } = apiData.data.main;
-                let currentTemp = Math.round(temp);
-                let maxTemp = Math.round(temp_max);
-                let minTemp = Math.round(temp_min);
-                let { humidity, pressure } = apiData.data.main;
-                let wind = apiData.data.wind.speed + " " + windUnits;
-                let { username: author, displayAvatarURL: profile } = message.author;
-                let { icon, description: cloudness } = apiData.data.weather[0];
-                let country = apiData.data.sys.country;
-                country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
-                let displayCity = apiData.data.name;
-                message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
-            } catch (err) {
-                message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
+                    try {
+                        let apiData = await axios.get(
+                            `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || envVars.QBWEATHER}`
+                        );
+                        let { temp, temp_max, temp_min } = apiData.data.main;
+                        let currentTemp = Math.round(temp);
+                        let maxTemp = Math.round(temp_max);
+                        let minTemp = Math.round(temp_min);
+                        let { humidity, pressure } = apiData.data.main;
+                        let wind = apiData.data.wind.speed + " " + windUnits;
+                        let { username: author, displayAvatarURL: profile } = message.author;
+                        let { icon, description: cloudness } = apiData.data.weather[0];
+                        let country = apiData.data.sys.country;
+                        country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
+                        let displayCity = apiData.data.name;
+                        message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
+                        // Adds the user to the set so that they can't talk for a minute
+                        talkedRecently.add(message.author.id);
+                        setTimeout(() => {
+                            // Removes the user from the set after 30 seconds
+                            talkedRecently.delete(message.author.id);
+                        }, 30000);
+                    } catch (err) {
+                        message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
+                    }
+                })();
             }
-
-        })();
             break;
         default:
             break;
