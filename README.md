@@ -8,9 +8,6 @@ A Discord bot that tells quotes, gets the weather, and more!
 
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
-**Special thank you to [Uddesh](https://github.com/UddeshJain)**
-
-We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
 
 # Or do you want to host and tweak the bot yourself?
 
@@ -47,7 +44,7 @@ You can also change the status that the bot shows (it'll be prefixed with *Watch
     "weather-token": "1jf920fk3"
 }
 ```
-### Environment Variables instead of `config.json`
+## Environment Variables instead of `config.json`
 Instead of using the config.json, you can set these environment variables:
 ```bash
 QBTOKEN="YourTokenHere"
@@ -56,28 +53,56 @@ QBWEATHER="WeatherKey103949"
 ```
 Note that there is currently no way to change stuff like the client ID and the bot status this way.
 ## Run the bot
-Make sure you have NodeJS installed and open a command prompt/terminal in the folder where these files are. Then run:
+Make sure you have [Node.js >= 12](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:
 ```bash
 npm install
 node index.js
 ```
 Press <kbd>Control</kbd> + <kbd>C</kbd> (even on a Mac) to stop the bot.
+## Keeping your copy up to date
+If you used the `git clone` command to download the bot, just do 
+```bash
+git pull origin
+``` 
+to update. If you want to switch to the version you had before, you can use
+```bash
+git checkout tags/v2.1.2
+```
+and replace 2.1.2 with whatever [version](https://github.com/Team-Gigabyte/quotobot/releases) you want. Then, to switch back to the latest code, use
+```bash
+git checkout master
+```
+We follow semver, so as long as the first number in the digit is the same as your old release, you shouldn't have to change anything to make the new release work.
 ## Adding quotes
 - Don't modify anything in the quotes.db.csv or the .sql files, since those are auto-generated dumps.
 ### Bulk CSV method (recommended)
 You can do all of this from the GitHub web interface.
 1. Put your quotes in db/newQuotes.csv (the first column has the quote, the second is the author). Make sure the first column doesn't say what the columns are.
+    - Make sure to not put a space between the fields.
+    ```csv
+    "This is wrong.", "Example Person"
+    "This is right.","Example Person"
+    ```
 2. Go [here](https://github.com/Team-Gigabyte/quotobot/actions?query=workflow%3A%22CSV+convert%22) (link will be different if you're working on a fork) and click Run Workflow. Use the workflow from the master branch.
 3. After that's done (assuming there aren't any errors), check if the quotes are in db/quotes.db.csv. If they are, get rid of the quotes in newQuotes.csv.
 ### JS method (sometimes doesn't work)
 - Use the addQuote.js script, which will prompt you for the required info and add it to db/quotes.db.
 - Make sure to make your quotes the *last* commits before you push, otherwise you'll get merge conflicts.
 You can also take a look at the csvToDb.py file and experiment with that. (You'll need Python and SQLite for that, and you need to modify the file name in the script.)
+
+**Special thank you to [Uddesh](https://github.com/UddeshJain)**
+
+We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
+
 # Tentative Timeline
 ~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
 
 Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
 
 Any pull requests are appreciated.
+
 # Technical Notes
 This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (Ignore the quotes-legacy.json file, as the code doesn't use JSON for the quotes anymore. If you want to see the quotes without using SQLite, take a look at the quotes.db.csv file.)
+
+# Donate?
+Thank you for reading to the end. If you learned something from the bot, or have enjoyed using it, please consider donating here: https://github.com/Team-Gigabyte/donate. All donations help us continue maintain this, which we have spent countless hours working on. **Thank you!**

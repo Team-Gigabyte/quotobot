@@ -140,7 +140,7 @@ INSERT INTO Quotes VALUES('Books serve to show a man that those original thought
 INSERT INTO Quotes VALUES('Those who deny freedom to others, deserve it not for themselves.',137,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('Whenever I hear anyone arguing for slavery, I feel a strong impulse to see it tried on him personally.',138,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('Those who look for the bad in people will surely find it.',139,'Abraham Lincoln',0);
-INSERT INTO Quotes VALUES('I am not bound to win, but I am bound to be true. I am not bound to succeed, but I am bound to live up to what light I have.',140,' "Abraham Lincoln"',0);
+INSERT INTO Quotes VALUES('I am not bound to win, but I am bound to be true. I am not bound to succeed, but I am bound to live up to what light I have.',140,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('Be sure you put your feet in the right place, then stand firm.',141,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('You can fool some of the people all of the time, and all of the people some of the time, but you can not fool all of the people all of the time.',142,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('I would rather be a little nobody, then to be a evil somebody',143,'Abraham Lincoln',0);
