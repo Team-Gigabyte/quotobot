@@ -234,7 +234,7 @@ bot.on("message", message => {
                         setTimeout(() => {
                             // Removes the user from the set after 15 seconds
                             talkedRecently.delete(message.author.id);
-                        }, 15000);
+                        }, timeout);
                     } catch (err) {
                         message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
                     }
