@@ -190,10 +190,10 @@ bot.on("message", message => {
                 "How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.", sp));
             break;
         case "weathermetric":
-        case "weather":
+        case "weather": {
             let timeout = configFile.weatherTimeout || envVars.QBWTIMEOUT || 15000
             if (talkedRecently.has(message.author.id)) {
-                message.reply(`you need to wait ${timeout / 1000} seconds before asking for the weather again.`);
+                message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for the weather again.`, "ERR_RATE_LIMIT", "Slow down!"));
             } else {
                 (async function () {
                     if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
@@ -241,6 +241,7 @@ bot.on("message", message => {
                 })();
             }
             break;
+        }
         default:
             break;
     }
