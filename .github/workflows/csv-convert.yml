@@ -15,6 +15,8 @@ jobs:
         cd ./db; COUNT=$(sqlite3 quotes.db "Select Count(*) from Quotes"); echo "count: $COUNT" > quotes.count.yml
     - name: Dump the SQLite to a SQL File
       run: for i in ./db/*.db; do sqlite3 $i .dump > $i.sql; done
+    - name: Vacuum the database
+      run: for i in ./db/*.db; do sqlite3 $i "vacuum;"; done
     - name: Dump the SQLite to CSV
       run: for i in ./db/*.db; do sqlite3 -header -csv $i "select * from Quotes;" > $i.csv; done
     - name: Commit the SQLite dumps
