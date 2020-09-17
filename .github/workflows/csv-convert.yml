@@ -8,8 +8,11 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.head_ref }}
-    - name: do the dump
+    - name: Add the new quotes
       run: cd db && python3 csvToDB.py
+    - name: Count the quotes and write it to a YAML file
+      run: |
+        cd ./db; COUNT=$(sqlite3 quotes.db "Select Count(*) from Quotes"); echo "count: $COUNT" > quotes.count.yml
     - name: Dump the SQLite to a SQL File
       run: for i in ./db/*.db; do sqlite3 $i .dump > $i.sql; done
     - name: Dump the SQLite to CSV
