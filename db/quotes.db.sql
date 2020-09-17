@@ -158,5 +158,15 @@ INSERT INTO Quotes VALUES('I do not think much of a man who is not wiser today t
 INSERT INTO Quotes VALUES('You have to do your own growing no matter how tall your grandfather was.',155,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('You cannot help people permanently by doing for them, what they could and should do for themselves.',156,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('You can tell the greatness of a man by what makes him angry.',157,'Abraham Lincoln',0);
+INSERT INTO Quotes VALUES('When something is important enough, you do it even if the odds are not in your favor.',158,'Elon Musk',0);
+INSERT INTO Quotes VALUES('If you get up in the morning and think the future is going to be better, it is a bright day. Otherwise, it''s not.',159,'Elon Musk',0);
+INSERT INTO Quotes VALUES('There have to be reasons that you get up in the morning and you want to live. Why do you want to live? What''s the point? What inspires you? What do you love about the future? If the future does not include being out there among the stars and being a multi-planet species, I find that incredibly depressing.',160,'Elon Musk',0);
+INSERT INTO Quotes VALUES('When Henry Ford made cheap, reliable cars, people said, ''Nah, what''s wrong with a horse?'' That was a huge bet he made, and it worked.',161,'Elon Musk',0);
+INSERT INTO Quotes VALUES('Persistence is very important. You should not give up unless you are forced to give up.',162,'Elon Musk',0);
+INSERT INTO Quotes VALUES('It''s OK to have your eggs in one basket as long as you control what happens to that basket.',163,'Elon Musk',0);
+INSERT INTO Quotes VALUES('If you go back a few hundred years, what we take for granted today would seem like magic-being able to talk to people over long distances, to transmit images, flying, accessing vast amounts of data like an oracle. These are all things that would have been considered magic a few hundred years ago.',164,'Elon Musk',0);
+INSERT INTO Quotes VALUES('The first step is to establish that something is possible; then probability will occur.',165,'Elon Musk',0);
+INSERT INTO Quotes VALUES('I think it is possible for ordinary people to choose to be extraordinary.',166,'Elon Musk',0);
+INSERT INTO Quotes VALUES('I could either watch it happen or be a part of it.',167,'Elon Musk',0);
 CREATE UNIQUE INDEX main_quotes on Quotes(quote);
 COMMIT;

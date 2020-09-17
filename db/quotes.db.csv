@@ -103,7 +103,6 @@ quote,id,source,usage
 "That's the America I know. That's the country we love. Clear-eyed. Big-hearted. Undaunted by challenge.",102,"Barack Obama",0
 "The long sweep of America has been defined by forward motion, a constant widening of our founding creed to embrace all and not just some.",103,"Barack Obama",0
 "To quote or not to quote, that is the question.",104,"QB Devs",0
-"You can’t let your failures define you. You have to let your failures teach you.",105,"Barack Obama",0
 "Men give me credit for some genius. All the genius I have lies in this; when I have a subject in hand, I study it profoundly. Day and night it is before me. My mind becomes pervaded with it. Then the effort that I have made is what people are pleased to call the fruit of genius. It is the fruit of labor and thought.",106,"Alexander Hamilton",0
 "Those who stand for nothing fall for everything.",107,"Alexander Hamilton",0
 "Give all the power to the many, they will oppress the few. Give all the power to the few, they will oppress the many.",108,"Alexander Hamilton",0
@@ -127,6 +126,7 @@ quote,id,source,usage
 "The inquiry constantly is what will please, not what will benefit the people. In such a government there can be nothing but temporary expedient, fickleness, and folly.",126,"Alexander Hamilton",0
 "The mark of a pro coder is `Build Passing`",127,"QB Devs",0
 "If a teacher gives you several days for an assignment, there is a reason for that; there is a lot of work.",128,"QB Devs",0
+"You can’t let your failures define you. You have to let your failures teach you.",105,"Barack Obama",0
 "Folks are usually about as happy as they make their minds up to be.",129,"Abraham Lincoln",0
 "Whatever you are, be a good one.",130,"Abraham Lincoln",0
 "Do I not destroy my enemies when I make them my friends?",131,"Abraham Lincoln",0
@@ -156,3 +156,13 @@ quote,id,source,usage
 "You have to do your own growing no matter how tall your grandfather was.",155,"Abraham Lincoln",0
 "You cannot help people permanently by doing for them, what they could and should do for themselves.",156,"Abraham Lincoln",0
 "You can tell the greatness of a man by what makes him angry.",157,"Abraham Lincoln",0
+"When something is important enough, you do it even if the odds are not in your favor.",158,"Elon Musk",0
+"If you get up in the morning and think the future is going to be better, it is a bright day. Otherwise, it's not.",159,"Elon Musk",0
+"There have to be reasons that you get up in the morning and you want to live. Why do you want to live? What's the point? What inspires you? What do you love about the future? If the future does not include being out there among the stars and being a multi-planet species, I find that incredibly depressing.",160,"Elon Musk",0
+"When Henry Ford made cheap, reliable cars, people said, 'Nah, what's wrong with a horse?' That was a huge bet he made, and it worked.",161,"Elon Musk",0
+"Persistence is very important. You should not give up unless you are forced to give up.",162,"Elon Musk",0
+"It's OK to have your eggs in one basket as long as you control what happens to that basket.",163,"Elon Musk",0
+"If you go back a few hundred years, what we take for granted today would seem like magic-being able to talk to people over long distances, to transmit images, flying, accessing vast amounts of data like an oracle. These are all things that would have been considered magic a few hundred years ago.",164,"Elon Musk",0
+"The first step is to establish that something is possible; then probability will occur.",165,"Elon Musk",0
+"I think it is possible for ordinary people to choose to be extraordinary.",166,"Elon Musk",0
+"I could either watch it happen or be a part of it.",167,"Elon Musk",0
