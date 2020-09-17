@@ -20,7 +20,7 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
       with:
         commit_message: SQLite database dump
-        file_pattern: db/*.db.* db/*.yaml db/*.yml
+        file_pattern: db/*.db.* db/*.yml
     - name: Notify if the code is broken
       uses: sarisia/actions-status-discord@v1
       if: failure()
