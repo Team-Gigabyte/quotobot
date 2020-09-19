@@ -103,7 +103,6 @@ quote,id,source,usage
 "That's the America I know. That's the country we love. Clear-eyed. Big-hearted. Undaunted by challenge.",102,"Barack Obama",0
 "The long sweep of America has been defined by forward motion, a constant widening of our founding creed to embrace all and not just some.",103,"Barack Obama",0
 "To quote or not to quote, that is the question.",104,"QB Devs",0
-"You can’t let your failures define you. You have to let your failures teach you.",105,"Barack Obama",0
 "Men give me credit for some genius. All the genius I have lies in this; when I have a subject in hand, I study it profoundly. Day and night it is before me. My mind becomes pervaded with it. Then the effort that I have made is what people are pleased to call the fruit of genius. It is the fruit of labor and thought.",106,"Alexander Hamilton",0
 "Those who stand for nothing fall for everything.",107,"Alexander Hamilton",0
 "Give all the power to the many, they will oppress the few. Give all the power to the few, they will oppress the many.",108,"Alexander Hamilton",0
@@ -127,6 +126,7 @@ quote,id,source,usage
 "The inquiry constantly is what will please, not what will benefit the people. In such a government there can be nothing but temporary expedient, fickleness, and folly.",126,"Alexander Hamilton",0
 "The mark of a pro coder is `Build Passing`",127,"QB Devs",0
 "If a teacher gives you several days for an assignment, there is a reason for that; there is a lot of work.",128,"QB Devs",0
+"You can’t let your failures define you. You have to let your failures teach you.",105,"Barack Obama",0
 "Folks are usually about as happy as they make their minds up to be.",129,"Abraham Lincoln",0
 "Whatever you are, be a good one.",130,"Abraham Lincoln",0
 "Do I not destroy my enemies when I make them my friends?",131,"Abraham Lincoln",0
@@ -166,3 +166,23 @@ quote,id,source,usage
 "The first step is to establish that something is possible; then probability will occur.",165,"Elon Musk",0
 "I think it is possible for ordinary people to choose to be extraordinary.",166,"Elon Musk",0
 "I could either watch it happen or be a part of it.",167,"Elon Musk",0
+"Do one thing every day that scares you.",168,"Eleanor Roosevelt",0
+"Do what you feel in your heart to be right – for you’ll be criticized anyway.",169,"Eleanor Roosevelt",0
+"The future belongs to those who believe in the beauty of their dreams.",170,"Eleanor Roosevelt",0
+"The purpose of life is to live it, to taste experience to the utmost, to reach out eagerly and without fear for newer and richer experience.",171,"Eleanor Roosevelt",0
+"Many people will walk in and out of your life, but only true friends will leave footprints in your heart.",172,"Eleanor Roosevelt",0
+"We are afraid to care too much, for fear that the other person does not care at all.",173,"Eleanor Roosevelt",0
+"To handle yourself, use your head; to handle others, use your heart.",174,"Eleanor Roosevelt",0
+"You can often change your circumstances by changing your attitude.",175,"Eleanor Roosevelt",0
+"If someone betrays you once, it’s their fault; if they betray you twice, it’s your fault.",176,"Eleanor Roosevelt",0
+"With the new day comes new strength and new thoughts.",177,"Eleanor Roosevelt",0
+"Happiness is not a goal...it's a by-product of a life well lived.",178,"Eleanor Roosevelt",0
+"Life was meant to be lived, and curiosity must be kept alive. One must never, for whatever reason, turn his back on life.",179,"Eleanor Roosevelt",0
+"It is not fair to ask of others what you are not willing to do yourself.",180,"Eleanor Roosevelt",0
+"You have to accept whatever comes, and the only important thing is that you meet it with the best you have to give.",181,"Eleanor Roosevelt",0
+"In the long run, we shape our lives, and we shape ourselves. The process never ends until we die. And the choices we make are ultimately our own responsibility.",182,"Eleanor Roosevelt",0
+"Friendship with oneself is all important, because without it one cannot be friends with anyone else in the world.",183,"Eleanor Roosevelt",0
+"Never allow a person to tell you no who doesn't have the power to say yes.",184,"Eleanor Roosevelt",0
+"Never mistake knowledge for wisdom. One helps you make a living; the other helps you make a life.",185,"Eleanor Roosevelt",0
+"No one won the last war, and no one will win the next war.",186,"Eleanor Roosevelt",0
+"When will our consciences grow so tender that we will act to prevent human misery rather than avenge it?",187,"Eleanor Roosevelt",0
