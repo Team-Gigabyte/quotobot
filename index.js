@@ -57,7 +57,7 @@ const asciiLogo = `
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
 / /_/ / // / _ \\/ __/ _ \\/ _ \\/ _ \\/ __/
-\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/`
+\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/` // Quotobot in ASCII art
 const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 const embed = {
