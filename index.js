@@ -19,6 +19,18 @@ try {
     }
     configFile = { "help-domain": "quotobot.js.org" };
 }
+let authorPictures, picturesEnabled;
+try {
+    authorPictures = require("./db/portraits.json");
+    picturesEnabled = true;
+} catch (e) {
+    if (e.code !== "MODULE_NOT_FOUND") {
+        throw e;
+    }
+    authorPictures = {};
+    picturesEnabled = false;
+    console.warn("Warning: No db/portraits.json file was found. Quotes will not have pictures of the author.")
+}
 let token = undefined;
 if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
@@ -32,6 +44,7 @@ const norm = text => text
     .toLowerCase()
     .replace(/\s+/, " "); //"normalize" text
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const urlRegex = /^(http|https):\/\/[^ "]+$/;
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/755533965657505843/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
@@ -44,7 +57,7 @@ const asciiLogo = `
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
 / /_/ / // / _ \\/ __/ _ \\/ _ \\/ _ \\/ __/
-\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/`
+\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/` // Quotobot in ASCII art
 const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 const embed = {
@@ -102,6 +115,7 @@ bot.once("ready", () => {
         "server count": bot.guilds.cache.size,
         "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫 weather will not work"),
         "help link": (configFile.helpURL || "default"),
+        "author pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded")
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
@@ -145,7 +159,12 @@ bot.on("message", message => {
                 (async () => {
                     try {
                         let { quote, source } = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
-                        message.channel.send(simpleEmbed(quote, source, "Random Quote"));
+                        let em = simpleEmbed(quote, source, "Random Quote");
+                        if (authorPictures[source] && urlRegex.test(authorPictures[source])) {
+                            em.setThumbnail(authorPictures[source]);
+                            em.setFooter(`—${source}`, authorPictures[source]);
+                        }
+                        message.channel.send(em);
                     } catch (err) {
                         message.reply(embed.error("There was an error on our end. Try again later.", "ERR_DATABASE"));
                         console.error(err.message);
