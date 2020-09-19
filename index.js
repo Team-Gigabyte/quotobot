@@ -57,7 +57,7 @@ const asciiLogo = `
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
 / /_/ / // / _ \\/ __/ _ \\/ _ \\/ _ \\/ __/
-\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/`
+\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/` // Quotobot in ASCII art
 const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
 const embed = {
@@ -160,7 +160,7 @@ bot.on("message", message => {
                     try {
                         let { quote, source } = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
                         let em = simpleEmbed(quote, source, "Random Quote");
-                        if (authorPictures[source] && urlRegex.test(authorPictures[source])){
+                        if (authorPictures[source] && urlRegex.test(authorPictures[source])) {
                             em.setThumbnail(authorPictures[source]);
                             em.setFooter(`—${source}`, authorPictures[source]);
                         }
