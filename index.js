@@ -19,6 +19,18 @@ try {
     }
     configFile = { "help-domain": "quotobot.js.org" };
 }
+let authorPictures, picturesEnabled;
+try {
+    authorPictures = require("./db/portraits.json");
+    picturesEnabled = true;
+} catch (e) {
+    if (e.code !== "MODULE_NOT_FOUND") {
+        throw e;
+    }
+    authorPictures = {};
+    picturesEnabled = false;
+    console.warn("Warning: No db/portraits.json file was found. Quotes will not have pictures of the author.")
+}
 let token = undefined;
 if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
@@ -102,6 +114,7 @@ bot.once("ready", () => {
         "server count": bot.guilds.cache.size,
         "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫 weather will not work"),
         "help link": (configFile.helpURL || "default"),
+        "autor pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded")
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
