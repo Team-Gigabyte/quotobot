@@ -3,7 +3,7 @@ A Discord bot that tells quotes, gets the weather, and more!
 
 ![CI](https://github.com/Team-Gigabyte/quotobot/workflows/CI/badge.svg) [![DeepScan grade](https://deepscan.io/api/teams/10906/projects/13838/branches/243095/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10906&pid=13838&bid=243095) [![GitHub license](https://img.shields.io/github/license/Team-Gigabyte/quotobot)](https://github.com/Team-Gigabyte/quotobot/blob/master/LICENSE) [![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](http://quotobot.ml) ![Program Size](https://img.shields.io/github/languages/code-size/Team-Gigabyte/quotobot) [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Team-Gigabyte/quotobot?logo=github&sort=semver)](https://github.com/Team-Gigabyte/quotobot/releases/latest) [![Number of quotes](https://img.shields.io/badge/dynamic/yaml?color=blue&label=quotes&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2FTeam-Gigabyte%2Fquotobot%2Fmaster%2Fdb%2Fquotes.count.yml)](https://github.com/Team-Gigabyte/quotobot/blob/master/db/quotes.db.csv)
 
-![Quotes screenshot](https://user-images.githubusercontent.com/25331232/91901407-2e907c00-ec6e-11ea-96a7-e7d8dc3ada8a.png)
+![Quotes screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Demo%20Picture.png)
 
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
