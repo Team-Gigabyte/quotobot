@@ -44,6 +44,7 @@ const norm = text => text
     .toLowerCase()
     .replace(/\s+/, " "); //"normalize" text
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+const urlRegex = /^(http|https):\/\/[^ "]+$/;
 const icons = {
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/755533965657505843/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
@@ -114,7 +115,7 @@ bot.once("ready", () => {
         "server count": bot.guilds.cache.size,
         "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫 weather will not work"),
         "help link": (configFile.helpURL || "default"),
-        "autor pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded")
+        "author pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded")
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
@@ -158,7 +159,12 @@ bot.on("message", message => {
                 (async () => {
                     try {
                         let { quote, source } = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
-                        message.channel.send(simpleEmbed(quote, source, "Random Quote"));
+                        let em = simpleEmbed(quote, source, "Random Quote");
+                        if (authorPictures[source] && urlRegex.test(authorPictures[source])){
+                            em.setThumbnail(authorPictures[source]);
+                            em.setFooter(`—${source}`, authorPictures[source]);
+                        }
+                        message.channel.send(em);
                     } catch (err) {
                         message.reply(embed.error("There was an error on our end. Try again later.", "ERR_DATABASE"));
                         console.error(err.message);
