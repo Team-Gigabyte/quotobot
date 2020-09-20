@@ -21,7 +21,7 @@ try {
 }
 let authorPictures, picturesEnabled;
 try {
-    authorPictures = require("./db/portraits.json");
+    authorPictures = require("./db/portraits.js");
     picturesEnabled = true;
 } catch (e) {
     if (e.code !== "MODULE_NOT_FOUND") {
