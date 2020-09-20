@@ -1,4 +1,4 @@
-{
+module.exports = {
   "George Washington": "https://cdn.discordapp.com/attachments/746526474131210281/756892295693074542/Screen_Shot_2020-09-19_at_10.59.27_AM.png",
   "John Adams": "https://cdn.discordapp.com/attachments/746526474131210281/756892492301074442/Screen_Shot_2020-09-19_at_11.00.24_AM.png",
   "Thomas Jefferson": "https://cdn.discordapp.com/attachments/746526474131210281/756892685880524992/Screen_Shot_2020-09-19_at_11.01.13_AM.png",
