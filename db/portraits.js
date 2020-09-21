@@ -13,5 +13,5 @@ module.exports = {
   "Abraham Lincoln": "https://cdn.discordapp.com/attachments/746526474131210281/756894035473465414/Screen_Shot_2020-09-19_at_11.06.35_AM.png", // 1
   "Elon Musk": "https://cdn.discordapp.com/attachments/746526474131210281/756894178755084338/Screen_Shot_2020-09-19_at_11.07.10_AM.png", // https://commons.wikimedia.org/wiki/File:Elon_Musk_Royal_Society.jpg CC BY-SA
   "Eleanor Roosevelt": "https://cdn.discordapp.com/attachments/746526474131210281/756894467893624912/Eleanor_Roosevelt_portrait_1933.jpg",
-  "QB Devs": "https://cdn.discordapp.com/attachments/449680513683292162/755533965657505843/unknown.png"
+  "QB Devs": "https://cdn.discordapp.com/attachments/449680513683292162/755533965657505843/unknown.png" // https://materialdesignicons.com/icon/comment-quote SIL OFL
 }
