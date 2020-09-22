@@ -101,7 +101,6 @@ const simpleEmbed = (text, attr, title = "Quote") => {
 bot.once("ready", () => {
     console.log("Ready!");
     console.log(asciiLogo);
-    bot.user.setAvatar(icons.quote);
     let invText;
     if (configFile.clientID) {
         invText = `https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "280576"}`;
