@@ -49,8 +49,9 @@ Instead of using the config.json, you can set these environment variables:
 QBTOKEN="YourTokenHere"
 QBPREFIX=">>" # optional, default ~
 QBWEATHER="WeatherKey103949"
+QBWTIMEOUT="2000" # optional, default 15000 (15 seconds)
 ```
-Note that there is currently no way to change stuff like the client ID and the bot status this way.
+Note that there is currently no way to change stuff like the client ID this way.
 ## Run the bot
 Make sure you have [Node.js >= 12](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:
 ```bash
