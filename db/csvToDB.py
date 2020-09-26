@@ -14,6 +14,6 @@ with open('./newQuotes.csv') as csv_file:
             (row[0], lastID + 1, row[1], 0))
         line_count += 1
         lastID += 1
-    print(f'Processed {line_count} lines.')
+    print(f'Added {line_count} quotes.')
 db.commit()
 db.close()

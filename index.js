@@ -158,7 +158,7 @@ bot.on("message", message => {
             {
                 (async () => {
                     try {
-                        let { quote, source } = await db.each("SELECT * FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
+                        let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
                         let em = simpleEmbed(quote, source, "Random Quote");
                         if (authorPictures[source] && urlRegex.test(authorPictures[source])) {
                             em.setThumbnail(authorPictures[source]);
