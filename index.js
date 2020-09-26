@@ -45,12 +45,12 @@ const norm = text => text
     .replace(/\s+/, " "); //"normalize" text
 const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const urlRegex = /^(http|https):\/\/[^ "]+$/;
-const icons = {
+const icons = Object.freeze({
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/755533965657505843/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
     info: "https://cdn.discordapp.com/attachments/449680513683292162/748682998022537287/information_2139.png", // this and below from Twemoji license under CC-BY 4.0
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
-}
+})
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const talkedRecently = new Set();
 const asciiLogo = `
@@ -60,7 +60,7 @@ const asciiLogo = `
 \\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/` // Quotobot in ASCII art
 const db = new sqlite3.Database("./db/quotes.db");
 db.each = promisify(db.each);
-const embed = {
+const embed = Object.freeze({
     "error": (description, code = "", title = "Error") => {
         if (!code) {
             code = "";
@@ -90,7 +90,7 @@ const embed = {
             .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
             .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
             .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
-}
+})
 const simpleEmbed = (text, attr, title = "Quote") => {
     return new Discord.MessageEmbed()
         .setColor(6765239)
