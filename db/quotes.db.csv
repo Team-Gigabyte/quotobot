@@ -103,7 +103,6 @@ quote,id,source,usage
 "That's the America I know. That's the country we love. Clear-eyed. Big-hearted. Undaunted by challenge.",102,"Barack Obama",0
 "The long sweep of America has been defined by forward motion, a constant widening of our founding creed to embrace all and not just some.",103,"Barack Obama",0
 "To quote or not to quote, that is the question.",104,"QB Devs",0
-"You can’t let your failures define you. You have to let your failures teach you.",105,"Barack Obama",0
 "Men give me credit for some genius. All the genius I have lies in this; when I have a subject in hand, I study it profoundly. Day and night it is before me. My mind becomes pervaded with it. Then the effort that I have made is what people are pleased to call the fruit of genius. It is the fruit of labor and thought.",106,"Alexander Hamilton",0
 "Those who stand for nothing fall for everything.",107,"Alexander Hamilton",0
 "Give all the power to the many, they will oppress the few. Give all the power to the few, they will oppress the many.",108,"Alexander Hamilton",0
@@ -127,6 +126,7 @@ quote,id,source,usage
 "The inquiry constantly is what will please, not what will benefit the people. In such a government there can be nothing but temporary expedient, fickleness, and folly.",126,"Alexander Hamilton",0
 "The mark of a pro coder is `Build Passing`",127,"QB Devs",0
 "If a teacher gives you several days for an assignment, there is a reason for that; there is a lot of work.",128,"QB Devs",0
+"You can’t let your failures define you. You have to let your failures teach you.",105,"Barack Obama",0
 "Folks are usually about as happy as they make their minds up to be.",129,"Abraham Lincoln",0
 "Whatever you are, be a good one.",130,"Abraham Lincoln",0
 "Do I not destroy my enemies when I make them my friends?",131,"Abraham Lincoln",0
@@ -186,3 +186,20 @@ quote,id,source,usage
 "Never mistake knowledge for wisdom. One helps you make a living; the other helps you make a life.",185,"Eleanor Roosevelt",0
 "No one won the last war, and no one will win the next war.",186,"Eleanor Roosevelt",0
 "When will our consciences grow so tender that we will act to prevent human misery rather than avenge it?",187,"Eleanor Roosevelt",0
+"We are not makers of history. We are made by history.",188,"Martin Luther King Jr.",0
+"Every man must decide whether he will walk in the light of creative altruism or in the darkness of destructive selfishness.",189,"Martin Luther King Jr.",0
+"We must use time creatively, in the knowledge that the time is always ripe to do right.",190,"Martin Luther King Jr.",0
+"There is nothing more tragic than to find an individual bogged down in the length of life, devoid of breadth.",191,"Martin Luther King Jr.",0
+"Property is intended to serve life, and no matter how much we surround it with rights and respect, it has no personal being. It is part of the earth man walks on. It is not man.",192,"Martin Luther King Jr.",0
+"The function of education is to teach one to think intensively and to think critically. Intelligence plus character – that is the goal of true education.",193,"Martin Luther King Jr.",0
+"All labor that uplifts humanity has dignity and importance and should be undertaken with painstaking excellence.",194,"Martin Luther King Jr.",0
+"An individual has not started living until he can rise above the narrow confines of his individualistic concerns to the broader concerns of all humanity.",195,"Martin Luther King Jr.",0
+"Rarely do we find men who willingly engage in hard, solid thinking. There is an almost universal quest for easy answers and half-baked solutions. Nothing pains some people more than having to think.",196,"Martin Luther King Jr.",0
+"Every man lives in two realms: the internal and the external. The internal is that realm of spiritual ends expressed in art, literature, morals, and religion. The external is that complex of devices, techniques, mechanisms, and instrumentalities by means of which we live.",197,"Martin Luther King Jr.",0
+"Shallow understanding from people of good will is more frustrating than absolute misunderstanding from people of ill will.",198,"Martin Luther King Jr.",0
+"There comes a time when people get tired of being pushed out of the glittering sunlight of life’s July and left standing amid the piercing chill of an alpine November.",199,"Martin Luther King Jr.",0
+"A lie cannot live.",200,"Martin Luther King Jr.",0
+"The past is prophetic in that it asserts loudly that wars are poor chisels for carving out peaceful tomorrows.",201,"Martin Luther King Jr.",0
+"The limitation of riots, moral questions aside, is that they cannot win and their participants know it. Hence, rioting is not revolutionary but reactionary because it invites defeat. It involves an emotional catharsis, but it must be followed by a sense of futility.",202,"Martin Luther King Jr.",0
+"He who is devoid of the power to forgive is devoid of the power to love.",203,"Martin Luther King Jr.",0
+"I believe that unarmed truth and unconditional love will have the final word in reality. This is why right, temporarily defeated, is stronger than evil triumphant.",204,"Martin Luther King Jr.",0
