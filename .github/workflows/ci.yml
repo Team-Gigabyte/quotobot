@@ -32,7 +32,7 @@ jobs:
         echo -e "\033[0;36m" Installing eslint and jsonlint...
         npm i eslint; sudo npm i -g jsonlint
         echo -e "\033[0;36m" Checking for code errors...
-        for i in *.js; do npx eslint $i; npx eslint --fix-dry-run $i; done; for i in *.json; do jsonlint -q $i; done
+        for i in *.js db/*.js; do npx eslint $i; npx eslint --fix-dry-run $i; done; for i in *.json db/*.json; do jsonlint -q $i; done
     
       #  git checkout -b origin/$(git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)' | head -1) 
       #  git log | head -1 | sed 's/commit//g' 
