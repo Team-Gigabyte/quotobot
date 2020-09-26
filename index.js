@@ -231,7 +231,7 @@ bot.on("message", message => {
                         return null;
                     }
                     let windUnits = units == "imperial" ? "mph" : "m/s";
-
+                    message.channel.startTyping();
                     try {
                         let apiData = await axios.get(
                             `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || envVars.QBWEATHER}`
@@ -247,6 +247,7 @@ bot.on("message", message => {
                         let country = apiData.data.sys.country;
                         country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                         let displayCity = apiData.data.name;
+                        message.channel.stopTyping();
                         message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
                         // Adds the user to the set so that they can't talk for a minute
                         talkedRecently.add(message.author.id);
@@ -255,6 +256,8 @@ bot.on("message", message => {
                             talkedRecently.delete(message.author.id);
                         }, timeout);
                     } catch (err) {
+                        message.channel.stopTyping();
+                        message.channel.stopTyping();
                         message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
                     }
                 })();
