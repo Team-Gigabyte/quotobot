@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "count": "node ./db/countQuotes.js",
     "add": "node ./db/addQuote.js",
     "lint": "eslint ."
@@ -20,7 +21,8 @@
   },
   "homepage": "https://quotobot.js.org",
   "devDependencies": {
-    "eslint": "^7.9.0"
+    "eslint": "^7.9.0",
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
     "axios": "^0.20.0",
