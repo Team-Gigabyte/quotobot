@@ -25,12 +25,12 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Look for JS errors and show how to fix them
       run: |
-        echo -e "\033[0;36m" Installing sqlite3...
-        npm i sqlite3
+        echo -e "\033[0;36m" Installing modules...
+        npm i
         echo -e "\033[0;36m" Number of quotes:
         npm run count
-        echo -e "\033[0;36m" Installing eslint and jsonlint...
-        npm i eslint; sudo npm i -g jsonlint
+        echo -e "\033[0;36m" Installing jsonlint...
+        sudo npm i -g jsonlint
         echo -e "\033[0;36m" Checking for code errors...
         for i in *.js db/*.js; do npx eslint $i; npx eslint --fix-dry-run $i; done; for i in *.json db/*.json; do jsonlint -q $i; done
     
