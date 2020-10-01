@@ -10,7 +10,8 @@ WORKDIR /app
 ADD ./* /app/
 
 # Rename config & install modeule
-RUN cp /app/config-example.json /app/config.json \
-&& npm install
+RUN cp /app/config-example.json /app/config.json
+
+RUN npm install
 
 CMD [ "node", "/app/index.js" ]
