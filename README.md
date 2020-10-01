@@ -59,15 +59,15 @@ npm install
 node index.js
 ```
 Press <kbd>Control</kbd> + <kbd>C</kbd> (even on a Mac) to stop the bot.
-## Run the Docker
-- copy file `config-example.json` be `config.json` and adjust the environment variables
-- build quotobot images with the command :
+## Run as a Docker container
+- [Do the config.json stuff listed above.](#how-to-set-up-the-configjson)
+- Build the image:
 ```
 docker build -t quotobot/quotobot .
 ```
-- You just run this command to run docker images:
+- Run this command to start the container:
 ```
-docker run --name quobot -d -v ./config.json:/app/config.json quotobot/quotobot
+docker run --name quotobot1 -d -v ./config.json:/app/config.json quotobot/quotobot
 ```
 ## Keeping your copy up to date
 If you used the `git clone` command to download the bot, just do 
