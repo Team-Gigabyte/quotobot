@@ -26,7 +26,7 @@ jobs:
     - name: Look for JS errors and show how to fix them
       run: |
         echo -e "\033[0;36m" Installing modules...
-        npm i
+        npm ci
         echo -e "\033[0;36m" Number of quotes:
         npm run count
         echo -e "\033[0;36m" Installing jsonlint...
