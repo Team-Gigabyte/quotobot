@@ -126,7 +126,7 @@ if (!token) {
 }
 bot.login(token);
 bot.on("warn", m => console.warn("Warning: ", m));
-bot.on("error", err => console.error(err));
+bot.on("error", console.error);
 bot.on("message", message => {
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
