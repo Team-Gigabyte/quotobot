@@ -87,8 +87,8 @@ const embed = Object.freeze({
             .setFooter(`—${attr}`, icons.empty)
             .setDescription(`**${text}**`);
     },
-    "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose }) => new Discord.MessageEmbed()
-        .setTitle(`Current price for ABCD is \`${current}\``)
+    "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose }, symbol) => new Discord.MessageEmbed()
+        .setTitle(`Current price for ${symbol} is \`${current}\``)
         .addField("High", "`" + high + "`", true)
         .addField("Low", "`" + low + "`", true)
         .addField("Open", "`" + open + "`", true)
@@ -296,15 +296,17 @@ bot.on("message", message => {
                     }
                     try {
                         let stockData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
+                        stockData = stockData.data;
                         console.log(stockData);
                         if (!stockData ||
+                            stockData.error ||
                             stockData == {} ||
-                            stockData.includes(undefined) ||
-                            stockData.includes(0)) {
-                            message.reply(embed.error("That stock was not found.", "ERR_ALLSTOCK_ZERO"));
+                            Object.values(stockData).includes(undefined) ||
+                            Object.values(stockData).includes(0)) {
+                            message.reply(embed.error(`${args[0]} was not found.`, (stockData.error || "ERR_ALLSTOCK_ZERO")));
                             return null;
                         }
-                        message.reply(embed.stocks(stockData));
+                        message.reply(embed.stocks(stockData, args[0]));
                         // Adds the user to the set so that they can't talk for a minute
                         usedStocksRecently.add(message.author.id);
                         setTimeout(() => {
@@ -315,6 +317,11 @@ bot.on("message", message => {
                         message.reply(embed.error("There was an error getting stock info.", err.message))
                     }
                 })();
+                usedStocksRecently.add(message.author.id);
+                        setTimeout(() => {
+                            // Removes the user from the set after 15 seconds
+                            usedStocksRecently.delete(message.author.id);
+                        }, timeout);
             }
             break;
         }
