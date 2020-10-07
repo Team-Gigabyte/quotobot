@@ -264,6 +264,8 @@ bot.on("message", message => {
         case "gotanygrapes":
             message.reply("https://www.youtube.com/watch?v=MtN1YnoL46Q");
             break;
+        case "stocks":
+            break;
         default:
             break;
     }
