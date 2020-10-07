@@ -297,7 +297,6 @@ bot.on("message", message => {
                     try {
                         let stockData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
                         stockData = stockData.data;
-                        console.log(stockData);
                         if (!stockData ||
                             stockData.error ||
                             stockData == {} ||
@@ -314,14 +313,14 @@ bot.on("message", message => {
                             usedStocksRecently.delete(message.author.id);
                         }, timeout);
                     } catch (err) {
-                        message.reply(embed.error("There was an error getting stock info.", err.message))
+                        message.reply(embed.error("There was an error getting stock info.", err.response.data.message || err.message))
                     }
                 })();
                 usedStocksRecently.add(message.author.id);
-                        setTimeout(() => {
-                            // Removes the user from the set after 15 seconds
-                            usedStocksRecently.delete(message.author.id);
-                        }, timeout);
+                setTimeout(() => {
+                    // Removes the user from the set after 15 seconds
+                    usedStocksRecently.delete(message.author.id);
+                }, timeout);
             }
             break;
         }
