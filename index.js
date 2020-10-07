@@ -38,8 +38,7 @@ if (configFile.token == "your-token-here-inside-these-quotes") {
 } else if (!configFile.token) { token = envVars.QBTOKEN; }
 else { token = configFile.token; } // uses env var if configFile.token isn't there or is the placeholder
 // handle starting up the stocks API
-let stocksEnabled = false;
-let finnhubClient;
+let stocksEnabled = false, finnhubClient;
 if (configFile.stockToken || envVars.QBSTOCKS) {
     try {
         finnhub.ApiClient.instance.authentications['api_key'].apiKey = configFile.stockToken || envVars.QBSTOCKS;
@@ -69,7 +68,7 @@ const icons = Object.freeze({
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
 })
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const usedWeatherRecently = new Set();
+const usedWeatherRecently = new Set(), usedStocksRecently = new Set();
 const asciiLogo = `
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
@@ -88,6 +87,13 @@ const embed = Object.freeze({
             .setColor("ff0000")
             .setAuthor(title, icons.warn)
             .setDescription(`${description} ${code}`);
+    },
+    "simple": (text, attr, title = "Quote") => {
+        return new Discord.MessageEmbed()
+            .setColor(6765239)
+            .setAuthor(title, icons.quote)
+            .setFooter(`—${attr}`, icons.empty)
+            .setDescription(`**${text}**`);
     },
     "currWeather": ( // formats the embed for the weather
         temp, maxTemp, minTemp,
@@ -108,13 +114,6 @@ const embed = Object.freeze({
             .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
             .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
 })
-const simpleEmbed = (text, attr, title = "Quote") => {
-    return new Discord.MessageEmbed()
-        .setColor(6765239)
-        .setAuthor(title, icons.quote)
-        .setFooter(`—${attr}`, icons.empty)
-        .setDescription(`**${text}**`);
-}
 bot.once("ready", () => {
     console.log("Ready!");
     console.log(asciiLogo);
@@ -176,7 +175,7 @@ bot.on("message", message => {
                 (async () => {
                     try {
                         let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
-                        let em = simpleEmbed(quote, source, "Random Quote");
+                        let em = embed.simple(quote, source, "Random Quote");
                         if (authorPictures[source] && urlRegex.test(authorPictures[source])) {
                             em.setThumbnail(authorPictures[source]);
                             em.setFooter(`—${source}`, authorPictures[source]);
@@ -195,34 +194,34 @@ bot.on("message", message => {
                 break;
             }
         case "bibot":
-            message.channel.send(simpleEmbed("Morbleu!", sp));
+            message.channel.send(embed.simple("Morbleu!", sp));
             break;
         case "intenselove":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.", sp));
             break;
         case "contempt":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.", sp));
             break;
         case "percysmart":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.", sp));
             break;
         case "moneynomatter":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.", sp));
             break;
         case "brains":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 '"Money and titles may be hereditary," she would say, "but brains are not."', sp));
             break;
         case "sppoem":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?", sp));
             break;
         case "haters":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.", sp));
             break;
         case "weathermetric":
