@@ -37,6 +37,22 @@ if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
 } else if (!configFile.token) { token = envVars.QBTOKEN; }
 else { token = configFile.token; } // uses env var if configFile.token isn't there or is the placeholder
+// handle starting up the stocks API
+let stocksEnabled = false;
+let finnhubClient;
+if (configFile.stockToken || envVars.QBSTOCKS) {
+    try {
+        finnhub.ApiClient.instance.authentications['api_key'].apiKey = configFile.stockToken || envVars.QBSTOCKS;
+        finnhubClient = new finnhub.DefaultApi();
+        finnhubClient.quote = promisify(finnhubClient.quote);
+        stocksEnabled = true;
+    } catch (err) {
+        console.error(err);
+    }
+}
+if (!stocksEnabled) {
+    console.log("There was a problem with starting up the stocks API. Stock lookups will not work.")
+}
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
 // constants and functions
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
@@ -53,7 +69,7 @@ const icons = Object.freeze({
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
 })
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const talkedRecently = new Set();
+const usedWeatherRecently = new Set();
 const asciiLogo = `
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
@@ -212,7 +228,7 @@ bot.on("message", message => {
         case "weathermetric":
         case "weather": {
             let timeout = configFile.weatherTimeout || envVars.QBWTIMEOUT || 15000
-            if (talkedRecently.has(message.author.id)) {
+            if (usedWeatherRecently.has(message.author.id)) {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for the weather again.`, "ERR_RATE_LIMIT", "Slow down!"));
             } else {
                 (async function () {
@@ -250,10 +266,10 @@ bot.on("message", message => {
                         let displayCity = apiData.data.name;
                         message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
                         // Adds the user to the set so that they can't talk for a minute
-                        talkedRecently.add(message.author.id);
+                        usedWeatherRecently.add(message.author.id);
                         setTimeout(() => {
                             // Removes the user from the set after 15 seconds
-                            talkedRecently.delete(message.author.id);
+                            usedWeatherRecently.delete(message.author.id);
                         }, timeout);
                     } catch (err) {
                         message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
@@ -267,7 +283,7 @@ bot.on("message", message => {
             break;
         case "stocks":
         case "stock":
-            
+
             break;
         default:
             break;
