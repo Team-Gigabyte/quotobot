@@ -278,13 +278,40 @@ bot.on("message", message => {
             break;
         }
         case "gotanygrapes":
-            message.reply("https://www.youtube.com/watch?v=MtN1YnoL46Q");
+            message.reply("https://www.youtube.com/watch?v=MtN1YnoL46Q"); // duck song
             break;
         case "stocks":
         case "stock": {
-            let timeout = configFile.stockTimeout || envVars.QBSTIMEOUT || configFile.weatherTimeout || envVars.QBWTIMEOUT || 15000
+            let timeout = configFile.stockTimeout || envVars.QBSTIMEOUT || configFile.weatherTimeout || envVars.QBWTIMEOUT || 2000;
             if (usedStocksRecently.has(message.author.id)) {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for stocks again.`, "ERR_RATE_LIMIT", "Slow down!"));
+            } else {
+                (async function () {
+                    if (!stocksEnabled) {
+                        message.reply(embed.error("Stock lookup isn't currently working. Sorry about that.", "ERR_NO_STOCK_KEY"));
+                        return;
+                    }
+                    if (!args[0]) {
+                        message.reply(embed.error("You didn't include any arguments. Re-run the command with the stock name."));
+                        return null;
+                    }
+                    try {
+                        let stockData = await finnhubClient.quote(args[0]);
+                        if (Object.values(stockData) === [0, 0, 0, 0, 0]) {
+                            message.reply(embed.error("That stock was not found.", "ERR_ALLSTOCK_ZERO"));
+                            return null;
+                        }
+                        message.reply(embed.simple(JSON.stringify(stockData), "whatever", "Stocks!"));
+                        // Adds the user to the set so that they can't talk for a minute
+                        usedStocksRecently.add(message.author.id);
+                        setTimeout(() => {
+                            // Removes the user from the set after 15 seconds
+                            usedStocksRecently.delete(message.author.id);
+                        }, timeout);
+                    } catch (err) {
+                        message.reply(embed.error("There was an error getting the weather.", err.message))
+                    }
+                })();
             }
             break;
         }
