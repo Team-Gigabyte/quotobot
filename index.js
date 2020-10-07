@@ -281,7 +281,7 @@ bot.on("message", message => {
             break;
         case "stocks":
         case "stock": {
-            let timeout = configFile.stockTimeout || envVars.QBSTIMEOUT || configFile.weatherTimeout || envVars.QBWTIMEOUT || 2000;
+            const timeout = configFile.stockTimeout || envVars.QBSTIMEOUT || configFile.weatherTimeout || envVars.QBWTIMEOUT || 2000;
             if (usedStocksRecently.has(message.author.id)) {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for stocks again.`, "ERR_RATE_LIMIT", "Slow down!"));
             } else {
@@ -295,8 +295,8 @@ bot.on("message", message => {
                         return null;
                     }
                     try {
-                        let stockData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
-                        stockData = stockData.data;
+                        let gotData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
+                        stockData = gotData.data;
                         if (!stockData ||
                             stockData.error ||
                             stockData == {} ||
