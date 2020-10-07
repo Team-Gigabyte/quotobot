@@ -4,7 +4,6 @@
 const Discord = require("discord.js");
 const { env: envVars } = require("process");
 const axios = require("axios").default;
-const finnhub = require("finnhub");
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
@@ -38,16 +37,9 @@ if (configFile.token == "your-token-here-inside-these-quotes") {
 } else if (!configFile.token) { token = envVars.QBTOKEN; }
 else { token = configFile.token; } // uses env var if configFile.token isn't there or is the placeholder
 // handle starting up the stocks API
-let stocksEnabled = false, finnhubClient;
+let stocksEnabled = false;
 if (configFile.stockToken || envVars.QBSTOCKS) {
-    try {
-        finnhub.ApiClient.instance.authentications['api_key'].apiKey = configFile.stockToken || envVars.QBSTOCKS;
-        finnhubClient = new finnhub.DefaultApi();
-        finnhubClient.quote = promisify(finnhubClient.quote);
-        stocksEnabled = true;
-    } catch (err) {
-        console.error(err);
-    }
+    stocksEnabled = false;
 }
 if (!stocksEnabled) {
     console.log("There was a problem with starting up the stocks API. Stock lookups will not work.")
@@ -95,6 +87,13 @@ const embed = Object.freeze({
             .setFooter(`—${attr}`, icons.empty)
             .setDescription(`**${text}**`);
     },
+    "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose }) => new Discord.MessageEmbed()
+        .setTitle(`Current price for ABCD is \`${current}\``)
+        .addField("High", "`" + high + "`", true)
+        .addField("Low", "`" + low + "`", true)
+        .addField("Open", "`" + open + "`", true)
+        .addField("Previous Close", "`" + prevClose + "`", true)
+        .setColor(current - prevClose >= 0 ? "4CAF50" : "F44336"),
     "currWeather": ( // formats the embed for the weather
         temp, maxTemp, minTemp,
         pressure, humidity, wind,
@@ -289,19 +288,23 @@ bot.on("message", message => {
                 (async function () {
                     if (!stocksEnabled) {
                         message.reply(embed.error("Stock lookup isn't currently working. Sorry about that.", "ERR_NO_STOCK_KEY"));
-                        return;
+                        return null;
                     }
                     if (!args[0]) {
                         message.reply(embed.error("You didn't include any arguments. Re-run the command with the stock name."));
                         return null;
                     }
                     try {
-                        let stockData = await finnhubClient.quote(args[0]);
-                        if (Object.values(stockData) === [0, 0, 0, 0, 0]) {
+                        let stockData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
+                        console.log(stockData);
+                        if (!stockData ||
+                            stockData == {} ||
+                            stockData.includes(undefined) ||
+                            stockData.includes(0)) {
                             message.reply(embed.error("That stock was not found.", "ERR_ALLSTOCK_ZERO"));
                             return null;
                         }
-                        message.reply(embed.simple(JSON.stringify(stockData), "whatever", "Stocks!"));
+                        message.reply(embed.stocks(stockData));
                         // Adds the user to the set so that they can't talk for a minute
                         usedStocksRecently.add(message.author.id);
                         setTimeout(() => {
@@ -309,7 +312,7 @@ bot.on("message", message => {
                             usedStocksRecently.delete(message.author.id);
                         }, timeout);
                     } catch (err) {
-                        message.reply(embed.error("There was an error getting the weather.", err.message))
+                        message.reply(embed.error("There was an error getting stock info.", err.message))
                     }
                 })();
             }
