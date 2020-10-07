@@ -39,7 +39,7 @@ else { token = configFile.token; } // uses env var if configFile.token isn't the
 // handle starting up the stocks API
 let stocksEnabled = false;
 if (configFile.stockToken || envVars.QBSTOCKS) {
-    stocksEnabled = false;
+    stocksEnabled = true;
 }
 if (!stocksEnabled) {
     console.log("There was a problem with starting up the stocks API. Stock lookups will not work.")
