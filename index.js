@@ -4,6 +4,7 @@
 const Discord = require("discord.js");
 const { env: envVars } = require("process");
 const axios = require("axios").default;
+const finnhub = require("finnhub");
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
@@ -265,6 +266,8 @@ bot.on("message", message => {
             message.reply("https://www.youtube.com/watch?v=MtN1YnoL46Q");
             break;
         case "stocks":
+        case "stock":
+            
             break;
         default:
             break;
