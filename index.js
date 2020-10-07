@@ -296,7 +296,7 @@ bot.on("message", message => {
                     }
                     try {
                         let gotData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
-                        stockData = gotData.data;
+                        let stockData = gotData.data;
                         if (!stockData ||
                             stockData.error ||
                             stockData == {} ||
