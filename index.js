@@ -281,9 +281,13 @@ bot.on("message", message => {
             message.reply("https://www.youtube.com/watch?v=MtN1YnoL46Q");
             break;
         case "stocks":
-        case "stock":
-
+        case "stock": {
+            let timeout = configFile.stockTimeout || envVars.QBSTIMEOUT || configFile.weatherTimeout || envVars.QBWTIMEOUT || 15000
+            if (usedStocksRecently.has(message.author.id)) {
+                message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for stocks again.`, "ERR_RATE_LIMIT", "Slow down!"));
+            }
             break;
+        }
         default:
             break;
     }
