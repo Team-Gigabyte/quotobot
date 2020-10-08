@@ -28,7 +28,6 @@
     "axios": "^0.20.0",
     "country-flag-emoji": "^1.0.3",
     "discord.js": "^12.2.0",
-    "finnhub": "^1.2.1",
     "sqlite3": "^5.0.0"
   },
   "engines": {
