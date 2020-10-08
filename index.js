@@ -297,14 +297,14 @@ bot.on("message", message => {
                     try {
                         let gotData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
                         let stockData = gotData.data;
-                        if (stockData.error ||
-                            stockData == {} ||
+                        if (!stockData) {
+                            message.reply(embed.error(`${args[0]} was not found.`, "ERR_EMPTY_RESPONSE"));
+                            return null;
+                        } else if (stockData.error ||
+                            (Object.keys(obj).length === 0 && obj.constructor === Object) ||
                             Object.values(stockData).includes(undefined) ||
                             Object.values(stockData).includes(0)) {
                             message.reply(embed.error(`${args[0]} was not found.`, (stockData.error || "ERR_ALLSTOCK_ZERO")));
-                            return null;
-                        } else if (!stockData) {
-                            message.reply(embed.error(`${args[0]} was not found.`, "ERR_EMPTY_RESPONSE"));
                             return null;
                         }
                         message.reply(embed.stocks(stockData, args[0]));
