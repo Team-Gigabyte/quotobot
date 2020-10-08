@@ -301,7 +301,7 @@ bot.on("message", message => {
                             message.reply(embed.error(`${args[0]} was not found.`, "ERR_EMPTY_RESPONSE"));
                             return null;
                         } else if (stockData.error ||
-                            (Object.keys(obj).length === 0 && obj.constructor === Object) ||
+                            (Object.keys(stockData).length === 0 && stockData.constructor === Object) ||
                             Object.values(stockData).includes(undefined) ||
                             Object.values(stockData).includes(0)) {
                             message.reply(embed.error(`${args[0]} was not found.`, (stockData.error || "ERR_ALLSTOCK_ZERO")));
