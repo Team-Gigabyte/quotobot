@@ -36,6 +36,14 @@ if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
 } else if (!configFile.token) { token = envVars.QBTOKEN; }
 else { token = configFile.token; } // uses env var if configFile.token isn't there or is the placeholder
+// handle starting up the stocks API
+let stocksEnabled = false;
+if (configFile.stockToken || envVars.QBSTOCKS) {
+    stocksEnabled = true;
+}
+if (!stocksEnabled) {
+    console.log("There was a problem with starting up the stocks API. Stock lookups will not work.")
+}
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
 // constants and functions
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
@@ -52,7 +60,7 @@ const icons = Object.freeze({
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
 })
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
-const talkedRecently = new Set();
+const usedWeatherRecently = new Set(), usedStocksRecently = new Set();
 const asciiLogo = `
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
@@ -72,6 +80,20 @@ const embed = Object.freeze({
             .setAuthor(title, icons.warn)
             .setDescription(`${description} ${code}`);
     },
+    "simple": (text, attr, title = "Quote") => {
+        return new Discord.MessageEmbed()
+            .setColor(6765239)
+            .setAuthor(title, icons.quote)
+            .setFooter(`—${attr}`, icons.empty)
+            .setDescription(`**${text}**`);
+    },
+    "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose }, symbol) => new Discord.MessageEmbed()
+        .setTitle(`Current price for ${symbol} is \`${current}\``)
+        .addField("High", "`" + high + "`", true)
+        .addField("Low", "`" + low + "`", true)
+        .addField("Open", "`" + open + "`", true)
+        .addField("Previous Close", "`" + prevClose + "`", true)
+        .setColor(current - prevClose >= 0 ? "4CAF50" : "F44336"),
     "currWeather": ( // formats the embed for the weather
         temp, maxTemp, minTemp,
         pressure, humidity, wind,
@@ -91,13 +113,6 @@ const embed = Object.freeze({
             .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
             .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
 })
-const simpleEmbed = (text, attr, title = "Quote") => {
-    return new Discord.MessageEmbed()
-        .setColor(6765239)
-        .setAuthor(title, icons.quote)
-        .setFooter(`—${attr}`, icons.empty)
-        .setDescription(`**${text}**`);
-}
 bot.once("ready", () => {
     console.log("Ready!");
     console.log(asciiLogo);
@@ -159,7 +174,7 @@ bot.on("message", message => {
                 (async () => {
                     try {
                         let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
-                        let em = simpleEmbed(quote, source, "Random Quote");
+                        let em = embed.simple(quote, source, "Random Quote");
                         if (authorPictures[source] && urlRegex.test(authorPictures[source])) {
                             em.setThumbnail(authorPictures[source]);
                             em.setFooter(`—${source}`, authorPictures[source]);
@@ -178,40 +193,40 @@ bot.on("message", message => {
                 break;
             }
         case "bibot":
-            message.channel.send(simpleEmbed("Morbleu!", sp));
+            message.channel.send(embed.simple("Morbleu!", sp));
             break;
         case "intenselove":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "He seemed so devoted — a very slave — and there was a certain latent intensity in that love which had fascinated her.", sp));
             break;
         case "contempt":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "Thus human beings judge of one another, superficially, casually, throwing contempt on one another, with but little reason, and no charity.", sp));
             break;
         case "percysmart":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "He was calmly eating his soup, laughing with pleasant good-humour, as if he had come all the way to Calais for the express purpose of enjoying supper at this filthy inn, in the company of his arch-enemy.", sp));
             break;
         case "moneynomatter":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "Those friends who knew, laughed to scorn the idea that Marguerite St. Just had married a fool for the sake of the worldly advantages with which he might endow her. They knew, as a matter of fact, that Marguerite St. Just cared nothing about money, and still less about a title.", sp));
             break;
         case "brains":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 '"Money and titles may be hereditary," she would say, "but brains are not."', sp));
             break;
         case "sppoem":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "We seek him here, we seek him there, those Frenchies seek him everywhere. Is he in heaven? — Is he in hell? That demmed, elusive Pimpernel?", sp));
             break;
         case "haters":
-            message.channel.send(simpleEmbed(
+            message.channel.send(embed.simple(
                 "How that stupid, dull Englishman ever came to be admitted within the intellectual circle which revolved round “the cleverest woman in Europe,” as her friends unanimously called her, no one ventured to guess—a golden key is said to open every door, asserted the more malignantly inclined.", sp));
             break;
         case "weathermetric":
         case "weather": {
             let timeout = configFile.weatherTimeout || envVars.QBWTIMEOUT || 15000
-            if (talkedRecently.has(message.author.id)) {
+            if (usedWeatherRecently.has(message.author.id)) {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for the weather again.`, "ERR_RATE_LIMIT", "Slow down!"));
             } else {
                 (async function () {
@@ -249,10 +264,10 @@ bot.on("message", message => {
                         let displayCity = apiData.data.name;
                         message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
                         // Adds the user to the set so that they can't talk for a minute
-                        talkedRecently.add(message.author.id);
+                        usedWeatherRecently.add(message.author.id);
                         setTimeout(() => {
                             // Removes the user from the set after 15 seconds
-                            talkedRecently.delete(message.author.id);
+                            usedWeatherRecently.delete(message.author.id);
                         }, timeout);
                     } catch (err) {
                         message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
@@ -262,8 +277,55 @@ bot.on("message", message => {
             break;
         }
         case "gotanygrapes":
-            message.reply("https://www.youtube.com/watch?v=MtN1YnoL46Q");
+            message.reply("https://www.youtube.com/watch?v=MtN1YnoL46Q"); // duck song
             break;
+        case "stocks":
+        case "stock": {
+            const timeout = configFile.stockTimeout || envVars.QBSTIMEOUT || configFile.weatherTimeout || envVars.QBWTIMEOUT || 2000;
+            if (usedStocksRecently.has(message.author.id)) {
+                message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for stocks again.`, "ERR_RATE_LIMIT", "Slow down!"));
+            } else {
+                (async function () {
+                    if (!stocksEnabled) {
+                        message.reply(embed.error("Stock lookup isn't currently working. Sorry about that.", "ERR_NO_STOCK_KEY"));
+                        return null;
+                    }
+                    if (!args[0]) {
+                        message.reply(embed.error("You didn't include any arguments. Re-run the command with the stock name."));
+                        return null;
+                    }
+                    try {
+                        let gotData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
+                        let stockData = gotData.data;
+                        if (!stockData) {
+                            message.reply(embed.error(`${args[0]} was not found.`, "ERR_EMPTY_RESPONSE"));
+                            return null;
+                        } else if (stockData.error ||
+                            (Object.keys(stockData).length === 0 && stockData.constructor === Object) ||
+                            Object.values(stockData).includes(undefined) ||
+                            Object.values(stockData).includes(0)) {
+                            message.reply(embed.error(`${args[0]} was not found.`, (stockData.error || "ERR_ALLSTOCK_ZERO")));
+                            return null;
+                        }
+                        message.reply(embed.stocks(stockData, args[0]));
+                        // Adds the user to the set so that they can't talk for a minute
+                        usedStocksRecently.add(message.author.id);
+                        setTimeout(() => {
+                            // Removes the user from the set after 15 seconds
+                            usedStocksRecently.delete(message.author.id);
+                        }, timeout);
+                    } catch (err) {
+                        message.reply(embed.error("There was an error getting stock info.", err.response.data.message || err.message))
+                    }
+                })();
+                usedStocksRecently.add(message.author.id);
+                setTimeout(() => {
+                    // Removes the user from the set after 15 seconds
+                    usedStocksRecently.delete(message.author.id);
+                }, timeout);
+            }
+            break;
+        }
         default:
             break;
     }
