@@ -94,7 +94,7 @@ const embed = Object.freeze({
         .addField("Open", "`" + open + "`", true)
         .addField("Previous Close", "`" + prevClose + "`", true)
         .setColor(current - prevClose >= 0 ? "4CAF50" : "F44336")
-        .setFooter("Data from Finnhub*),
+        .setFooter("Data from Finnhub"),
     "currWeather": ( // formats the embed for the weather
         temp, maxTemp, minTemp,
         pressure, humidity, wind,
