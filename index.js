@@ -87,14 +87,16 @@ const embed = Object.freeze({
             .setFooter(`—${attr}`, icons.empty)
             .setDescription(`**${text}**`);
     },
-    "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose }, symbol) => new Discord.MessageEmbed()
+    "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose, t: timestamp }, symbol) => new Discord.MessageEmbed()
         .setTitle(`Current price for ${symbol} is \`${current}\``)
+        .setURL("https://finance.yahoo.com/quote/" + symbol)
         .addField("High", "`" + high + "`", true)
         .addField("Low", "`" + low + "`", true)
         .addField("Open", "`" + open + "`", true)
         .addField("Previous Close", "`" + prevClose + "`", true)
         .setColor(current - prevClose >= 0 ? "4CAF50" : "F44336")
-        .setFooter("Data from Finnhub"),
+        .setFooter("Data from Finnhub")
+        .setTimestamp(timestamp * 1000),
     "currWeather": ( // formats the embed for the weather
         temp, maxTemp, minTemp,
         pressure, humidity, wind,
@@ -131,7 +133,8 @@ bot.once("ready", () => {
         "server count": bot.guilds.cache.size,
         "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫 weather will not work"),
         "help link": (configFile.helpURL || "default"),
-        "author pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded")
+        "author pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded"),
+        "stocks enabled": (stocksEnabled ? "✅" : "🚫 stock commands will not work")
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
