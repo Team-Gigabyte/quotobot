@@ -88,7 +88,7 @@ const embed = Object.freeze({
             .setDescription(`**${text}**`);
     },
     "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose, t: timestamp }, symbol) => new Discord.MessageEmbed()
-        .setTitle(`Current price for ${symbol} is \`${current}\``)
+        .setTitle(`Current price for ${symbol.toUpperCase()} is \`${current}\``)
         .setURL("https://finance.yahoo.com/quote/" + symbol)
         .addField("High", "`" + high + "`", true)
         .addField("Low", "`" + low + "`", true)
@@ -96,7 +96,7 @@ const embed = Object.freeze({
         .addField("Previous Close", "`" + prevClose + "`", true)
         .setColor(current - prevClose >= 0 ? "4CAF50" : "F44336")
         .setFooter("Data from Finnhub")
-        .setTimestamp(timestamp * 1000),
+        .setTimestamp(new Date(timestamp * 1000)),
     "currWeather": ( // formats the embed for the weather
         temp, maxTemp, minTemp,
         pressure, humidity, wind,
@@ -299,7 +299,7 @@ bot.on("message", message => {
                         return null;
                     }
                     try {
-                        let gotData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0] + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
+                        let gotData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0].toUpperCase() + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
                         let stockData = gotData.data;
                         if (!stockData) {
                             message.reply(embed.error(`${args[0]} was not found.`, "ERR_EMPTY_RESPONSE"));
