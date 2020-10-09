@@ -30,7 +30,7 @@ to
 
 making sure to change the number to your client ID inside the quotes.
 
-Add an [OpenWeatherMap API key](https://openweathermap.org/guide#how) (the free plan is very generous) in the same way. 
+Add an [OpenWeatherMap API key](https://openweathermap.org/guide#how) and [Finnhub key](https://finnhub.io) (both free plans are very generous) in the same way. 
 
 You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` and adding your text in the value for that. Example complete config file:
 ```json
@@ -40,9 +40,13 @@ You can also change the status that the bot shows (it'll be prefixed with *Watch
     "help-domain": "my-bot-site.qb",
     "clientID": "12343546798",
     "permissionValue": 0,
-    "weather-token": "1jf920fk3"
+    "weather-token": "1jf920fk3",
+    "weatherTimeout": 2000,
+    "stockToken": "FinnhubKey92323032",
+    "stockTimeout": 2000
 }
 ```
+The timeouts are optional and set in milliseconds.
 ## Environment Variables instead of `config.json`
 Instead of using the config.json, you can set these environment variables:
 ```bash
@@ -50,6 +54,8 @@ QBTOKEN="YourTokenHere"
 QBPREFIX=">>" # optional, default ~
 QBWEATHER="WeatherKey103949"
 QBWTIMEOUT="2000" # optional, default 15000 (15 seconds)
+QBSTOCKS="FinnhubKey92323032"
+QBSTIMEOUT="2000" # optional, default 2000 (2 seconds) or QBWTIMEOUT if that is set
 ```
 Note that there is currently no way to change stuff like the client ID this way.
 ## Run the bot
@@ -69,6 +75,8 @@ docker build -t quotobot/quotobot .
 ```
 docker run --name quotobot1 -d -v ./config.json:/app/config.json quotobot/quotobot
 ```
+## Heroku notes
+For Heroku, use the [environment variables setup](#environment-variables-instead-of-configjson) (it's called *config vars* in Heroku). You'll probably need to turn off the web dyno and turn the worker dyno.
 ## Keeping your copy up to date
 If you used the `git clone` command to download the bot, just do 
 ```bash
