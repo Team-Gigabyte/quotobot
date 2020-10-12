@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "count": "node ./db/countQuotes.js",
     "add": "node ./db/addQuote.js",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "relock": "npm i --package-lock-only"
   },
   "repository": {
     "type": "git",
