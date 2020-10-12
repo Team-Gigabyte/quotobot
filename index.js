@@ -331,6 +331,8 @@ bot.on("message", message => {
             }
             break;
         }
+        case "leaguestats":
+            break;
         default:
             break;
     }
