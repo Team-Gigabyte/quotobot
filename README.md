@@ -5,6 +5,7 @@ A Discord bot that tells quotes, gets the weather, and more!
 
 ![Quotes screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Demo%20Picture.png)
 ![Weather screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Weather%20Demo.png)
+![Stock screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Stock%20Demo.png)
 
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
