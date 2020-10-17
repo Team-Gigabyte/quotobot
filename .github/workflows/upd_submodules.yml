@@ -19,7 +19,7 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
     - name: Update submodules
-      run: git submodule foreach git pull origin master && git status
+      run: git submodule update --remote --merge && git status
     - name: Commit the new submodule
       uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
       with:
