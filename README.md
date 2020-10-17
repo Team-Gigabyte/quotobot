@@ -121,7 +121,7 @@ Future releases of the bot: **We might periodically add more quotes and features
 
 Any pull requests are appreciated.
 
-# Roadmap
+# Future Updates
 - League of Legends Player Lookup/Stats
 - Steam Features: Playercount, Price History, etc.
 
