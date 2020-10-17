@@ -1,0 +1,33 @@
+# This is a basic workflow that is manually triggered
+
+name: Update the submodules
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  update:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+    # Runs a single command using the runners shell
+    - name: Update submodules
+      run: git submodule update --remote --merge
+    - name: Commit the SQLite dumps
+      uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
+      with:
+        commit_message: Mirror the docs
+    - name: Notify if the code is broken
+      uses: sarisia/actions-status-discord@v1
+      if: failure()
+      with:
+        webhook: ${{ secrets.DISCORD_WEBHOOK }}  
