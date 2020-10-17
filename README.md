@@ -121,6 +121,10 @@ Future releases of the bot: **We might periodically add more quotes and features
 
 Any pull requests are appreciated.
 
+# Roadmap
+- League of Legends Player Lookup/Stats
+- Steam Features: Playercount, Price History, etc.
+
 # Technical Notes
 ![Built with JS](https://img.shields.io/static/v1?label=built%20with&message=JS&color=yellow&logo=javascript)
 
