@@ -9,7 +9,7 @@ A Discord bot that displays hand-curated quotes, tells you the weather, fetches 
 
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
-## [Need to see a list of commands? Click here.](https://github.com/Team-Gigabyte/quotobot/wiki/Help)
+## [Need to see a list of commands? Click here.](../../wiki/Help)
 # Or do you want to host and tweak the bot yourself?
 
 ## How to set up the config.json
