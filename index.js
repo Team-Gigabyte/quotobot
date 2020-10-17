@@ -8,6 +8,7 @@ const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
+const chalk = require("chalk");
 const bot = new Discord.Client();
 // config stuff
 let configFile;
