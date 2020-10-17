@@ -156,7 +156,7 @@ bot.on("message", message => {
     switch (command) {
         case "amiadmin":
             if (!message.member) return message.reply("Trick question.");
-            if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("you're not admin!");
+            else if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("you're not admin!");
             else return message.reply("you are admin!");
         case "testdm":
             message.author.send("Looks like the DM worked! You can send commands in here.")
