@@ -19,11 +19,12 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
     - name: Update submodules
-      run: git submodule foreach git pull origin master
+      run: git submodule foreach git pull origin master && git status
     - name: Commit the new submodule
       uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
       with:
         commit_message: Mirror the docs
+        file_pattern: 'wiki/*'
     - name: Notify if the code is broken
       uses: sarisia/actions-status-discord@v1
       if: failure()
