@@ -1,4 +1,3 @@
-
 <h1 align="center">Quotobot</h1>
 <p align="center">A Discord bot that displays hand-curated quotes, tells you the weather, fetches stock info, and more!</p>
 
@@ -18,7 +17,6 @@
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
 ## [Need to see a list of commands? Click here.](../../wiki/Help)
 # Or do you want to host and tweak the bot yourself?
-
 ## How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
 
@@ -112,10 +110,15 @@ You can do all of this from the GitHub web interface.
     ```
 2. Go [here](https://github.com/Team-Gigabyte/quotobot/actions?query=workflow%3A%22CSV+convert%22) (link will be different if you're working on a fork) and click Run Workflow. Use the workflow from the master branch.
 3. After that's done (assuming there aren't any errors), check if the quotes are in db/quotes.db.csv. If they are, get rid of the quotes in newQuotes.csv.
-### JS method (sometimes doesn't work)
+### JS method (not recommended; sometimes doesn't work)
+<details>
+<summary>See instructions</summary>
+
 - Use the addQuote.js script, which will prompt you for the required info and add it to db/quotes.db.
 - Make sure to make your quotes the *last* commits before you push, otherwise you'll get merge conflicts.
 You can also take a look at the csvToDb.py file and experiment with that. (You'll need Python and SQLite for that, and you need to modify the file name in the script.)
+
+</details>
 
 **Special thank you to [Uddesh](https://github.com/UddeshJain)**
 
