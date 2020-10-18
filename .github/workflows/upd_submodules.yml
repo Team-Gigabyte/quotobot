@@ -18,6 +18,7 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.head_ref }}
+        submodules: "true"
     - name: Update submodules
       run: git submodule update --remote --merge && git status
     - name: Commit the new submodule
