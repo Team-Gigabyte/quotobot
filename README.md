@@ -1,5 +1,6 @@
-# Quotobot
-A Discord bot that displays hand-curated quotes, tells you the weather, fetches stock info, and more!
+
+<h1 align="center">Quotobot</h1>
+<p align="center">A Discord bot that displays hand-curated quotes, tells you the weather, fetches stock info, and more!</p>
 
 ![CI](https://github.com/Team-Gigabyte/quotobot/workflows/CI/badge.svg) 
 [![DeepScan grade](https://deepscan.io/api/teams/10906/projects/13838/branches/243095/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10906&pid=13838&bid=243095) 
