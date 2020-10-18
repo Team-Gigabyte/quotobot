@@ -116,7 +116,9 @@ You can do all of this from the GitHub web interface.
 3. After that's done (assuming there aren't any errors), check if the quotes are in db/quotes.db.csv. If they are, get rid of the quotes in newQuotes.csv.
 ### JS method (not recommended; sometimes doesn't work)
 <details>
-<summary>See instructions</summary>
+    <summary>
+        <b>Click here to see instructions.</b>
+    </summary>
 
 - Use the addQuote.js script, which will prompt you for the required info and add it to db/quotes.db.
 - Make sure to make your quotes the *last* commits before you push, otherwise you'll get merge conflicts.
