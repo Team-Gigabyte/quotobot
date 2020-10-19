@@ -3,8 +3,6 @@ name: Update the submodules
 # Controls when the action will run. Workflow runs when manually triggered using the UI
 # or API.
 on:
-  schedule:
-    - cron: '0 1 * * *'
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -18,15 +16,11 @@ jobs:
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.head_ref }}
+        submodules: "true"
     - name: Update submodules
-      run: git submodule update --remote --merge && git status
+      run: git submodule foreach git pull --allow-unrelated-histories origin master && git status
     - name: Commit the new submodule
       uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
       with:
         commit_message: Mirror the docs
         file_pattern: 'wiki/*'
-    - name: Notify if the code is broken
-      uses: sarisia/actions-status-discord@v1
-      if: failure()
-      with:
-        webhook: ${{ secrets.DISCORD_WEBHOOK }}  

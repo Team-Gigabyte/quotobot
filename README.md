@@ -1,7 +1,16 @@
-# Quotobot
-A Discord bot that displays hand-curated quotes, tells you the weather, fetches stock info, and more!
+<h1 align="center">Quotobot</h1>
+<p align="center">A Discord bot that displays 200+ hand-curated quotes, tells you the weather, fetches stock info, and more!</p>
 
-![CI](https://github.com/Team-Gigabyte/quotobot/workflows/CI/badge.svg) [![DeepScan grade](https://deepscan.io/api/teams/10906/projects/13838/branches/243095/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10906&pid=13838&bid=243095) [![GitHub license](https://img.shields.io/github/license/Team-Gigabyte/quotobot)](https://github.com/Team-Gigabyte/quotobot/blob/master/LICENSE) [![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](http://quotobot.ml) ![Program Size](https://img.shields.io/github/languages/code-size/Team-Gigabyte/quotobot) [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Team-Gigabyte/quotobot?logo=github&sort=semver)](https://github.com/Team-Gigabyte/quotobot/releases/latest) [![Number of quotes](https://img.shields.io/badge/dynamic/yaml?color=blue&label=quotes&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2FTeam-Gigabyte%2Fquotobot%2Fmaster%2Fdb%2Fquotes.count.yml)](https://github.com/Team-Gigabyte/quotobot/blob/master/db/quotes.db.csv)
+[![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](http://quotobot.ml) 
+[![Number of quotes](https://img.shields.io/badge/dynamic/yaml?color=blue&label=quotes&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2FTeam-Gigabyte%2Fquotobot%2Fmaster%2Fdb%2Fquotes.count.yml)](https://github.com/Team-Gigabyte/quotobot/blob/master/db/quotes.db.csv)
+
+
+![CI](https://github.com/Team-Gigabyte/quotobot/workflows/CI/badge.svg) 
+[![DeepScan grade](https://deepscan.io/api/teams/10906/projects/13838/branches/243095/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10906&pid=13838&bid=243095) 
+[![GitHub license](https://img.shields.io/github/license/Team-Gigabyte/quotobot)](https://github.com/Team-Gigabyte/quotobot/blob/master/LICENSE) 
+![Program Size](https://img.shields.io/github/languages/code-size/Team-Gigabyte/quotobot) 
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Team-Gigabyte/quotobot?logo=github&sort=semver)](https://github.com/Team-Gigabyte/quotobot/releases/latest) 
+
 
 ![Quotes screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Demo%20Picture.png)
 ![Weather screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Weather%20Demo.png)
@@ -9,9 +18,9 @@ A Discord bot that displays hand-curated quotes, tells you the weather, fetches 
 
 
 # [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
-## [Need to see a list of commands? Click here.](https://github.com/Team-Gigabyte/quotobot/wiki/Help)
+## [Need to see a list of commands? Click here.](../../wiki/Help)
+## [Click here to skip the next section](#tentative-timeline)
 # Or do you want to host and tweak the bot yourself?
-
 ## How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
 
@@ -105,10 +114,17 @@ You can do all of this from the GitHub web interface.
     ```
 2. Go [here](https://github.com/Team-Gigabyte/quotobot/actions?query=workflow%3A%22CSV+convert%22) (link will be different if you're working on a fork) and click Run Workflow. Use the workflow from the master branch.
 3. After that's done (assuming there aren't any errors), check if the quotes are in db/quotes.db.csv. If they are, get rid of the quotes in newQuotes.csv.
-### JS method (sometimes doesn't work)
+### JS method (not recommended; sometimes doesn't work)
+<details>
+    <summary>
+        <b>Click here to see instructions.</b>
+    </summary>
+
 - Use the addQuote.js script, which will prompt you for the required info and add it to db/quotes.db.
 - Make sure to make your quotes the *last* commits before you push, otherwise you'll get merge conflicts.
 You can also take a look at the csvToDb.py file and experiment with that. (You'll need Python and SQLite for that, and you need to modify the file name in the script.)
+
+</details>
 
 **Special thank you to [Uddesh](https://github.com/UddeshJain)**
 

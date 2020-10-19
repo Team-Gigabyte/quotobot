@@ -205,5 +205,8 @@ INSERT INTO Quotes VALUES('The past is prophetic in that it asserts loudly that 
 INSERT INTO Quotes VALUES('The limitation of riots, moral questions aside, is that they cannot win and their participants know it. Hence, rioting is not revolutionary but reactionary because it invites defeat. It involves an emotional catharsis, but it must be followed by a sense of futility.',202,'Martin Luther King Jr.',0);
 INSERT INTO Quotes VALUES('He who is devoid of the power to forgive is devoid of the power to love.',203,'Martin Luther King Jr.',0);
 INSERT INTO Quotes VALUES('I believe that unarmed truth and unconditional love will have the final word in reality. This is why right, temporarily defeated, is stronger than evil triumphant.',204,'Martin Luther King Jr.',0);
+INSERT INTO Quotes VALUES('The grass is greener on the other side of the fence.',205,'Anonymous',0);
+INSERT INTO Quotes VALUES('After ~1000 failed coding projects, we''ve learned one thing: Most coding projects are a waste of time.',206,'QB Devs',0);
+INSERT INTO Quotes VALUES('When ordering a pizza, a "Thick Crust" option means that the *other* options are way too thin.',207,'QB Devs',0);
 CREATE UNIQUE INDEX main_quotes on Quotes(quote);
 COMMIT;
