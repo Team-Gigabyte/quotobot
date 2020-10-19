@@ -17,9 +17,9 @@
 ![Stock screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Stock%20Demo.png)
 
 
-# [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
-## [Need to see a list of commands? Click here.](../../wiki/Help)
-## [Click here to skip the next section](#tentative-timeline)
+# 🤖 [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
+## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help)
+## 👇 [Click here to skip the next section](#tentative-timeline)
 # Or do you want to host and tweak the bot yourself?
 ## How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
