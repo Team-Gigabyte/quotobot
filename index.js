@@ -61,13 +61,14 @@ const icons = Object.freeze({
     warn: "https://cdn.discordapp.com/attachments/449680513683292162/751892501375221862/warning_26a0.png"
 })
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
+const randQuoteQuery = "SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);";
 const usedWeatherRecently = new Set(), usedStocksRecently = new Set();
-const asciiLogo = `
+const asciiLogo = chalk`{blueBright
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
 / /_/ / // / _ \\/ __/ _ \\/ _ \\/ _ \\/ __/
-\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/` // Quotobot in ASCII art
-const db = new sqlite3.Database("./db/quotes.db");
+\\___\\_\\_,_/\\___/\\__/\\___/_.__/\\___/\\__/}` // Quotobot in ASCII art
+const db = new sqlite3.cached.Database("./db/quotes.db", sqlite3.OPEN_READONLY);
 db.each = promisify(db.each);
 const embed = Object.freeze({
     "error": (description, code = "", title = "Error") => {
@@ -120,6 +121,9 @@ const embed = Object.freeze({
 bot.once("ready", () => {
     console.log("Ready!");
     console.log(asciiLogo);
+    db.each(randQuoteQuery).then(
+        ({ quote, source }) => console.log(chalk`{blueBright "${quote}" –${source}}`)
+    )
     let invText;
     if (configFile.clientID) {
         invText = `https://discordapp.com/oauth2/authorize?client_id=${configFile.clientID}&scope=bot&permissions=${configFile.permissionValue.toString() || "280576"}`;
@@ -145,8 +149,8 @@ if (!token) {
     throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
 }
 bot.login(token);
-bot.on("warn", m => console.warn("Warning: ", m));
-bot.on("error", console.error);
+bot.on("warn", m => console.warn(chalk`{orange Warning: ${m}}`));
+bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
 bot.on("message", message => {
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
@@ -155,8 +159,8 @@ bot.on("message", message => {
     const command = args.shift().trim().toLowerCase();
     switch (command) {
         case "amiadmin":
-            if (!message.member) return message.reply("Trick question.");
-            else if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("you're not admin!");
+            if (!message.member) return message.reply("trick question.");
+            if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("you're not admin!");
             else return message.reply("you are admin!");
         case "testdm":
             message.author.send("Looks like the DM worked! You can send commands in here.")
