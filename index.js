@@ -9,6 +9,7 @@ const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
+const TeemoJS = require("teemojs");
 const bot = new Discord.Client();
 // config stuff
 let configFile;
