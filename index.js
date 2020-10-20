@@ -9,7 +9,7 @@ const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
-const TeemoJS = require("teemojs");
+const LeagueAPI = require("leagueapiwrapper");
 const bot = new Discord.Client();
 // config stuff
 let configFile;
@@ -47,6 +47,16 @@ if (!stocksEnabled) {
     console.log("There was a problem with starting up the stocks API. Stock lookups will not work.")
 }
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
+// handle starting up TeemoJS
+let leagueEnabled = false;
+try {
+    let league = new LeagueAPI(envVars.RGKEY || configFile.riotKey, LeagueAPI.Region.NA);
+    leagueEnabled = true;
+}
+catch (e) {
+    console.error(chalk`{redBright ${e}}`);
+    console.error(chalk`{redBright Due to the above error, League of Legends lookups won't work.}`);
+}
 // constants and functions
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
 const norm = text => text
@@ -140,7 +150,8 @@ bot.once("ready", () => {
         "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫 weather will not work"),
         "help link": (configFile.helpURL || "default"),
         "author pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded"),
-        "stocks enabled": (stocksEnabled ? "✅" : "🚫 stock commands will not work")
+        "stocks enabled?": (stocksEnabled ? "✅" : "🚫 stock commands will not work"),
+        "league enabled?": (leagueEnabled ? "✅" : "🚫 League commands will not work")
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
