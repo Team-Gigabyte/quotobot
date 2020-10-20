@@ -159,7 +159,7 @@ bot.on("message", message => {
     const command = args.shift().trim().toLowerCase();
     switch (command) {
         case "amiadmin":
-            if (!message.member) return message.reply("trick question.");
+            if (!message.member) return message.reply("Trick question.");
             if (!message.member.hasPermission("ADMINISTRATOR")) return message.reply("you're not admin!");
             else return message.reply("you are admin!");
         case "testdm":
