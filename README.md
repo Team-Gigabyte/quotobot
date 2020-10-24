@@ -40,8 +40,12 @@ to
 ```
 
 making sure to change the number to your client ID inside the quotes.
-
-Add an [OpenWeatherMap API key](https://openweathermap.org/guide#how) and [Finnhub key](https://finnhub.io) (both free plans are very generous) in the same way. 
+<details open> 
+    
+<summary>More info about the APIs.</summary>
+    
+You can add an [OpenWeatherMap API key](https://openweathermap.org/guide#how), [Finnhub (stocks) key](https://finnhub.io), and a [Riot key](https://developer.riotgames.com/) in the same way. OpenWeatherMap and Finnhub are free and easy to get, but Riot needs you to submit an application to get a key. If any of these keys are missing, the bot won't crash – it'll just let the user know that the feature isn't working if they try to use it.
+</details>
 
 You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` and adding your text in the value for that. Example complete config file:
 ```json
@@ -54,7 +58,9 @@ You can also change the status that the bot shows (it'll be prefixed with *Watch
     "weather-token": "1jf920fk3",
     "weatherTimeout": 2000,
     "stockToken": "FinnhubKey92323032",
-    "stockTimeout": 2000
+    "stockTimeout": 2000,
+    "riotKey": "RGAPI-199020190912091",
+    "leagueTimeout": 3000
 }
 ```
 The timeouts are optional and set in milliseconds.
@@ -67,6 +73,8 @@ QBWEATHER="WeatherKey103949"
 QBWTIMEOUT="2000" # optional, default 15000 (15 seconds)
 QBSTOCKS="FinnhubKey92323032"
 QBSTIMEOUT="2000" # optional, default 2000 (2 seconds) or QBWTIMEOUT if that is set
+QBRGKEY="RGAPI-199020190912091"
+QBLEAGUETIMEOUT="3000" # optional, default 5000 (5 seconds)
 ```
 Note that there is currently no way to change stuff like the client ID this way.
 ## Run the bot
