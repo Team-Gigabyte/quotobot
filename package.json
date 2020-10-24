@@ -23,13 +23,13 @@
   "homepage": "https://quotobot.js.org",
   "devDependencies": {
     "eslint": "^7.11.0",
-    "nodemon": "^2.0.5"
+    "nodemon": "^2.0.6"
   },
   "dependencies": {
     "axios": "^0.20.0",
     "chalk": "^4.1.0",
     "country-flag-emoji": "^1.0.3",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.4.0",
     "leagueapiwrapper": "^2.1.0",
     "sqlite3": "^5.0.0"
   },
