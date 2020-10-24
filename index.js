@@ -374,7 +374,7 @@ bot.on("message", message => {
                 }
                 try {
                     message.channel.startTyping();
-                    if (!(reg == "NA")) {
+                    if (reg != "NA") {
                         // eslint-disable-next-line no-undef
                         LeagueAPI.changeRegion(Region[reg]);
                     }
