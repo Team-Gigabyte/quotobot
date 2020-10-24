@@ -337,12 +337,6 @@ bot.on("message", message => {
                             return null;
                         }
                         message.reply(embed.stocks(stockData, args[0]));
-                        // Adds the user to the set so that they can't talk for some time
-                        usedStocksRecently.add(message.author.id);
-                        setTimeout(() => {
-                            // Removes the user from the set after timeout
-                            usedStocksRecently.delete(message.author.id);
-                        }, timeout);
                     } catch (err) {
                         message.reply(embed.error("There was an error getting stock info.", err.response.data.message || err.message))
                     }
@@ -383,6 +377,7 @@ bot.on("message", message => {
                     message.reply(embed.simple(gotData.summonerLevel, "", "Summoner level for " + gotData.name));
                 } catch (err) {
                     message.reply(embed.error("There was an error getting League stats.", err.message || err.status.message));
+                    return null;
                 }
             })();
             usedLeagueRecently.add(message.author.id);
