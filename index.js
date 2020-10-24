@@ -44,7 +44,7 @@ if (configFile.stockToken || envVars.QBSTOCKS) {
     stocksEnabled = true;
 }
 if (!stocksEnabled) {
-    console.log("There was a problem with starting up the stocks API. Stock lookups will not work.")
+    console.log("Your stock API key is falsy (usually undefined). Stock lookups will not work.")
 }
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
 // handle starting up the League API
