@@ -9,6 +9,7 @@ const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
+let LeagueAPI = require("leagueapiwrapper");
 const bot = new Discord.Client();
 // config stuff
 let configFile;
@@ -43,17 +44,33 @@ if (configFile.stockToken || envVars.QBSTOCKS) {
     stocksEnabled = true;
 }
 if (!stocksEnabled) {
-    console.log("There was a problem with starting up the stocks API. Stock lookups will not work.")
+    console.log("Your stock API key is falsy (usually undefined). Stock lookups will not work.")
 }
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
+// handle starting up the League API
+let leagueEnabled = false;
+try {
+    // eslint-disable-next-line no-undef
+    LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
+    LeagueAPI.getStatus()
+        .then(console.log)
+        .catch(console.log);
+    leagueEnabled = true;
+}
+catch (e) {
+    console.error(chalk`{redBright ${e}}`);
+    console.error(chalk`{redBright Due to the above error, League of Legends lookups won't work.}`);
+}
 // constants and functions
 const prefix = configFile.prefix || envVars.QBPREFIX || "~";
 const norm = text => text
     .trim()
     .toLowerCase()
     .replace(/\s+/, " "); //"normalize" text
-const escapeRegex = str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-const urlRegex = /^(http|https):\/\/[^ "]+$/;
+const regex = Object.freeze({
+    escape: str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
+    url: /^(http|https):\/\/[^ "]+$/
+})
 const icons = Object.freeze({
     quote: "https://cdn.discordapp.com/attachments/449680513683292162/755533965657505843/unknown.png",// from https://materialdesignicons.com/icon/comment-quote licensed under SIL OFL
     empty: "https://cdn.discordapp.com/attachments/449680513683292162/746829996752109678/Untitled.png",
@@ -62,7 +79,7 @@ const icons = Object.freeze({
 })
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const randQuoteQuery = "SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);";
-const usedWeatherRecently = new Set(), usedStocksRecently = new Set();
+const usedWeatherRecently = new Set(), usedStocksRecently = new Set(), usedLeagueRecently = new Set();
 const asciiLogo = chalk`{blueBright
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
@@ -139,7 +156,8 @@ bot.once("ready", () => {
         "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫 weather will not work"),
         "help link": (configFile.helpURL || "default"),
         "author pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded"),
-        "stocks enabled": (stocksEnabled ? "✅" : "🚫 stock commands will not work")
+        "stocks enabled?": (stocksEnabled ? "✅" : "🚫 stock commands will not work"),
+        "league enabled?": (leagueEnabled ? "✅" : "🚫 League commands will not work")
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
@@ -152,7 +170,7 @@ bot.login(token);
 bot.on("warn", m => console.warn(chalk`{orange Warning: ${m}}`));
 bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
 bot.on("message", message => {
-    const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegex(prefix)})\\s*`);
+    const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${regex.escape(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
     const [matchedPrefix] = message.content.match(prefixRegex);
     const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
@@ -189,7 +207,7 @@ bot.on("message", message => {
                     try {
                         let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
                         let em = embed.simple(quote, source, "Random Quote");
-                        if (authorPictures[source] && urlRegex.test(authorPictures[source])) {
+                        if (authorPictures[source] && regex.url.test(authorPictures[source])) {
                             em.setThumbnail(authorPictures[source]);
                             em.setFooter(`—${source}`, authorPictures[source]);
                         }
@@ -277,10 +295,10 @@ bot.on("message", message => {
                         country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                         let displayCity = apiData.data.name;
                         message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
-                        // Adds the user to the set so that they can't talk for a minute
+                        // Adds the user to the set so that they can't talk for some time
                         usedWeatherRecently.add(message.author.id);
                         setTimeout(() => {
-                            // Removes the user from the set after 15 seconds
+                            // Removes the user from the set after timeout
                             usedWeatherRecently.delete(message.author.id);
                         }, timeout);
                     } catch (err) {
@@ -322,24 +340,65 @@ bot.on("message", message => {
                             return null;
                         }
                         message.reply(embed.stocks(stockData, args[0]));
-                        // Adds the user to the set so that they can't talk for a minute
-                        usedStocksRecently.add(message.author.id);
-                        setTimeout(() => {
-                            // Removes the user from the set after 15 seconds
-                            usedStocksRecently.delete(message.author.id);
-                        }, timeout);
                     } catch (err) {
                         message.reply(embed.error("There was an error getting stock info.", err.response.data.message || err.message))
                     }
                 })();
                 usedStocksRecently.add(message.author.id);
                 setTimeout(() => {
-                    // Removes the user from the set after 15 seconds
+                    // Removes the user from the set after timeout
                     usedStocksRecently.delete(message.author.id);
                 }, timeout);
             }
             break;
         }
+        case "leaguestats": {
+            const timeout = configFile.leagueTimeout || envVars.QBLEAGUETIMEOUT || 5000;
+            if (usedLeagueRecently.has(message.author.id)) {
+                message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for League stats again.`, "ERR_RATE_LIMIT", "Slow down!"));
+                return null;
+            }
+
+            (async function () {
+                let reg = "NA";
+                if (!leagueEnabled) {
+                    message.reply(embed.error("League stats lookup isn't currently working. Sorry about that.", "ERR_NO_LEAGUE_KEY"));
+                    return null;
+                }
+                if (!args[0]) {
+                    message.reply(embed.error("You didn't include any arguments. Re-run the command with the summoner name."));
+                    return null;
+                }
+                if (args[1]) {
+                    reg = args[1].toUpperCase();
+                }
+                try {
+                    message.channel.startTyping();
+                    if (reg != "NA") {
+                        // eslint-disable-next-line no-undef
+                        LeagueAPI.changeRegion(Region[reg]);
+                    }
+                    let gotData = await LeagueAPI.getSummonerByName(args[0]);
+                    message.channel.stopTyping();
+                    message.reply(embed.simple(gotData.summonerLevel, "", "Summoner level for " + gotData.name));
+                    // eslint-disable-next-line no-undef
+                    LeagueAPI.changeRegion(Region.NA);
+                } catch (err) {
+                    message.channel.stopTyping();
+                    message.channel.stopTyping();
+                    message.reply(embed.error("There was an error getting League stats.", err.message || err.status.message));
+                    // eslint-disable-next-line no-undef
+                    LeagueAPI.changeRegion(Region.NA);
+                    return null;
+                }
+            })();
+            usedLeagueRecently.add(message.author.id);
+            setTimeout(() => {
+                // Removes the user from the set after timeout
+                usedLeagueRecently.delete(message.author.id);
+            }, timeout);
+        }
+            break;
         default:
             break;
     }
