@@ -387,6 +387,8 @@ bot.on("message", message => {
                     message.channel.stopTyping();
                     message.channel.stopTyping();
                     message.reply(embed.error("There was an error getting League stats.", err.message || err.status.message));
+                    // eslint-disable-next-line no-undef
+                    LeagueAPI.changeRegion(Region.NA);
                     return null;
                 }
             })();
