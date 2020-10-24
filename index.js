@@ -52,6 +52,9 @@ let leagueEnabled = false;
 try {
     // eslint-disable-next-line no-undef
     LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
+    LeagueAPI.getStatus()
+        .then(console.log)
+        .catch(console.log);
     leagueEnabled = true;
 }
 catch (e) {
@@ -355,6 +358,7 @@ bot.on("message", message => {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for League stats again.`, "ERR_RATE_LIMIT", "Slow down!"));
                 return null;
             }
+
             (async function () {
                 let reg = "NA";
                 if (!leagueEnabled) {
@@ -369,15 +373,19 @@ bot.on("message", message => {
                     reg = args[1].toUpperCase();
                 }
                 try {
+                    message.channel.startTyping();
                     if (!(reg == "NA")) {
                         // eslint-disable-next-line no-undef
                         LeagueAPI.changeRegion(Region[reg]);
                     }
                     let gotData = await LeagueAPI.getSummonerByName(args[0]);
+                    message.channel.stopTyping();
                     message.reply(embed.simple(gotData.summonerLevel, "", "Summoner level for " + gotData.name));
                     // eslint-disable-next-line no-undef
                     LeagueAPI.changeRegion(Region.NA);
                 } catch (err) {
+                    message.channel.stopTyping();
+                    message.channel.stopTyping();
                     message.reply(embed.error("There was an error getting League stats.", err.message || err.status.message));
                     return null;
                 }
