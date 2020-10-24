@@ -351,8 +351,8 @@ bot.on("message", message => {
         }
         case "leaguestats": {
             const timeout = configFile.leagueTimeout || envVars.QBLEAGUETIMEOUT || 5000;
-            if (usedStocksRecently.has(message.author.id)) {
-                message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for stocks again.`, "ERR_RATE_LIMIT", "Slow down!"));
+            if (usedLeagueRecently.has(message.author.id)) {
+                message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for League stats again.`, "ERR_RATE_LIMIT", "Slow down!"));
                 return null;
             }
             (async function () {
@@ -375,6 +375,8 @@ bot.on("message", message => {
                     }
                     let gotData = await LeagueAPI.getSummonerByName(args[0]);
                     message.reply(embed.simple(gotData.summonerLevel, "", "Summoner level for " + gotData.name));
+                    // eslint-disable-next-line no-undef
+                    LeagueAPI.changeRegion(Region.NA);
                 } catch (err) {
                     message.reply(embed.error("There was an error getting League stats.", err.message || err.status.message));
                     return null;
