@@ -9,7 +9,7 @@ const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
-const LeagueAPI = require("leagueapiwrapper");
+let LeagueAPI = require("leagueapiwrapper");
 const bot = new Discord.Client();
 // config stuff
 let configFile;
@@ -47,10 +47,11 @@ if (!stocksEnabled) {
     console.log("There was a problem with starting up the stocks API. Stock lookups will not work.")
 }
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
-// handle starting up TeemoJS
+// handle starting up the League API
 let leagueEnabled = false;
 try {
-    let league = new LeagueAPI(envVars.RGKEY || configFile.riotKey, LeagueAPI.Region.NA);
+    // eslint-disable-next-line no-undef
+    LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
     leagueEnabled = true;
 }
 catch (e) {
@@ -352,8 +353,41 @@ bot.on("message", message => {
             }
             break;
         }
-        case "leaguestats":
+        case "leaguestats": {
+            const timeout = configFile.stockTimeout || envVars.QBSTIMEOUT || configFile.weatherTimeout || envVars.QBWTIMEOUT || 2000;
+            if (usedStocksRecently.has(message.author.id)) {
+                message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for stocks again.`, "ERR_RATE_LIMIT", "Slow down!"));
+            } else {
+                (async function () {
+                    if (!leagueEnabled) {
+                        message.reply(embed.error("League stats lookup isn't currently working. Sorry about that.", "ERR_NO_LEAGUE_KEY"));
+                        return null;
+                    }
+                    if (!args[0]) {
+                        message.reply(embed.error("You didn't include any arguments. Re-run the command with the summoner name."));
+                        return null;
+                    }
+                    try {
+                        let gotData = await LeagueAPI.getSummonerByName(args[0]);
+                        message.reply(embed.simple(gotData.summonerLevel, "", "Summoner level for " + gotData.name));
+                        // Adds the user to the set so that they can't talk for a minute
+                        usedStocksRecently.add(message.author.id);
+                        setTimeout(() => {
+                            // Removes the user from the set after 15 seconds
+                            usedStocksRecently.delete(message.author.id);
+                        }, timeout);
+                    } catch (err) {
+                        message.reply(embed.error("There was an error getting League stats.", err.message || err.status.message));
+                    }
+                })();
+                usedStocksRecently.add(message.author.id);
+                setTimeout(() => {
+                    // Removes the user from the set after 15 seconds
+                    usedStocksRecently.delete(message.author.id);
+                }, timeout);
+            }
             break;
+        }
         default:
             break;
     }
