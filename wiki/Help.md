@@ -30,4 +30,5 @@
 | TR     | tr1           |
 | LAN    | la1           |
 | LAS    | la2           |
+
 - `help`: Brings up a hyperlink to this commands list
