@@ -387,7 +387,7 @@ bot.on("message", message => {
                 } catch (err) {
                     message.channel.stopTyping(true);
                     message.channel.stopTyping();
-                    message.reply(embed.error("There was an error getting League stats.", err.message || err.status.message));
+                    message.reply(embed.error("There was an error getting League stats.", err.message || JSON.stringify(err.status)));
                     // eslint-disable-next-line no-undef
                     LeagueAPI.changeRegion(Region.NA);
                     return null;
