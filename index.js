@@ -55,7 +55,7 @@ try {
     LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
     LeagueAPI.getStatus()
         .then(console.log)
-        .catch(console.error);
+        .catch(() => {throw e;});
     leagueEnabled = true;
 }
 catch (e) {
