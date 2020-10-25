@@ -1,4 +1,4 @@
-name: Update the copy of the wiki on the website
+name: Update wiki copy
 
 on:
   schedule:
@@ -16,12 +16,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Update submodules
       run: chmod +x ./wiki_upd.sh && bash ./wiki_upd.sh
-    - name: Commit the new submodule
+    - name: Commit the new wiki copy
       uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
       with:
         commit_message: Update the wiki copy
         file_pattern: 'wiki/*'
-    - name: Notify if the code is broken
+    - name: Notify if the workflow is broken
       uses: sarisia/actions-status-discord@v1
       if: failure()
       with:
