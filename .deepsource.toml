@@ -13,3 +13,7 @@ enabled = true
 
   [analyzers.meta]
   environment = ["nodejs"]
+
+[[analyzers]]
+name = "shell"
+enabled = true
