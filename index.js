@@ -353,6 +353,9 @@ bot.on("message", message => {
             }
             break;
         }
+        case "league":
+        case "lolstats":
+        case "lol":
         case "leaguestats": {
             const timeout = configFile.leagueTimeout || envVars.QBLEAGUETIMEOUT || 5000;
             if (usedLeagueRecently.has(message.author.id)) {
