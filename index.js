@@ -50,11 +50,12 @@ const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
 // handle starting up the League API
 let leagueEnabled = false;
 try {
+    if (!envVars.QBRGKEY || !configFile.riotKey) throw new Error("The League key is falsy (usually undefined). Did you put a key?");
     // eslint-disable-next-line no-undef
     LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
     LeagueAPI.getStatus()
         .then(console.log)
-        .catch(console.log);
+        .catch(console.error);
     leagueEnabled = true;
 }
 catch (e) {
@@ -358,17 +359,17 @@ bot.on("message", message => {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for League stats again.`, "ERR_RATE_LIMIT", "Slow down!"));
                 return null;
             }
-
+            if (!leagueEnabled) {
+                message.reply(embed.error("League stats lookup isn't currently working. Sorry about that.", "ERR_NO_LEAGUE_KEY"));
+                return null;
+            }
+            if (!args[0]) {
+               message.reply(embed.error("You didn't include any arguments. Re-run the command with the summoner name."));
+               return null;
+            }
             (async function () {
                 let reg = "NA";
-                if (!leagueEnabled) {
-                    message.reply(embed.error("League stats lookup isn't currently working. Sorry about that.", "ERR_NO_LEAGUE_KEY"));
-                    return null;
-                }
-                if (!args[0]) {
-                    message.reply(embed.error("You didn't include any arguments. Re-run the command with the summoner name."));
-                    return null;
-                }
+                
                 if (args[1]) {
                     reg = args[1].toUpperCase();
                 }
@@ -384,7 +385,7 @@ bot.on("message", message => {
                     // eslint-disable-next-line no-undef
                     LeagueAPI.changeRegion(Region.NA);
                 } catch (err) {
-                    message.channel.stopTyping();
+                    message.channel.stopTyping(true);
                     message.channel.stopTyping();
                     message.reply(embed.error("There was an error getting League stats.", err.message || err.status.message));
                     // eslint-disable-next-line no-undef
