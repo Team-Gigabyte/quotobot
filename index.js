@@ -55,7 +55,7 @@ try {
     LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
     LeagueAPI.getStatus()
         .then(console.log)
-        .catch(e => {throw e;});
+        .catch(e => { throw e; });
     leagueEnabled = true;
 }
 catch (e) {
@@ -367,12 +367,12 @@ bot.on("message", message => {
                 return null;
             }
             if (!args[0]) {
-               message.reply(embed.error("You didn't include any arguments. Re-run the command with the summoner name."));
-               return null;
+                message.reply(embed.error("You didn't include any arguments. Re-run the command with the summoner name."));
+                return null;
             }
             (async function () {
                 let reg = "NA";
-                
+
                 if (args[1]) {
                     reg = args[1].toUpperCase();
                 }
