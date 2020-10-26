@@ -11,6 +11,7 @@ const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
 let LeagueAPI = require("leagueapiwrapper");
 const bot = new Discord.Client();
+require("dotenv").config();
 // config stuff
 let configFile;
 try {

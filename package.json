@@ -30,6 +30,7 @@
     "chalk": "^4.1.0",
     "country-flag-emoji": "^1.0.3",
     "discord.js": "^12.4.0",
+    "dotenv": "^8.2.0",
     "leagueapiwrapper": "^2.1.0",
     "sqlite3": "^5.0.0"
   }
