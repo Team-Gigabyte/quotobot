@@ -13,9 +13,9 @@
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Team-Gigabyte/quotobot?logo=github&sort=semver)](https://github.com/Team-Gigabyte/quotobot/releases/latest) 
 
 
-![Quotes screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Demo%20Picture.png)
-![Weather screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Weather%20Demo.png)
-![Stock screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/Stock%20Demo.png)
+![Quotes screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/img/Demo%20Picture.png)
+![Weather screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/img/Weather%20Demo.png)
+![Stock screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/img/Stock%20Demo.png)
 
 
 # 🤖 [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
