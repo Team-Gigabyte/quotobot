@@ -209,9 +209,9 @@ bot.on("message", message => {
                     try {
                         let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
                         let em = embed.simple(quote, source, "Random Quote");
-                        if (authorPictures[source] && regex.url.test(authorPictures[source])) {
-                            em.setThumbnail(authorPictures[source]);
-                            em.setFooter(`—${source}`, authorPictures[source]);
+                        if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
+                            em.setThumbnail(authorPictures[source.trim()]);
+                            em.setFooter(`—${source}`, authorPictures[source.trim()]);
                         }
                         message.channel.send(em);
                     } catch (err) {
@@ -220,8 +220,8 @@ bot.on("message", message => {
                     }
                 })();
                 //  (I've given this quote ${randomQuote.usage} times before)
-                /* db.run(`Update Quotes set usage = ? where id = ${randomQuote.id}`,
-                    [randomQuote.usage + 1],
+                /* db.run(`Update Quotes set usage = ? where id = ?`,
+                    [randomQuote.usage + 1, randomQuote.id],
                     (error) => { if (error) { console.log(error.message); } }
                 ); */
                 break;
