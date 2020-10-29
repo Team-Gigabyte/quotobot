@@ -68,17 +68,8 @@ You can also change the status that the bot shows (it'll be prefixed with *Watch
 ```
 The timeouts are optional and set in milliseconds.
 ## Environment Variables instead of `config.json`
-Instead of using the config.json, you can set these environment variables:
-```bash
-QBTOKEN="YourTokenHere"
-QBPREFIX=">>" # optional, default ~
-QBWEATHER="WeatherKey103949"
-QBWTIMEOUT="2000" # optional, default 15000 (15 seconds)
-QBSTOCKS="FinnhubKey92323032"
-QBSTIMEOUT="2000" # optional, default 2000 (2 seconds) or QBWTIMEOUT if that is set
-QBRGKEY="RGAPI-199020190912091"
-QBLEAGUETIMEOUT="3000" # optional, default 5000 (5 seconds)
-```
+Instead of using the config.json, you can set environment variables. See [the .env.example file](./.env.example) for the variable names and details.
+
 Note that there is currently no way to change stuff like the client ID this way.
 ## Run the bot
 Make sure you have [Node.js >= 12](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:

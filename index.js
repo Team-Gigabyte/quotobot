@@ -194,7 +194,7 @@ bot.on("message", message => {
             message.channel.send(new Discord.MessageEmbed()
                 .setTitle("Click here for the commands.")
                 .setColor("009688")
-                .setURL(configFile.helpURL || "https://github.com/Team-Gigabyte/quotobot/wiki/Help")
+                .setURL(envVars.QBHELPURL || configFile.helpURL || "https://github.com/Team-Gigabyte/quotobot/wiki/Help")
                 .setFooter(`v${qbVersion}~${bot.guilds.cache.size}`));
             break;
         case "ping":
@@ -230,7 +230,25 @@ bot.on("message", message => {
             {
                 (async () => {
                     try {
-                        let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes where length(quote) >= 128 ORDER BY RANDOM() LIMIT 1);");
+                        let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes where length(quote) <= 140 ORDER BY RANDOM() LIMIT 1);");
+                        let em = embed.simple(quote, source, "Random Quote");
+                        if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
+                            em.setThumbnail(authorPictures[source.trim()]);
+                            em.setFooter(`—${source}`, authorPictures[source.trim()]);
+                        }
+                        message.channel.send(em);
+                    } catch (err) {
+                        message.reply(embed.error("There was an error on our end. Try again later.", "ERR_DATABASE"));
+                        console.error(err.message);
+                    }
+                })();
+                break;
+            }
+        case "longquote":
+            {
+                (async () => {
+                    try {
+                        let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes where length(quote) > 140 ORDER BY RANDOM() LIMIT 1);");
                         let em = embed.simple(quote, source, "Random Quote");
                         if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
