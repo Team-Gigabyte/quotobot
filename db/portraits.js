@@ -14,5 +14,6 @@ module.exports = {
   "Elon Musk": "https://cdn.discordapp.com/attachments/746526474131210281/756894178755084338/Screen_Shot_2020-09-19_at_11.07.10_AM.png", // https://commons.wikimedia.org/wiki/File:Elon_Musk_Royal_Society.jpg CC BY-SA
   "Eleanor Roosevelt": "https://cdn.discordapp.com/attachments/746526474131210281/756894467893624912/Eleanor_Roosevelt_portrait_1933.jpg", // https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_portrait_1933.jpg
   "QB Devs": "https://cdn.discordapp.com/attachments/449680513683292162/755533965657505843/unknown.png", // https://materialdesignicons.com/icon/comment-quote SIL OFL
-  "Martin Luther King Jr.": "https://cdn.discordapp.com/attachments/449680513683292162/768807539789004810/16033683973104105266303841817193.jpg" // https://commons.wikimedia.org/wiki/File:Martin_Luther_King,_Jr..jpg
+  "Martin Luther King Jr.": "https://cdn.discordapp.com/attachments/449680513683292162/768807539789004810/16033683973104105266303841817193.jpg", // https://commons.wikimedia.org/wiki/File:Martin_Luther_King,_Jr..jpg
+  "Anonymous": "https://cdn.discordapp.com/attachments/449680513683292162/771446646327476274/incognito-2231825_1920.png" // by [Nikin](https://pixabay.com/users/nikin-253338/) from [Pixabay](https://pixabay.com/)
 }
