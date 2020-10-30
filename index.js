@@ -101,7 +101,7 @@ const embed = Object.freeze({
             .setColor(6765239)
             .setAuthor("ㅤ", icons.quote)
             .setFooter(`—${attr}`, icons.empty)
-            .setDescription(`**${text}**`)
+            .setDescription(`${text}`)
             .setTitle(title);
     },
     "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose, t: timestamp }, symbol) => new Discord.MessageEmbed()
