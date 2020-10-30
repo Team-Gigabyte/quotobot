@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Update submodules
-      run: chmod +x ./wiki_upd.sh && bash ./wiki_upd.sh
+      run: chmod +x .github/workflows/wiki_upd.sh && bash .github/workflows/wiki_upd.sh
     - name: Commit the new wiki copy
       uses: stefanzweifel/git-auto-commit-action@1f4914882d31162256a5dd23dd006bf97be303a2
       with:

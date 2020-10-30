@@ -9,7 +9,8 @@
     "count": "node ./db/countQuotes.js",
     "add": "node ./db/addQuote.js",
     "lint": "eslint .",
-    "relock": "npm i --package-lock-only"
+    "relock": "npm i --package-lock-only",
+    "changeAvatar": "node extras/changeBotAvatar.js"
   },
   "repository": {
     "type": "git",
