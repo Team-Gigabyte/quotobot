@@ -230,6 +230,7 @@ bot.on("message", message => {
                         if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
                             em.setFooter(`—${source}`, authorPictures[source.trim()]);
+                            em.setAuthor("Click here to tweet this quote!", icons.empty, `https://twitter.com/intent/tweet?text=As%20${encodeURIComponent(source)}%20once%20said%3A%20%22${encodeURIComponent(quote)}%22%20(this%20quote%20is%20from%20quotobot.js.org)`);
                         }
                         message.channel.send(em);
                     } catch (err) {
