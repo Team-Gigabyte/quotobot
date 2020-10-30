@@ -11,6 +11,5 @@ readline.question("What's the bot token? ", ans => {
             console.log("All done!")
             process.exit(0)
         }).catch(e => { throw e })
-
     })
 })
