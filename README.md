@@ -50,7 +50,7 @@ making sure to change the number to your client ID inside the quotes.
 You can add an [OpenWeatherMap API key](https://openweathermap.org/guide#how), [Finnhub (stocks) key](https://finnhub.io), and a [Riot key](https://developer.riotgames.com/) in the same way. OpenWeatherMap and Finnhub are free and easy to get, but Riot needs you to submit an application to get a key. If any of these keys are missing, the bot won't crash – it'll just let the user know that the feature isn't working if they try to use it.
 </details>
 
-You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` and adding your text in the value for that. Example complete config file:
+You can also change the status that the bot shows (it'll be prefixed with *Watching*, though) by changing the `help-domain-example` to `help-domain` (which will also be used by the Share to Twitter link) and adding your text in the value for that. Example complete config file:
 ```json
 {
     "prefix": "&&",
