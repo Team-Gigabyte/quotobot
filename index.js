@@ -99,9 +99,10 @@ const embed = Object.freeze({
     "simple": (text, attr, title = "Quote") => {
         return new Discord.MessageEmbed()
             .setColor(6765239)
-            .setAuthor(title, icons.quote)
+            .setAuthor("ㅤ", icons.quote)
             .setFooter(`—${attr}`, icons.empty)
-            .setDescription(`**${text}**`);
+            .setDescription(`**${text}**`)
+            .setTitle(title);
     },
     "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose, t: timestamp }, symbol) => new Discord.MessageEmbed()
         .setTitle(`Current price for ${symbol.toUpperCase()} is \`${current}\``)
@@ -230,6 +231,7 @@ bot.on("message", message => {
                         if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
                             em.setFooter(`—${source}`, authorPictures[source.trim()]);
+                            em.setAuthor("Click here to tweet this quote!", icons.quote, `https://twitter.com/intent/tweet?text=${encodeURIComponent(`As ${source} once said, "${quote}" (from Quotobot <${envVars.QBSTATUS || configFile.helpDomain || "quotobot.js.org"}>)`)}`);
                         }
                         message.channel.send(em);
                     } catch (err) {
