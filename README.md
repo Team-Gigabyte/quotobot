@@ -1,6 +1,6 @@
 <h1 align="center">Quotobot</h1>
 <p align="center">A Discord bot that displays 200+ hand-curated quotes, tells you the weather, fetches stock info, and more!</p>
-
+align="center"
 [![top.gg stats](https://top.gg/api/widget/746889272992464958.svg)](https://top.gg/bot/746889272992464958)
 
 [![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](http://quotobot.ml) 
