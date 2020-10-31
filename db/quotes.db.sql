@@ -209,4 +209,5 @@ INSERT INTO Quotes VALUES('The grass is greener on the other side of the fence.'
 INSERT INTO Quotes VALUES('After ~1000 failed coding projects, we''ve learned one thing: Most coding projects are a waste of time.',206,'QB Devs',0);
 INSERT INTO Quotes VALUES('When ordering a pizza, a "Thick Crust" option means that the *other* options are way too thin.',207,'QB Devs',0);
 CREATE UNIQUE INDEX main_quotes on Quotes(quote);
+CREATE INDEX main_index ON Quotes(quote, source, id);
 COMMIT;
