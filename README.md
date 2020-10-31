@@ -146,7 +146,7 @@ Any pull requests are appreciated.
 # Technical Notes
 ![Built with JS](https://img.shields.io/static/v1?label=built%20with&message=JS&color=yellow&logo=javascript)
 
-This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (Ignore the quotes-legacy.json file, as the code doesn't use JSON for the quotes anymore. If you want to see the quotes without using SQLite, take a look at the quotes.db.csv file.)
+This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (If you want to see the quotes without using SQLite, take a look at the [quotes.db.csv](./db/quotes.db.csv) file.)
 
 # Donate?
 [![Donate today](https://img.shields.io/static/v1?label=donate&message=today&color=green)](https://github.com/Team-Gigabyte/donate)
