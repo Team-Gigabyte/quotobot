@@ -173,6 +173,7 @@ bot.on("message", message => {
     const [matchedPrefix] = message.content.match(prefixRegex);
     const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
     const command = args.shift().trim().toLowerCase();
+    console.count("Command");
     switch (command) {
         case "amiadmin":
             if (!message.member) return message.reply("Trick question.");
