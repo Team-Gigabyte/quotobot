@@ -3,7 +3,7 @@
 ## List of Commands so far:
 (capitalization doesn't matter)
 - `randomquote`, `randquote`, `rquote`, `quote`: Prints a random quote
-- `shortquote`, `longquote`: Prints a short or long quote respectively. The short quote will be ≤140 characters, so it'll be similar to an older Tweet.
+- `shortquote`, `longquote`: Prints a short or long quote respectively. The short quote will be ≤140 characters, and you can click the header to Tweet the quote.
 - `ping`: Prints "Pong!"
 - `weather`: Gets the weather. All of these commands work, assuming the prefix is `~`:
   - `~weather New York` (prints in metric)
