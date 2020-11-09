@@ -224,6 +224,8 @@ bot.on("message", message => {
                 break;
             }
         case "shortquote":
+        case "shortquot":
+        case "tweetquote":
             {
                 (async () => {
                     try {
@@ -243,6 +245,7 @@ bot.on("message", message => {
                 break;
             }
         case "longquote":
+        case "longquot":
             {
                 (async () => {
                     try {
