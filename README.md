@@ -22,7 +22,7 @@
 
 # 🤖 [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
 ## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help)
-## 👇 [Click here to skip the next section](#tentative-timeline)
+## 👇 [Click here to skip the next section](#contribute)
 # Or do you want to host and tweak the bot yourself?
 ## How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
@@ -137,7 +137,8 @@ We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Wea
 
 Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
 
-Any pull requests are appreciated.
+# Contribute
+Any pull requests are appreciated. If you want to add quotes, you can follow the process [above](#bulk-csv-method-recommended), but only do step 1 and submit the pull request.
 
 # Future Updates
 - League of Legends Player Lookup/Stats
