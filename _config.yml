@@ -1,3 +1,4 @@
 theme: jekyll-theme-architect
 title: Quotobot
+description: A Discord bot that displays 200+ hand-curated quotes, tells you the weather, fetches stock info, and more!
 show_downloads: true
