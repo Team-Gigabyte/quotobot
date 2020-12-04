@@ -210,6 +210,7 @@ INSERT INTO Quotes VALUES('After ~1000 failed coding projects, we''ve learned on
 INSERT INTO Quotes VALUES('When ordering a pizza, a "Thick Crust" option means that the *other* options are way too thin.',207,'QB Devs',0);
 INSERT INTO Quotes VALUES('We''re pretty indecisive. Or maybe not. Or maybe we are...',208,'QB Devs',0);
 INSERT INTO Quotes VALUES('I have 2 questions. 1) How do we solve climate change? 2) Why are there no B batteries?',209,'QB Devs',0);
+INSERT INTO Quotes VALUES('Knowledge is knowing that a tomato is a fruit; wisdom is not putting it in a fruit salad.',210,'Miles Kington',0);
 CREATE UNIQUE INDEX main_quotes on Quotes(quote);
 CREATE INDEX main_index ON Quotes(quote, source, id);
 COMMIT;

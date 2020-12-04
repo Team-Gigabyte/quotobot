@@ -103,7 +103,6 @@ quote,id,source,usage
 "That's the America I know. That's the country we love. Clear-eyed. Big-hearted. Undaunted by challenge.",102,"Barack Obama",0
 "The long sweep of America has been defined by forward motion, a constant widening of our founding creed to embrace all and not just some.",103,"Barack Obama",0
 "To quote or not to quote, that is the question.",104,"QB Devs",0
-"You can’t let your failures define you. You have to let your failures teach you.",105,"Barack Obama",0
 "Men give me credit for some genius. All the genius I have lies in this; when I have a subject in hand, I study it profoundly. Day and night it is before me. My mind becomes pervaded with it. Then the effort that I have made is what people are pleased to call the fruit of genius. It is the fruit of labor and thought.",106,"Alexander Hamilton",0
 "Those who stand for nothing fall for everything.",107,"Alexander Hamilton",0
 "Give all the power to the many, they will oppress the few. Give all the power to the few, they will oppress the many.",108,"Alexander Hamilton",0
@@ -127,6 +126,7 @@ quote,id,source,usage
 "The inquiry constantly is what will please, not what will benefit the people. In such a government there can be nothing but temporary expedient, fickleness, and folly.",126,"Alexander Hamilton",0
 "The mark of a pro coder is `Build Passing`",127,"QB Devs",0
 "If a teacher gives you several days for an assignment, there is a reason for that; there is a lot of work.",128,"QB Devs",0
+"You can’t let your failures define you. You have to let your failures teach you.",105,"Barack Obama",0
 "Folks are usually about as happy as they make their minds up to be.",129,"Abraham Lincoln",0
 "Whatever you are, be a good one.",130,"Abraham Lincoln",0
 "Do I not destroy my enemies when I make them my friends?",131,"Abraham Lincoln",0
@@ -208,3 +208,4 @@ quote,id,source,usage
 "When ordering a pizza, a ""Thick Crust"" option means that the *other* options are way too thin.",207,"QB Devs",0
 "We're pretty indecisive. Or maybe not. Or maybe we are...",208,"QB Devs",0
 "I have 2 questions. 1) How do we solve climate change? 2) Why are there no B batteries?",209,"QB Devs",0
+"Knowledge is knowing that a tomato is a fruit; wisdom is not putting it in a fruit salad.",210,"Miles Kington",0
