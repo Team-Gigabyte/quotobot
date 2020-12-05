@@ -204,7 +204,7 @@ bot.on("message", message => {
             {
                 (async () => {
                     try {
-                        let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);");
+                        let { quote, source } = await db.each(randQuoteQuery);
                         let em = embed.simple(quote, source, "Random Quote");
                         if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
