@@ -130,7 +130,7 @@ const embed = Object.freeze({
             .addField(`💨 Wind Speed:`, `${wind}`, true)
             .addField(`📊 Pressure:`, `${pressure} hpa`, true)
             .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
-            .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} City\``, icons.info)
+            .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} ${cityName}\``, icons.info)
             .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
 })
 bot.once("ready", () => {
