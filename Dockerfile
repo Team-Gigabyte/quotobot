@@ -1,4 +1,4 @@
-FROM node:12.18.4-alpine3.10
+FROM node:lts-alpine
 
 # Create Directory for Workdir
 RUN mkdir -p /app
@@ -9,7 +9,7 @@ WORKDIR /app
 # Copy file app to container
 ADD ./* /app/
 
-# Rename config & install modeule
+# Rename config & install module
 RUN cp /app/config-example.json /app/config.json
 
 RUN npm install
