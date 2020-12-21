@@ -72,7 +72,7 @@ Instead of using the config.json, you can set environment variables. See [the .e
 
 Note that there is currently no way to change stuff like the client ID this way.
 ## Run the bot
-Make sure you have [Node.js >= 12](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:
+Make sure you have [Node.js >= 14](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:
 ```bash
 npm install
 node index.js
