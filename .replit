@@ -1,0 +1,3 @@
+run="npm start"
+language="nodejs"
+onBoot="echo Booting up!"
