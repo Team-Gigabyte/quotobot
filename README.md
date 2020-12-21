@@ -88,6 +88,7 @@ docker build -t quotobot/quotobot .
 ```
 docker run --name quotobot1 -d -v ./config.json:/app/config.json quotobot/quotobot
 ```
+Note that the Dockerfile hasn't been tested so far.
 ## Heroku notes
 For Heroku, use the [environment variables setup](#environment-variables-instead-of-configjson) (it's called *config vars* in Heroku). You'll probably need to turn off the web dyno and turn on the worker dyno.
 ## Keeping your copy up to date
