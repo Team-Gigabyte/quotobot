@@ -70,6 +70,8 @@ The timeouts are optional and set in milliseconds.
 ## Environment Variables instead of `config.json`
 Instead of using the config.json, you can set environment variables. See [the .env.example file](./.env.example) for the variable names and details.
 
+You can also use a .env file to set environment variables. Just copy the lines you want to use (lines starting with `#` are ignored) into a file in this same folder called `.env`. If you use this method, don't keep a `config.json` file in the same folder.
+
 Note that there is currently no way to change stuff like the client ID this way.
 ## Run the bot
 Make sure you have [Node.js >= 14](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:

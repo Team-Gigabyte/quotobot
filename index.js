@@ -4,6 +4,7 @@
 const Discord = require("discord.js");
 const { env: envVars } = require("process");
 const axios = require("axios").default;
+const fetch = require("node-fetch");
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
@@ -319,20 +320,27 @@ bot.on("message", message => {
                     let windUnits = units == "imperial" ? "mph" : "m/s";
 
                     try {
-                        let apiData = await axios.get(
+                        //console.log(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || envVars.QBWEATHER}`)
+                        let apiData = await fetch(
                             `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || envVars.QBWEATHER}`
                         );
-                        let { temp, temp_max, temp_min } = apiData.data.main;
+                        let jd = await apiData.json();
+                        if (!apiData.ok) {
+                            message.reply(embed.error("There was an error getting the weather.", `${apiData.status}: ${jd.message}`));
+                            return;
+                        }
+                        let { temp, temp_max, temp_min, humidity, pressure } = jd.main;
+                        console.group(jd);
                         let currentTemp = Math.round(temp);
                         let maxTemp = Math.round(temp_max);
                         let minTemp = Math.round(temp_min);
-                        let { humidity, pressure } = apiData.data.main;
-                        let wind = apiData.data.wind.speed + " " + windUnits;
+                        //let { humidity, pressure } = jd;
+                        let wind = jd.wind.speed + " " + windUnits;
                         let { username: author, displayAvatarURL: profile } = message.author;
-                        let { icon, description: cloudness } = apiData.data.weather[0];
-                        let country = apiData.data.sys.country;
+                        let { icon, description: cloudness } = jd.weather[0];
+                        let country = jd.sys.country;
                         country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
-                        let displayCity = apiData.data.name;
+                        let displayCity = jd.name;
                         message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
                         // Adds the user to the set so that they can't talk for some time
                         usedWeatherRecently.add(message.author.id);
@@ -341,7 +349,7 @@ bot.on("message", message => {
                             usedWeatherRecently.delete(message.author.id);
                         }, timeout);
                     } catch (err) {
-                        message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
+                        message.reply(embed.error("There was an error getting the weather.", `${err.toString().replace(configFile["weather-token"] || envVars.QBWEATHER, "")}`));
                     }
                 })();
             }
