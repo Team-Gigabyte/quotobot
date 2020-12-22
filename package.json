@@ -27,7 +27,7 @@
     "nodemon": "^2.0.6"
   },
   "dependencies": {
-    "axios": "^0.21.0",
+    "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "country-flag-emoji": "^1.0.3",
     "discord.js": "^12.5.1",
