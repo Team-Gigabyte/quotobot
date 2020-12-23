@@ -9,6 +9,7 @@
   - `~weather New York` (prints in metric)
   - `~weather imperial Mexico City`
   - `~weather metric Paris,us` (tells it to get the weather for Paris in the US, not the one in France)
+  - `~weather Arlington,va,us` (tells it to get the weather for Arlington in Virginia, not the one in Texas)
   - You'll need to wait some time between weather queries (at the moment, it's 2 seconds for our host)
 - `stock ABCD`, `stocks ABCD`: Pulls up the stock price for whatever stock (in this example, ABCD). Note that CFD indices (such as `^N225`) aren't supported, and support for crypto prices and other stuff is in the works.
   - You'll need to wait some time between stock queries (at the moment, it's 2 seconds for our host)
@@ -16,7 +17,7 @@
 - `leaguestats`: Returns the summoner level of a certain League user. For example, assuming the prefix is `~`:
   - `~leaguestats ExampleSummoner JP` (JP is equivalent to jp1)
   - `~leaguestats Some1234Summoner` (defaults to NA)
-  - This feature may not be enabled yet.
+  - This feature may not be enabled yet for our host.
   - You'll need to wait some time between League queries (at the moment, it's 5 seconds for our host)
 
 | Region | Equivalent to (the bot doesn't accept these) |
