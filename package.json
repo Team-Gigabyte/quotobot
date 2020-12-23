@@ -34,5 +34,8 @@
     "leagueapiwrapper": "^2.1.1",
     "node-fetch": "^2.6.1",
     "sqlite3": "^5.0.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
