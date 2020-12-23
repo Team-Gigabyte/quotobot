@@ -3,7 +3,6 @@
 // NPM modules and stuff
 const Discord = require("discord.js");
 const { env: envVars } = require("process");
-const axios = require("axios").default;
 const fetch = require("node-fetch");
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
