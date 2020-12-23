@@ -17,7 +17,7 @@ let configFile;
 try {
     configFile = require("./config.json");
 } catch (e) {
-    if (e.code !== "MODULE_NOT_FOUND") {
+    if (e.code != "MODULE_NOT_FOUND") {
         throw e;
     }
     configFile = { "help-domain": "quotobot.js.org" };
