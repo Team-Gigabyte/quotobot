@@ -2,6 +2,7 @@ import csv
 import sqlite3
 db = sqlite3.connect("quotes.db")
 getID = db.cursor().execute("SELECT id FROM Quotes ORDER BY id DESC LIMIT 1;")
+lastID = 0
 for row in getID:
     lastID = row[0]
 with open('./newQuotes.csv') as csv_file:
