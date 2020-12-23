@@ -104,16 +104,17 @@ const embed = Object.freeze({
             .setDescription(text)
             .setTitle(title);
     },
-    "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose, t: timestamp }, symbol) => new Discord.MessageEmbed()
-        .setTitle(`Current price for ${symbol.toUpperCase()} is \`${current}\``)
-        .setURL("https://finance.yahoo.com/quote/" + symbol)
-        .addField("High", "`" + high + "`", true)
-        .addField("Low", "`" + low + "`", true)
-        .addField("Open", "`" + open + "`", true)
-        .addField("Previous Close", "`" + prevClose + "`", true)
-        .setColor(current - prevClose >= 0 ? "4CAF50" : "F44336")
-        .setFooter("Data from Finnhub")
-        .setTimestamp(new Date(timestamp * 1000)),
+    "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose, t: timestamp },
+        symbol) => new Discord.MessageEmbed()
+            .setTitle(`Current price for ${symbol.toUpperCase()} is \`${current}\``)
+            .setURL("https://finance.yahoo.com/quote/" + symbol)
+            .addField("High", "`" + high.toFixed(2) + "`", true)
+            .addField("Low", "`" + low.toFixed(2) + "`", true)
+            .addField("Open", "`" + open.toFixed(2) + "`", true)
+            .addField("Previous Close", "`" + prevClose.toFixed(2) + "`", true)
+            .setColor(current - prevClose >= 0 ? "4CAF50" : "F44336")
+            .setFooter("Data from Finnhub")
+            .setTimestamp(new Date(timestamp * 1000)),
     "currWeather": ( // formats the embed for the weather
         temp, maxTemp, minTemp,
         pressure, humidity, wind,
@@ -331,7 +332,6 @@ bot.on("message", message => {
                         let currentTemp = Math.round(temp);
                         let maxTemp = Math.round(temp_max);
                         let minTemp = Math.round(temp_min);
-                        //let { humidity, pressure } = jd;
                         let wind = jd.wind.speed + " " + windUnits;
                         let { username: author, displayAvatarURL: profile } = message.author;
                         let { icon, description: cloudness } = jd.weather[0];
@@ -371,7 +371,7 @@ bot.on("message", message => {
                         return null;
                     }
                     try {
-                        let gotData = await fetch("https://finnhub.io/api/v1/quote?symbol=" + args[0].toUpperCase() + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
+                        let gotData = await fetch(`https://finnhub.io/api/v1/quote?symbol=${args[0].toUpperCase()}&token=${configFile.stockToken || envVars.QBSTOCKS}`);
                         let stockData = await gotData.json();
                         if (!gotData.ok) {
                             message.reply(embed.error("There was an error getting stock info.", `${stockData.cod || gotData.status}: ${stockData.message || gotData.statusText}`));
