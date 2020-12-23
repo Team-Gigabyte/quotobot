@@ -328,7 +328,6 @@ bot.on("message", message => {
                             return;
                         }
                         let { temp, temp_max, temp_min, humidity, pressure } = jd.main;
-                        console.group(jd);
                         let currentTemp = Math.round(temp);
                         let maxTemp = Math.round(temp_max);
                         let minTemp = Math.round(temp_min);
