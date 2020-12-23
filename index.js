@@ -106,7 +106,7 @@ const embed = Object.freeze({
     },
     "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose, t: timestamp },
         symbol) => new Discord.MessageEmbed()
-            .setTitle(`Current price for ${symbol.toUpperCase()} is \`${current}\``)
+            .setTitle(`Current price for ${symbol.toUpperCase()} is \`${current.toFixed(2)}\``)
             .setURL("https://finance.yahoo.com/quote/" + symbol)
             .addField("High", "`" + high.toFixed(2) + "`", true)
             .addField("Low", "`" + low.toFixed(2) + "`", true)
