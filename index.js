@@ -326,7 +326,7 @@ bot.on("message", message => {
                         );
                         let jd = await apiData.json();
                         if (!apiData.ok) {
-                            message.reply(embed.error("There was an error getting the weather.", `${apiData.status}: ${jd.message}`));
+                            message.reply(embed.error("There was an error getting the weather.", `${jd.cod || apiData.status}: ${jd.message || apiData.statusText}`));
                             return;
                         }
                         let { temp, temp_max, temp_min, humidity, pressure } = jd.main;
@@ -388,7 +388,7 @@ bot.on("message", message => {
                         }
                         message.reply(embed.stocks(stockData, args[0]));
                     } catch (err) {
-                        message.reply(embed.error("There was an error getting stock info.", err.response.data.message || err.message))
+                        message.reply(embed.error("There was an error getting stock info.", err.response.data?.message || err.message))
                     }
                 })();
                 usedStocksRecently.add(message.author.id);
