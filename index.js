@@ -3,7 +3,7 @@
 // NPM modules and stuff
 const Discord = require("discord.js");
 const { env: envVars } = require("process");
-const axios = require("axios").default;
+const fetch = require("node-fetch");
 const cFlags = require("country-flag-emoji");
 const sqlite3 = require("sqlite3");
 const { promisify } = require("util");
@@ -300,7 +300,7 @@ bot.on("message", message => {
             if (usedWeatherRecently.has(message.author.id)) {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for the weather again.`, "ERR_RATE_LIMIT", "Slow down!"));
             } else {
-                (async function () {
+                (async () => {
                     if (!(configFile["weather-token"] || envVars.QBWEATHER)) {
                         message.reply(embed.error("Weather isn't currently working. Sorry about that.", "ERR_FALSY_WEATHER_KEY"));
                         console.error("Error: The weather key is falsy (usually undefined). Make sure you actually put a key in the config.json or in env.QBWEATHER.")
@@ -319,20 +319,26 @@ bot.on("message", message => {
                     let windUnits = units == "imperial" ? "mph" : "m/s";
 
                     try {
-                        let apiData = await axios.get(
+                        let apiData = await fetch(
                             `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${units}&APPID=${configFile["weather-token"] || envVars.QBWEATHER}`
                         );
-                        let { temp, temp_max, temp_min } = apiData.data.main;
+                        let jd = await apiData.json();
+                        if (!apiData.ok) {
+                            message.reply(embed.error("There was an error getting the weather.", `${jd.cod || apiData.status}: ${jd.message || apiData.statusText}`));
+                            return;
+                        }
+                        let { temp, temp_max, temp_min, humidity, pressure } = jd.main;
+                        console.group(jd);
                         let currentTemp = Math.round(temp);
                         let maxTemp = Math.round(temp_max);
                         let minTemp = Math.round(temp_min);
-                        let { humidity, pressure } = apiData.data.main;
-                        let wind = apiData.data.wind.speed + " " + windUnits;
+                        //let { humidity, pressure } = jd;
+                        let wind = jd.wind.speed + " " + windUnits;
                         let { username: author, displayAvatarURL: profile } = message.author;
-                        let { icon, description: cloudness } = apiData.data.weather[0];
-                        let country = apiData.data.sys.country;
+                        let { icon, description: cloudness } = jd.weather[0];
+                        let country = jd.sys.country;
                         country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
-                        let displayCity = apiData.data.name;
+                        let displayCity = jd.name;
                         message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
                         // Adds the user to the set so that they can't talk for some time
                         usedWeatherRecently.add(message.author.id);
@@ -341,7 +347,7 @@ bot.on("message", message => {
                             usedWeatherRecently.delete(message.author.id);
                         }, timeout);
                     } catch (err) {
-                        message.reply(embed.error("There was an error getting the weather.", `${err.response.data.cod}: ${err.response.data.message}`))
+                        message.reply(embed.error("There was an error getting the weather.", `${err.toString().replaceAll(configFile["weather-token"] || envVars.QBWEATHER, "")}`));
                     }
                 })();
             }
@@ -356,7 +362,7 @@ bot.on("message", message => {
             if (usedStocksRecently.has(message.author.id)) {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for stocks again.`, "ERR_RATE_LIMIT", "Slow down!"));
             } else {
-                (async function () {
+                (async () => {
                     if (!stocksEnabled) {
                         message.reply(embed.error("Stock lookup isn't currently working. Sorry about that.", "ERR_NO_STOCK_KEY"));
                         return null;
@@ -366,21 +372,25 @@ bot.on("message", message => {
                         return null;
                     }
                     try {
-                        let gotData = await axios.get("https://finnhub.io/api/v1/quote?symbol=" + args[0].toUpperCase() + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
-                        let stockData = gotData.data;
+                        let gotData = await fetch("https://finnhub.io/api/v1/quote?symbol=" + args[0].toUpperCase() + "&token=" + (configFile.stockToken || envVars.QBSTOCKS));
+                        let stockData = await gotData.json();
+                        if (!gotData.ok) {
+                            message.reply(embed.error("There was an error getting stock info.", `${stockData.cod || gotData.status}: ${stockData.message || gotData.statusText}`));
+                            return;
+                        }
                         if (!stockData) {
                             message.reply(embed.error(`${args[0]} was not found.`, "ERR_EMPTY_RESPONSE"));
                             return null;
                         } else if (stockData.error ||
-                            (Object.keys(stockData).length === 0 && stockData.constructor === Object) ||
+                            (Object.keys(stockData).length == 0 && stockData.constructor === Object) ||
                             Object.values(stockData).includes(undefined) ||
-                            Object.values(stockData).includes(0)) {
+                            stockData.t === 0) {
                             message.reply(embed.error(`${args[0]} was not found.`, (stockData.error || "ERR_ALLSTOCK_ZERO")));
                             return null;
                         }
                         message.reply(embed.stocks(stockData, args[0]));
                     } catch (err) {
-                        message.reply(embed.error("There was an error getting stock info.", err.response.data.message || err.message))
+                        message.reply(embed.error("There was an error getting stock info.", (err.toString() || "ERR_FETCH").replace(configFile.stockToken || envVars.QBSTOCKS, "")))
                     }
                 })();
                 usedStocksRecently.add(message.author.id);
