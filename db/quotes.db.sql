@@ -143,7 +143,7 @@ INSERT INTO Quotes VALUES('Those who look for the bad in people will surely find
 INSERT INTO Quotes VALUES('I am not bound to win, but I am bound to be true. I am not bound to succeed, but I am bound to live up to what light I have.',140,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('Be sure you put your feet in the right place, then stand firm.',141,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('You can fool some of the people all of the time, and all of the people some of the time, but you can not fool all of the people all of the time.',142,'Abraham Lincoln',0);
-INSERT INTO Quotes VALUES('I would rather be a little nobody, then to be a evil somebody',143,'Abraham Lincoln',0);
+INSERT INTO Quotes VALUES(replace('I would rather be a little nobody than to be\na evil somebody.','\n',char(10)),143,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('Character is like a tree and reputation its shadow. The shadow is what we think it is and the tree is the real thing.',144,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('Always bear in mind that your own resolution to succeed is more important than any one thing.',145,'Abraham Lincoln',0);
 INSERT INTO Quotes VALUES('The best way to predict your future is to create it.',146,'Abraham Lincoln',0);
