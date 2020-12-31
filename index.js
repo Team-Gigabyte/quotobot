@@ -55,7 +55,6 @@ try {
     // eslint-disable-next-line no-undef
     LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
     LeagueAPI.getStatus()
-        .then(console.log)
         .catch(e => { throw e; });
     leagueEnabled = true;
 }
@@ -96,14 +95,13 @@ const embed = Object.freeze({
             .setAuthor(title, icons.warn)
             .setDescription(`${description} ${code}`);
     },
-    "simple": (text, attr, title = "Quote") => {
-        return new Discord.MessageEmbed()
+    "simple": (text, attr, title = "Quote") =>
+        new Discord.MessageEmbed()
             .setColor(6765239)
             .setAuthor("ㅤ", icons.quote)
             .setFooter(`—${attr}`, icons.empty)
             .setDescription(text)
-            .setTitle(title);
-    },
+            .setTitle(title),
     "stocks": ({ o: open, h: high, l: low, c: current, pc: prevClose, t: timestamp },
         symbol) => new Discord.MessageEmbed()
             .setTitle(`Current price for ${symbol.toUpperCase()} is \`${current.toFixed(2)}\``)
@@ -407,17 +405,17 @@ bot.on("message", message => {
             const timeout = configFile.leagueTimeout || envVars.QBLEAGUETIMEOUT || 5000;
             if (usedLeagueRecently.has(message.author.id)) {
                 message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for League stats again.`, "ERR_RATE_LIMIT", "Slow down!"));
-                return null;
+                return;
             }
             if (!leagueEnabled) {
                 message.reply(embed.error("League stats lookup isn't currently working. Sorry about that.", "ERR_NO_LEAGUE_KEY"));
-                return null;
+                return;
             }
             if (!args[0]) {
                 message.reply(embed.error("You didn't include any arguments. Re-run the command with the summoner name."));
-                return null;
+                return;
             }
-            (async function () {
+            (async () => {
                 let reg = "NA";
 
                 if (args[1]) {
