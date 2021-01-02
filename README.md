@@ -141,7 +141,7 @@ We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Wea
 Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
 
 # Contribute
-Any pull requests are appreciated. If you want to add quotes, you can follow the process [above](#bulk-csv-method-recommended), but only do step 1 and submit the pull request. Or, if you have problems with that process, open a GitHub issue with the quote, author, and a source.
+Any pull requests are appreciated. If you want to add quotes, you can follow the process [above](#bulk-csv-method-recommended), but only do step 1 and submit the pull request. Or, if you have problems with that process, open a GitHub issue with the quote, author, and a source (website that has the quote).
 
 # Future Updates
 - Steam Features: Playercount, Price History, etc.
