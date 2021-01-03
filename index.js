@@ -77,7 +77,9 @@ const norm = text => text
     .replace(/\s+/, " "); //"normalize" text
 const regex = Object.freeze({
     escape: str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-    url: /^(http|https):\/\/[^ "]+$/
+    url: /^(http|https):\/\/[^ "]+$/,
+    camelToTitle: str => str.replace(/([A-Z])/g, " $1").charAt(0).toUpperCase() +
+        str.replace(/([A-Z])/g, " $1").slice(1)
 })
 const icons = require("./db/icons.js");
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
@@ -435,21 +437,29 @@ bot.on("message", message => {
                         LeagueAPI.changeRegion(Region[reg]);
                     }
                     let acctObj = await LeagueAPI.getSummonerByName(args[0]);
-                    //let leagueRank = await LeagueAPI.getLeagueRanking(acctObj);
-                    //console.group(leagueRank);
-                    //console.log(Object.keys(leagueRank[0]));
+                    let addlData = await LeagueAPI.getLeagueRanking(acctObj);
                     message.channel.stopTyping(true);
                     let mbed = embed.simple(
                         "", "", "League info for " + acctObj.name)
                         .setFooter("")
                         .addField("Summoner Level", acctObj.summonerLevel);
-                        //.addField("League Rank", JSON.stringify(leagueRank[0]), true)
+                    if (addlData !== undefined && addlData.length != 0) {
+                        Object.keys(addlData[0]).forEach((key) => {
+                            if (!key.endsWith("Id") && key != "summonerName") {
+                                let val = addlData[0][key];
+                                if (typeof val == "boolean") val = val ? "✅ Yes" : "🚫 No";
+                                mbed.addField(regex.camelToTitle(key), String(val), true)
+                            }
+                        })
+                    }
                     message.reply(mbed);
                     // eslint-disable-next-line no-undef
                     LeagueAPI.changeRegion(Region.NA);
                 } catch (err) {
                     let errmessage = err?.status?.message || err?.message || err;
-                    if (errmessage == "Error: getaddrinfo ENOTFOUND undefined.api.riotgames.com") errmessage = "Invalid Region";
+                    if (errmessage ==
+                        "Error: getaddrinfo ENOTFOUND undefined.api.riotgames.com"
+                    ) errmessage = "Invalid Region";
                     message.reply(embed.error("There was an error getting League stats.", errmessage));
                     message.channel.stopTyping(true);
                     message.channel.stopTyping();
