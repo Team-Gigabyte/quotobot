@@ -51,12 +51,19 @@ const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
 // handle starting up the League API
 let leagueEnabled = false;
 try {
-    if (!envVars.QBRGKEY && !configFile.riotKey) throw new Error("The Riot key is falsy (usually undefined). Did you put a key?");
-    // eslint-disable-next-line no-undef
-    LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
-    LeagueAPI.getStatus()
-        .catch(e => { throw e; });
-    leagueEnabled = true;
+    if (!envVars.QBRGKEY && !configFile.riotKey) {
+        throw new Error("The Riot key is falsy (usually undefined). Did you put a key?")
+    }
+    else {
+        // eslint-disable-next-line no-undef
+        LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
+        LeagueAPI.getStatus()
+            .then(() => { leagueEnabled = true; })
+            .catch(e => {
+                console.error(chalk`{redBright ${e}}`);
+                console.error(chalk`{redBright Due to the above error, League of Legends lookups won't work.}`);
+            });
+    }
 }
 catch (e) {
     console.error(chalk`{redBright ${e}}`);
