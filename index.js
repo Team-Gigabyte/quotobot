@@ -434,15 +434,25 @@ bot.on("message", message => {
                         // eslint-disable-next-line no-undef
                         LeagueAPI.changeRegion(Region[reg]);
                     }
-                    let gotData = await LeagueAPI.getSummonerByName(args[0]);
-                    message.channel.stopTyping();
-                    message.reply(embed.simple(gotData.summonerLevel, "", "Summoner level for " + gotData.name));
+                    let acctObj = await LeagueAPI.getSummonerByName(args[0]);
+                    //let leagueRank = await LeagueAPI.getLeagueRanking(acctObj);
+                    //console.group(leagueRank);
+                    //console.log(Object.keys(leagueRank[0]));
+                    message.channel.stopTyping(true);
+                    let mbed = embed.simple(
+                        "", "", "League info for " + acctObj.name)
+                        .setFooter("")
+                        .addField("Summoner Level", acctObj.summonerLevel);
+                        //.addField("League Rank", JSON.stringify(leagueRank[0]), true)
+                    message.reply(mbed);
                     // eslint-disable-next-line no-undef
                     LeagueAPI.changeRegion(Region.NA);
                 } catch (err) {
+                    let errmessage = err?.status?.message || err?.message || err;
+                    if (errmessage == "Error: getaddrinfo ENOTFOUND undefined.api.riotgames.com") errmessage = "Invalid Region";
+                    message.reply(embed.error("There was an error getting League stats.", errmessage));
                     message.channel.stopTyping(true);
                     message.channel.stopTyping();
-                    message.reply(embed.error("There was an error getting League stats.", err.message || JSON.stringify(err.status)));
                     // eslint-disable-next-line no-undef
                     LeagueAPI.changeRegion(Region.NA);
                     return null;
