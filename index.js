@@ -436,7 +436,7 @@ bot.on("message", message => {
                         // eslint-disable-next-line no-undef
                         LeagueAPI.changeRegion(Region[reg]);
                     }
-                    let acctObj = await LeagueAPI.getSummonerByName(args[0]);
+                    let acctObj = await LeagueAPI.getSummonerByName(args[0].replace(/\+/g, " "));
                     let addlData = await LeagueAPI.getLeagueRanking(acctObj);
                     message.channel.stopTyping(true);
                     let mbed = embed.simple(
