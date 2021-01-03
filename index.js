@@ -440,7 +440,7 @@ bot.on("message", message => {
                     let addlData = await LeagueAPI.getLeagueRanking(acctObj);
                     message.channel.stopTyping(true);
                     let mbed = embed.simple(
-                        "", "", "League info for " + acctObj.name)
+                        "", "", "League Info for " + acctObj.name)
                         .setFooter("")
                         .addField("Summoner Level", acctObj.summonerLevel);
                     if (addlData !== undefined && addlData.length != 0) {
