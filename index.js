@@ -57,7 +57,8 @@ try {
     else {
         // eslint-disable-next-line no-undef
         LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
-        LeagueAPI.getStatus()
+        LeagueAPI.initialize()
+            .then(() => LeagueAPI.getStatus())
             .then(() => { leagueEnabled = true; })
             .catch(e => {
                 console.error(chalk`{redBright ${e}}`);
@@ -437,12 +438,13 @@ bot.on("message", message => {
                         LeagueAPI.changeRegion(Region[reg]);
                     }
                     let acctObj = await LeagueAPI.getSummonerByName(args[0].replace(/\+/g, " "));
+                    console.log(acctObj);
                     let addlData = await LeagueAPI.getLeagueRanking(acctObj);
                     message.channel.stopTyping(true);
                     let mbed = embed.simple(
-                        "", "", "League Info for " + acctObj.name)
+                        "", "", `League Info for ${acctObj.name}`)
                         .setFooter("")
-                        .addField("Summoner Level", acctObj.summonerLevel);
+                        .addField("Summoner Level", acctObj.summonerLevel, false);
                     if (addlData !== undefined && addlData.length != 0) {
                         Object.keys(addlData[0]).forEach((key) => {
                             if (!key.endsWith("Id") && key != "summonerName") {
