@@ -455,7 +455,7 @@ bot.on("message", message => {
                                 mbed.addField(regex.camelToTitle(key), String(val), true)
                             }
                         });
-                        mbed.addField('\u200b', '\u200b'); // Blank field
+                        if (idx + 1 != addlData.length) mbed.addField('\u200b', '\u200b'); // Blank field
                     });
                     message.reply(mbed);
                     // eslint-disable-next-line no-undef
