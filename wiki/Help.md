@@ -14,10 +14,10 @@
 - `stock ABCD`, `stocks ABCD`: Pulls up the stock price for whatever stock (in this example, ABCD). Note that CFD indices (such as `^N225`) aren't supported, and support for crypto prices and other stuff is in the works.
   - You'll need to wait some time between stock queries (at the moment, it's 2 seconds for our host)
 - `amiadmin`: Returns if you have the administrator permission in the current server. (See what happens if you run it in a DM!)
-- `leaguestats`: Returns the summoner level of a certain League user. For example, assuming the prefix is `~`:
+- `leaguestats`: Returns some stats for a certain League user. For example, assuming the prefix is `~`:
   - `~leaguestats ExampleSummoner JP` (JP is equivalent to jp1)
   - `~leaguestats Some1234Summoner` (defaults to NA)
-  - This feature may not be enabled yet for our host.
+  - `~leaguestats Multiworded+summoner` (looks up `Multiworded summoner`)
   - You'll need to wait some time between League queries (at the moment, it's 5 seconds for our host)
 
 | Region | Equivalent to (the bot doesn't accept these) |
