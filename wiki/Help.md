@@ -11,7 +11,9 @@
   - `~weather metric Paris,us` (tells it to get the weather for Paris in the US, not the one in France)
   - `~weather Arlington,va,us` (tells it to get the weather for Arlington in Virginia, not the one in Texas)
   - You'll need to wait some time between weather queries (at the moment, it's 2 seconds for our host)
-- `stock ABCD`, `stocks ABCD`: Pulls up the stock price for whatever stock (in this example, ABCD). Note that CFD indices (such as `^N225`) aren't supported, and support for crypto prices and other stuff is in the works.
+- `stock ABCD`, `stocks ABCD`: Pulls up the stock price for whatever stock (in this example, ABCD). 
+  - Note that CFD indices (such as `^N225`) aren't supported, and support for crypto prices and other stuff is in the works.
+  - Clicking the title of the bot's message will take you to Yahoo Finance for that stock.
   - You'll need to wait some time between stock queries (at the moment, it's 2 seconds for our host)
 - `amiadmin`: Returns if you have the administrator permission in the current server. (See what happens if you run it in a DM!)
 - `leaguestats`: Returns some stats for a certain League user. For example, assuming the prefix is `~`:
@@ -32,5 +34,6 @@
 | TR     | tr1           |
 | LAN    | la1           |
 | LAS    | la2           |
+| RU | |
 
 - `help`: Brings up a hyperlink to this commands list
