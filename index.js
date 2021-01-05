@@ -57,8 +57,7 @@ try {
     else {
         // eslint-disable-next-line no-undef
         LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
-        LeagueAPI.initialize()
-            .then(() => LeagueAPI.getStatus())
+        LeagueAPI.getStatus()
             .then(() => { leagueEnabled = true; })
             .catch(e => {
                 console.error(chalk`{redBright ${e}}`);
@@ -438,8 +437,8 @@ bot.on("message", message => {
                         LeagueAPI.changeRegion(Region[reg]);
                     }
                     let acctObj = await LeagueAPI.getSummonerByName(args[0].replace(/\+/g, " "));
-                    let profile = acctObj?.profileIconObject?.image?.full || "";
-                    if (profile) profile = `https://ddragon.leagueoflegends.com/cdn/10.25.1/img/profileicon/${profile}`;
+                    let profile = acctObj?.profileIconId || "";
+                    if (profile) profile = `https://ddragon.leagueoflegends.com/cdn/10.25.1/img/profileicon/${profile}.png`;
                     let addlData = await LeagueAPI.getLeagueRanking(acctObj) || [];
                     message.channel.stopTyping(true);
                     let mbed = embed.simple(
