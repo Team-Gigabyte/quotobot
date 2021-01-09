@@ -49,7 +49,7 @@ if (!stocksEnabled) {
 }
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
 // handle starting up the League API
-let leagueEnabled = false;
+let leagueEnabled;
 try {
     if (!envVars.QBRGKEY && !configFile.riotKey) {
         throw new Error("The Riot key is falsy (usually undefined). Did you put a key?")
@@ -58,14 +58,19 @@ try {
         // eslint-disable-next-line no-undef
         LeagueAPI = new LeagueAPI(envVars.QBRGKEY || configFile.riotKey, Region.NA);
         LeagueAPI.getStatus()
-            .then(() => { leagueEnabled = true; })
+            .then(() => {
+                leagueEnabled = true;
+                console.log("League of Legends lookups are enabled.")
+            })
             .catch(e => {
+                leagueEnabled = false;
                 console.error(chalk`{redBright ${e}}`);
                 console.error(chalk`{redBright Due to the above error, League of Legends lookups won't work.}`);
             });
     }
 }
 catch (e) {
+    leagueEnabled = false;
     console.error(chalk`{redBright ${e}}`);
     console.error(chalk`{redBright Due to the above error, League of Legends lookups won't work.}`);
 }
@@ -142,7 +147,6 @@ const embed = Object.freeze({
             .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
 })
 bot.once("ready", () => {
-    console.log("Ready!");
     console.log(asciiLogo);
     db.each(randQuoteQuery).then(
         ({ quote, source }) => console.log(chalk`{blueBright "${quote}" –${source}}`)
@@ -153,6 +157,10 @@ bot.once("ready", () => {
     } else {
         invText = "Available in the Discord developer portal";
     }
+    let leagueText;
+    if (leagueEnabled === false) leagueText = "🚫 League commands will not work"
+    else if (leagueEnabled) leagueText = "✅";
+    else leagueText = "💬 Still trying to start the League API";
     console.table({
         "bot version": qbVersion,
         "prefix": prefix,
@@ -163,7 +171,7 @@ bot.once("ready", () => {
         "help link": (configFile.helpURL || "default"),
         "author pictures available?": (picturesEnabled ? "✅" : "🚫 author pictures will not be embedded"),
         "stocks enabled?": (stocksEnabled ? "✅" : "🚫 stock commands will not work"),
-        "league enabled?": (leagueEnabled ? "✅" : "🚫 League commands will not work")
+        "league enabled?": leagueText
     })
     if (helpDomain) {
         bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
