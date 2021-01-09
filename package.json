@@ -10,7 +10,8 @@
     "add": "node ./db/addQuote.js",
     "lint": "eslint .",
     "relock": "npm i --package-lock-only",
-    "changeAvatar": "node extras/changeBotAvatar.js"
+    "changeAvatar": "node extras/changeBotAvatar.js",
+    "updateqb": "git checkout master && git pull origin && rm -rf ./node_modules && npm i"
   },
   "repository": {
     "type": "git",
