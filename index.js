@@ -144,7 +144,7 @@ const embed = Object.freeze({
             .addField(`💨 Wind Speed:`, `${wind}`, true)
             .addField(`📊 Pressure:`, `${pressure} hpa`, true)
             .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
-            .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} ${cityName}\``, icons.info)
+            .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} ${cityName}\``, icons.bulb)
             .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
 })
 bot.once("ready", () => {
@@ -453,7 +453,7 @@ bot.on("message", message => {
                     let mbed = embed.simple(
                         "", "", `League Info for ${acctObj.name}`)
                         .setURL(`https://${opggRegions[LeagueAPI.region]}.op.gg/summoner/userName=${acctObj.name.replace(/ /g, "+")}`)
-                        .setFooter('Click the "League Info" title above to go to this summoner\'s OP.GG page.', icons.bulb)
+                        .setFooter("Click the *League Info* title above to go to this summoner's OP.GG page.", icons.bulb)
                         .setThumbnail(profile)
                         .addField("Summoner Level", acctObj.summonerLevel, false);
                     addlData.forEach((_ranked, idx) => {
