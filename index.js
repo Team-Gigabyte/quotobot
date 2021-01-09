@@ -10,6 +10,7 @@ const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
 let LeagueAPI = require("leagueapiwrapper");
+const opggRegions = require("./opggRegions.json")
 const bot = new Discord.Client();
 require("dotenv").config();
 // config stuff
@@ -451,6 +452,7 @@ bot.on("message", message => {
                     message.channel.stopTyping(true);
                     let mbed = embed.simple(
                         "", "", `League Info for ${acctObj.name}`)
+                        .setURL(`https://${opggRegions[LeagueAPI.region]}.op.gg/summoner/userName=${acctObj.name.replace(/ /g, "+")}`)
                         .setFooter("")
                         .setThumbnail(profile)
                         .addField("Summoner Level", acctObj.summonerLevel, false);
