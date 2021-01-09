@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon index.js -e js,db,env,json",
+    "dev": "nodemon index.js -w . -w ./db",
     "count": "node ./db/countQuotes.js",
     "add": "node ./db/addQuote.js",
     "lint": "eslint .",
