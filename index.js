@@ -453,7 +453,7 @@ bot.on("message", message => {
                     let mbed = embed.simple(
                         "", "", `League Info for ${acctObj.name}`)
                         .setURL(`https://${opggRegions[LeagueAPI.region]}.op.gg/summoner/userName=${acctObj.name.replace(/ /g, "+")}`)
-                        .setFooter("Click the *League Info* title above to go to this summoner's OP.GG page.", icons.bulb)
+                        .setFooter('Click the "League Info" title above to go to this summoner\'s OP.GG page.', icons.bulb)
                         .setThumbnail(profile)
                         .addField("Summoner Level", acctObj.summonerLevel, false);
                     addlData.forEach((_ranked, idx) => {
