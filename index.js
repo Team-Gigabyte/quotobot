@@ -438,7 +438,7 @@ bot.on("message", message => {
                     }
                     let acctObj = await LeagueAPI.getSummonerByName(args[0].replace(/\+/g, " "));
                     let profile = acctObj?.profileIconId || "";
-                    if (profile) profile = `https://ddragon.leagueoflegends.com/cdn/10.25.1/img/profileicon/${profile}.png`;
+                    if (profile) profile = `https://ddragon.leagueoflegends.com/cdn/${LeagueAPI.getDDragonLocalDataVersion()}/img/profileicon/${profile}.png`;
                     let addlData = await LeagueAPI.getLeagueRanking(acctObj) || [];
                     message.channel.stopTyping(true);
                     let mbed = embed.simple(
