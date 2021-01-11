@@ -34,7 +34,7 @@
     "dotenv": "^8.2.0",
     "leagueapiwrapper": "^2.2.0",
     "node-fetch": "^2.6.1",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5.0.1"
   },
   "engines": {
     "node": "14.x"
