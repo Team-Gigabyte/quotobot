@@ -10,7 +10,7 @@ const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
 let LeagueAPI = require("leagueapiwrapper");
-const opggRegions = require("./opggRegions.json")
+const opggRegions = require("./data/opggRegions.json")
 const bot = new Discord.Client();
 require("dotenv").config();
 // config stuff
