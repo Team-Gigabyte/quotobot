@@ -208,7 +208,7 @@ bot.on("message", message => {
             message.channel.send(new Discord.MessageEmbed()
                 .setTitle("⁉️ Click here for the commands.")
                 .setColor("009688")
-                .setURL(envVars.QBHELPURL || configFile.helpURL || "https://github.com/Team-Gigabyte/quotobot/wiki/Help")
+                .setURL(envVars.QBHELPURL || configFile.helpURL || "https://quotobot.js.org/wiki/Help")
                 .setFooter(`v${qbVersion}~${bot.guilds.cache.size}`));
             break;
         case "ping":
