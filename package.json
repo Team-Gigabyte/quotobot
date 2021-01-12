@@ -1,6 +1,6 @@
 {
   "name": "quotobot",
-  "version": "2.4.1",
+  "version": "2.5.1",
   "description": "A Discord bot that tells quotes",
   "main": "index.js",
   "scripts": {
