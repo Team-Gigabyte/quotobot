@@ -34,7 +34,7 @@
     "dotenv": "^8.2.0",
     "leagueapiwrapper": "^2.2.0",
     "node-fetch": "^2.6.1",
-    "quotobase": "Team-Gigabyte/quotobase#semver:^1.0",
+    "quotobase": "Team-Gigabyte/quotobase",
     "sqlite3": "^5.0.0"
   },
   "engines": {
