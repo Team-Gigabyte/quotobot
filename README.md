@@ -46,6 +46,7 @@ Thank you to:
 Any pull requests are appreciated. If you want to add quotes, you can follow the process [above](./HOSTING.md#bulk-csv-method-recommended), but only do step 1 and submit the pull request. Or, if you have problems with that process, open a GitHub issue with the quote, author, and a source (website that has the quote).
 # License
 This project is licensed under the [MIT](https://github.com/Team-Gigabyte/quotobot/blob/master/LICENSE). You can use it for pretty much anything as long as you credit us.
+However, if you use the quotes from our database, you must put credit in the same place where you display the quote.
 # Donate?
 [![Donate today](https://img.shields.io/static/v1?label=donate&message=today&color=green)](https://github.com/Team-Gigabyte/donate)
 
