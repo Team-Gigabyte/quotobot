@@ -11,7 +11,6 @@
 [![DeepScan grade](https://deepscan.io/api/teams/10906/projects/13838/branches/243095/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=10906&pid=13838&bid=243095) 
 [![DeepSource](https://deepsource.io/gh/Team-Gigabyte/quotobot.svg/?label=active+issues)](https://deepsource.io/gh/Team-Gigabyte/quotobot/?ref=repository-badge)
 [![GitHub license](https://img.shields.io/github/license/Team-Gigabyte/quotobot)](https://github.com/Team-Gigabyte/quotobot/blob/master/LICENSE) 
-![Program Size](https://img.shields.io/github/languages/code-size/Team-Gigabyte/quotobot) 
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/Team-Gigabyte/quotobot?logo=github&sort=semver)](https://github.com/Team-Gigabyte/quotobot/releases/latest) 
 
 
@@ -22,8 +21,8 @@
 
 # 🤖 [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
 ## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help)
-## 👇 [Click here to skip the next section](#contribute)
-# [Or do you want to host and tweak the bot yourself?](./HOSTING.md)
+If the above link doesn't work, [try this link.](./wiki/Help)
+## [Do you want to host and tweak the bot yourself? Click here.](./HOSTING.md)
 # Tentative Timeline
 ~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
 
