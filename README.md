@@ -24,6 +24,16 @@
 ## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help)
 ## 👇 [Click here to skip the next section](#contribute)
 # [Or do you want to host and tweak the bot yourself?](./HOSTING.md)
+# Tentative Timeline
+~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
+
+Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
+# Technical Notes
+![Built with JS](https://img.shields.io/static/v1?label=built%20with&message=JS&color=yellow&logo=javascript)
+
+This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (If you want to see the quotes without using SQLite, take a look at the [quotes.db.csv](./db/quotes.db.csv) file.)
+# Possible Future Updates
+- Steam Features: Playercount, Price History, etc.
 
 # Acknowledgements
 Thank you to:
@@ -32,21 +42,10 @@ Thank you to:
 * Riot Games, for approving our API key.
 * The OpenWeatherMap and Finnhub APIs, which power some of the bot functions.
 
-# Tentative Timeline
-~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
-
-Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
-
 # Contribute
-Any pull requests are appreciated. If you want to add quotes, you can follow the process [above](#bulk-csv-method-recommended), but only do step 1 and submit the pull request. Or, if you have problems with that process, open a GitHub issue with the quote, author, and a source (website that has the quote).
+Any pull requests are appreciated. If you want to add quotes, you can follow the process [above](./HOSTING.md#bulk-csv-method-recommended), but only do step 1 and submit the pull request. Or, if you have problems with that process, open a GitHub issue with the quote, author, and a source (website that has the quote).
 
-# Future Updates
-- Steam Features: Playercount, Price History, etc.
 
-# Technical Notes
-![Built with JS](https://img.shields.io/static/v1?label=built%20with&message=JS&color=yellow&logo=javascript)
-
-This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (If you want to see the quotes without using SQLite, take a look at the [quotes.db.csv](./db/quotes.db.csv) file.)
 
 # Donate?
 [![Donate today](https://img.shields.io/static/v1?label=donate&message=today&color=green)](https://github.com/Team-Gigabyte/donate)
