@@ -33,6 +33,7 @@
     "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "leagueapiwrapper": "^2.2.0",
+    "lodash": "^4.17.20",
     "node-fetch": "^2.6.1",
     "sqlite3": "5.0.0"
   },

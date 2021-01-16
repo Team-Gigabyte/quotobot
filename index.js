@@ -10,6 +10,7 @@ const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
 let LeagueAPI = require("leagueapiwrapper");
+const { startCase, escapeRegExp } = require('lodash');
 const opggRegions = require("./data/opggRegions.json")
 const bot = new Discord.Client();
 require("dotenv").config();
@@ -81,12 +82,7 @@ const norm = text => text
     .trim()
     .toLowerCase()
     .replace(/\s+/, " "); //"normalize" text
-const regex = Object.freeze({
-    escape: str => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"),
-    url: /^(http|https):\/\/[^ "]+$/,
-    camelToTitle: str => str.replace(/([A-Z])/g, " $1").charAt(0).toUpperCase() +
-        str.replace(/([A-Z])/g, " $1").slice(1)
-})
+const urlPattern = /^(http|https):\/\/[^ "]+$/;
 const icons = require("./db/icons.js");
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const randQuoteQuery = "SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);";
@@ -185,7 +181,7 @@ bot.login(token);
 bot.on("warn", m => console.warn(chalk`{orange Warning: ${m}}`));
 bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
 bot.on("message", message => {
-    const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${regex.escape(prefix)})\\s*`);
+    const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegExp(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
     const [matchedPrefix] = message.content.match(prefixRegex);
     const args = message.content.slice(matchedPrefix.length).trim().split(/ +/);
@@ -223,7 +219,7 @@ bot.on("message", message => {
                     try {
                         let { quote, source } = await db.each(randQuoteQuery);
                         let em = embed.simple(quote, source, "Random Quote");
-                        if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
+                        if (authorPictures[source.trim()] && urlPattern.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
                             em.setFooter(`—${source}`, authorPictures[source.trim()]);
                         }
@@ -248,7 +244,7 @@ bot.on("message", message => {
                     try {
                         let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes where length(quote) <= 140 ORDER BY RANDOM() LIMIT 1);");
                         let em = embed.simple(quote, source, "Random Quote");
-                        if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
+                        if (authorPictures[source.trim()] && urlPattern.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
                             em.setFooter(`—${source}`, authorPictures[source.trim()]);
                             em.setAuthor("Click here to tweet this quote!", icons.quote, `https://twitter.com/intent/tweet?text=${encodeURIComponent(`As ${source} once said, "${quote}" (from Quotobot <${envVars.QBSTATUS || configFile.helpDomain || "quotobot.js.org"}>)`)}`);
@@ -268,7 +264,7 @@ bot.on("message", message => {
                     try {
                         let { quote, source } = await db.each("SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes where length(quote) > 140 ORDER BY RANDOM() LIMIT 1);");
                         let em = embed.simple(quote, source, "Random Quote");
-                        if (authorPictures[source.trim()] && regex.url.test(authorPictures[source.trim()])) {
+                        if (authorPictures[source.trim()] && urlPattern.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
                             em.setFooter(`—${source}`, authorPictures[source.trim()]);
                         }
@@ -456,14 +452,22 @@ bot.on("message", message => {
                         .setFooter('Click the "League Info" title above to go to this summoner\'s OP.GG page.', icons.bulb)
                         .setThumbnail(profile)
                         .addField("Summoner Level", acctObj.summonerLevel, false);
-                    addlData.forEach((_ranked, idx) => {
-                        Object.keys(addlData[idx]).forEach((key) => {
-                            if (!key.endsWith("Id") && key != "summonerName") {
-                                let val = addlData[idx][key];
+                    let exclKeys = ["summonerName", "wins", "losses"];
+                    addlData.forEach((_ranked, idx) => { // Iterate over each ranked data set
+                        const fields = addlData[idx];
+                        console.log(fields)
+                        Object.keys(fields).forEach((key) => { // iterate over each field
+                            if (!key.endsWith("Id") && !exclKeys.includes(key)) {
+                                let val = fields[key];
                                 if (typeof val == "boolean") val = val ? "✅ Yes" : "🚫 No";
-                                mbed.addField(regex.camelToTitle(key), String(val), true)
+                                mbed.addField(startCase(key), String(val), true)
                             }
                         });
+                        if (fields.wins && fields.losses) {
+                            const total = fields.wins + fields.losses;
+                            const rate = Math.round((fields.wins / total) * 100, 0);
+                            mbed.addField("Win Rate", `**${rate}%** (${total}G ${fields.wins}W ${fields.losses}L)`)
+                        }
                         if (idx + 1 != addlData.length) mbed.addField('\u200b', '\u200b'); // Blank field
                     });
                     message.reply(mbed);
