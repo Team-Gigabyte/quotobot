@@ -465,7 +465,7 @@ bot.on("message", message => {
                         });
                         if (fields.wins && fields.losses) {
                             const total = fields.wins + fields.losses;
-                            const rate = Math.round((fields.wins / total) * 100, 0);
+                            const rate = Math.round((fields.wins / total) * 100);
                             mbed.addField("Win Rate", `**${rate}%** (${total}G ${fields.wins}W ${fields.losses}L)`)
                         }
                         if (idx + 1 != addlData.length) mbed.addField('\u200b', '\u200b'); // Blank field
