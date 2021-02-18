@@ -33,19 +33,17 @@ Future releases of the bot: **We might periodically add more quotes and features
 ![Built with JS](https://img.shields.io/static/v1?label=built%20with&message=JS&color=yellow&logo=javascript)
 
 This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap. (If you want to see the quotes without using SQLite, take a look at the [quotes.db.csv](./db/quotes.db.csv) file.)
-# Possible Future Updates
-- Steam Features: Playercount, Price History, etc.
 
 # Acknowledgements
 Thank you to:
-* [Uddesh](https://github.com/UddeshJain). We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
+* [@UddeshJain](https://github.com/UddeshJain). We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
 * The maintainers of all the open source NPM packages we use.
 * Riot Games, for approving our API key.
 * The OpenWeatherMap and Finnhub APIs, which power some of the bot functions.
 * All the contributors to this project.
 
 # Contribute
-Any pull requests are appreciated. If you want to add quotes, you can follow the process [above](./HOSTING.md#bulk-csv-method-recommended), but only do step 1 and submit the pull request. Or, if you have problems with that process, open a GitHub issue with the quote, author, and a source (website that has the quote).
+Any pull requests are appreciated. If you want to add quotes, you can follow the process [above](./HOSTING.md#bulk-csv-method-recommended) on a fork, but only do step 1 and submit the pull request. Or, if you have problems with that process, open a GitHub issue with the quote, author, and a source (website that has the quote).
 # License
 This project is licensed under the [MIT](https://github.com/Team-Gigabyte/quotobot/blob/master/LICENSE). You can use it for pretty much anything as long as you credit us.
 However, if you use the quotes from our database, you must put credit in the same place where you display the quote.
