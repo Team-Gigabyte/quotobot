@@ -22,8 +22,8 @@
 
 
 # 🤖 [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
-## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help) <sub>([Alternate Link](./wiki/Help))</sub>
-## 👨‍💻 [Do you want to host and tweak the bot yourself? Click here.](../../wiki/Hosting) <sub>([Alternate Link](./wiki/Hosting))</sub>
+## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help) <sub>([Alternate Link](https://github.com/Team-Gigabyte/quotobot/wiki/Help))</sub>
+## 👨‍💻 [Do you want to host and tweak the bot yourself? Click here.](../../wiki/Hosting) <sub>([Alternate Link](https://github.com/Team-Gigabyte/quotobot/wiki/Hosting))</sub>
 
 # Tentative Timeline
 ~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
