@@ -20,9 +20,9 @@
 
 
 # 🤖 [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
-## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help)
-If the above link doesn't work, [try this link.](./wiki/Help)
-## 👨‍💻 [Do you want to host and tweak the bot yourself? Click here.](./HOSTING.md)
+## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help) <sub>([Alternate Link](./wiki/Help))</sub>
+## 👨‍💻 [Do you want to host and tweak the bot yourself? Click here.](../../wiki/Hosting) <sub>([Alternate Link](./wiki/Help))</sub>
+
 # Tentative Timeline
 ~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
 
