@@ -1,4 +1,4 @@
-# The Official Guide to Quotobot
+# The Official Guide for Quotobot
 ## Use the prefix `~` or mention the bot (the bot works in DMs too)
 ## List of Commands so far:
 (capitalization doesn't matter)
@@ -8,14 +8,14 @@
 - `weather`: Gets the weather. All of these commands work, assuming the prefix is `~`:
   - `~weather New York` (prints in metric)
   - `~weather imperial Mexico City`
-  - `~weather metric Paris,us` (tells it to get the weather for Paris in the US, not the one in France)
-  - `~weather Arlington,va,us` (tells it to get the weather for Arlington in Virginia, not the one in Texas)
+  - `~weather metric Paris,us` (gets the weather for Paris in the US, not the one in France)
+  - `~weather Arlington,va,us` (gets the weather for Arlington in Virginia, not the one in Texas)
   - You'll need to wait some time between weather queries (at the moment, it's 2 seconds for our host)
 - `stock ABCD`, `stocks ABCD`: Pulls up the stock price for whatever stock (in this example, ABCD). 
-  - Note that CFD indices (such as `^N225`) aren't supported, and support for crypto prices and other stuff is in the works.
+  - Note that CFD indices (such as `^N225`) aren't supported, and support for crypto prices and other stuff is also not supported but planned for a future release.
   - Clicking the title of the bot's message will take you to Yahoo Finance for that stock.
   - You'll need to wait some time between stock queries (at the moment, it's 2 seconds for our host)
-- `amiadmin`: Returns if you have the administrator permission in the current server. (See what happens if you run it in a DM!)
+- `amiadmin`: Returns if you have the administrator permission in the current server. (Doesn't work in a DM, although you can try.)
 - `leaguestats`: Returns some stats for a certain League user. For example, assuming the prefix is `~`:
   - `~leaguestats ExampleSummoner JP` (JP is equivalent to jp1)
   - `~leaguestats Some1234Summoner` (defaults to NA)
