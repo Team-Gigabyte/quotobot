@@ -36,7 +36,7 @@ This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite 
 
 # Acknowledgements
 Thank you to:
-* [@UddeshJain](https://github.com/UddeshJain). We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
+* [Uddesh](https://github.com/UddeshJain). We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
 * The maintainers of all the open source NPM packages we use.
 * Riot Games, for approving our API key.
 * The OpenWeatherMap and Finnhub APIs, which power some of the bot functions.
