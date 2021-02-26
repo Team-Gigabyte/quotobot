@@ -177,6 +177,45 @@ bot.once("ready", () => {
 if (!token) {
     throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
 }
+process.on("SIGTERM", async () => {
+    try {
+        if (envVars.QBEXITHOOK) {
+            const [id, token] = envVars.QBEXITHOOK.split("/");
+            const hook = new Discord.WebhookClient(id, token);
+            const embed = new Discord.MessageEmbed()
+                .setTitle('Shutdown')
+                .setColor("BLUE")
+                .setTimestamp();
+            await hook.send('Quotobot is shutting down.', {
+                embeds: [embed],
+            });
+        }
+        process.exit(0);
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
+})
+process.on("uncaughtException", async (err) => {
+    console.log(err);
+    try {
+        if (envVars.QBEXITHOOK) {
+            const [id, token] = envVars.QBEXITHOOK.split("/");
+            const hook = new Discord.WebhookClient(id, token);
+            const embed = new Discord.MessageEmbed()
+                .setDescription(err.stack)
+                .setTitle('Exception')
+                .setColor("RED")
+                .setTimestamp();
+            await hook.send('Quotobot had an error and is shutting down.', {
+                embeds: [embed],
+            });
+        }
+    } catch (cerr) {
+        console.error(cerr);
+    }
+    process.exit(1);
+})
 bot.login(token);
 bot.on("warn", m => console.warn(chalk`{orange Warning: ${m}}`));
 bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
