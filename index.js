@@ -183,10 +183,10 @@ process.on("SIGTERM", async () => {
             const [id, token] = envVars.QBEXITHOOK.split("/");
             const hook = new Discord.WebhookClient(id, token);
             const embed = new Discord.MessageEmbed()
-                .setTitle('Shutdown')
+                .setTitle("Shutdown")
                 .setColor("BLUE")
                 .setTimestamp();
-            await hook.send('Quotobot is shutting down.', {
+            await hook.send("Quotobot is shutting down.", {
                 embeds: [embed],
             });
         }
@@ -204,10 +204,10 @@ process.on("uncaughtException", async (err) => {
             const hook = new Discord.WebhookClient(id, token);
             const embed = new Discord.MessageEmbed()
                 .setDescription(err.stack)
-                .setTitle('Exception')
+                .setTitle("Exception")
                 .setColor("RED")
                 .setTimestamp();
-            await hook.send('Quotobot had an error and is shutting down.', {
+            await hook.send("Quotobot had an error and is shutting down.", {
                 embeds: [embed],
             });
         }
