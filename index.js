@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";
 // NPM modules and stuff
 const Discord = require("discord.js");
