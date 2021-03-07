@@ -140,7 +140,7 @@ const embed = Object.freeze({
             .addField(`💨 Wind Speed`, wind, true)
             .addField(`📊 Pressure`, `${pressure} hpa`, true)
             .addField(`⛅️ Cloudiness`, cloudiness, true)
-            .setFooter(`This is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} ${cityName}\` • Data from OpenWeatherMap`, icons.bulb)
+            .setFooter(`This is in ${units} units — you can try ${prefix}weather ${units == "metric" ? "imperial" : "metric"} ${cityName} • Data from OpenWeatherMap`, icons.bulb)
             .setThumbnail(`https://openweathermap.org/img/wn/${icon}@2x.png`)
             .setTimestamp(new Date(timestamp * 1000)),
 })
