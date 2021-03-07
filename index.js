@@ -126,21 +126,23 @@ const embed = Object.freeze({
     "currWeather": ( // formats the embed for the weather
         temp, maxTemp, minTemp,
         pressure, humidity, wind,
-        cloudness, icon,
-        author, profile,
-        cityName, country, units) =>
+        cloudiness, icon,
+        author,
+        cityName, country, units, id, timestamp) =>
         new Discord.MessageEmbed()
             .setColor("ff9800") // yellow
-            .setAuthor(`Hello, ${author}`, profile)
-            .setTitle(`It's ${temp}\u00B0 in ${cityName}, ${country}`)
-            .addField(`🌡 Maximum Temperature:`, `${maxTemp}\u00B0`, true)
-            .addField(`🌡 Minimum Temperature:`, `${minTemp}\u00B0`, true)
-            .addField(`💧 Humidity:`, `${humidity}%`, true)
-            .addField(`💨 Wind Speed:`, `${wind}`, true)
-            .addField(`📊 Pressure:`, `${pressure} hpa`, true)
-            .addField(`⛅️ Cloudiness:`, `${cloudness}`, true)
-            .setFooter(`The above is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} ${cityName}\``, icons.bulb)
-            .setThumbnail(`http://openweathermap.org/img/wn/${icon}@2x.png`)
+            .setAuthor(`Hello, ${author}`)
+            .setTitle(`It's ${temp}°${units == "metric" ? "C" : "F"} in ${cityName}, ${country}`)
+            .setURL(`https://openweathermap.org/city/${id}`)
+            .addField(`🌡 Max Temp`, `${maxTemp}°${units == "metric" ? "C" : "F"}`, true)
+            .addField(`🌡 Min Temp`, `${minTemp}°${units == "metric" ? "C" : "F"}`, true)
+            .addField(`💧 Humidity`, `${humidity}%`, true)
+            .addField(`💨 Wind Speed`, wind, true)
+            .addField(`📊 Pressure`, `${pressure} hpa`, true)
+            .addField(`⛅️ Cloudiness`, cloudiness, true)
+            .setFooter(`This is in ${units} units — you can try \`${prefix}weather ${units == "metric" ? "imperial" : "metric"} ${cityName}\` • Data from OpenWeatherMap`, icons.bulb)
+            .setThumbnail(`https://openweathermap.org/img/wn/${icon}@2x.png`)
+            .setTimestamp(new Date(timestamp * 1000)),
 })
 bot.once("ready", () => {
     console.log(asciiLogo);
@@ -274,9 +276,9 @@ bot.on("message", message => {
                 ); */
                 break;
             }
-        case "shortquote":
         case "shortquot":
         case "tweetquote":
+        case "shortquote":
             {
                 (async () => {
                     try {
@@ -383,12 +385,12 @@ bot.on("message", message => {
                         let maxTemp = Math.round(temp_max);
                         let minTemp = Math.round(temp_min);
                         let wind = jd.wind.speed + " " + windUnits;
-                        let { username: author, displayAvatarURL: profile } = message.author;
+                        let { username: author } = message.author;
                         let { icon, description: cloudness } = jd.weather[0];
-                        let country = jd.sys.country;
+                        let { id, name: displayCity, dt: timestamp } = jd;
+                        let { country } = jd.sys;
                         country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
-                        let displayCity = jd.name;
-                        message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, profile, displayCity, country, units));
+                        message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, displayCity, country, units, id, timestamp));
                         // Adds the user to the set so that they can't talk for some time
                         usedWeatherRecently.add(message.author.id);
                         setTimeout(() => {
