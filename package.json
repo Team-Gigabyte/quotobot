@@ -24,7 +24,7 @@
   },
   "homepage": "https://quotobot.js.org",
   "devDependencies": {
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "nodemon": "^2.0.7"
   },
   "dependencies": {
