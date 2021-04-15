@@ -1,5 +1,5 @@
 <h1 align="center">Quotobot</h1>
-<p align="center">An open source Discord bot that displays 200+ hand-curated quotes, tells you the weather, fetches stock info, and more!</p>
+<p align="center">An open source Discord bot that displays 200+ hand-curated quotes, tells you the weather, fetches stock and League info, and more!</p>
 
 [![top.gg stats](https://top.gg/api/widget/746889272992464958.svg)](https://top.gg/bot/746889272992464958)
 
