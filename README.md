@@ -39,6 +39,7 @@ Thank you to:
 * [Uddesh](https://github.com/UddeshJain). We used part of his [weather bot code](https://github.com/UddeshJain/Discord-Weather-Bot) and modified it for our project.
 * The maintainers of all the open source NPM packages we use.
 * Riot Games, for approving our API key.
+  * This bot isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 * The OpenWeatherMap and Finnhub APIs, which power some of the bot functions.
 * All the contributors to this project.
 
