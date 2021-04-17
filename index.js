@@ -9,7 +9,7 @@ const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
 let LeagueAPI = require("leagueapiwrapper");
-const { startCase, escapeRegExp } = require('lodash');
+const { startCase, escapeRegExp, camelCase } = require('lodash');
 const opggRegions = require("./data/opggRegions.json")
 const { Config: SpellCfg, SpellChecker } = require('spech');
 const bot = new Discord.Client();
@@ -498,9 +498,9 @@ bot.on("message", message => {
                     let exclKeys = ["summonerName", "wins", "losses"];
                     addlData.forEach((_ranked, idx) => { // Iterate over each ranked data set
                         const fields = addlData[idx];
-                        console.log(fields)
                         Object.keys(fields).forEach((key) => { // iterate over each field
-                            if (!key.endsWith("Id") && !exclKeys.includes(key)) {
+                            if (key == "queueType") mbed.addField(startCase(key), startCase(camelCase(String(fields[key]))), true)
+                            else if (!key.endsWith("Id") && !exclKeys.includes(key)) {
                                 let val = fields[key];
                                 if (typeof val == "boolean") val = val ? "✅ Yes" : "🚫 No";
                                 mbed.addField(startCase(key), String(val), true)
@@ -538,22 +538,20 @@ bot.on("message", message => {
             break;
         case "spellcheck":
             (async () => {
-                if (args.length > 0) {
-                    const {items} = await splchecker.checkText(args.join(" "))
-                    if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239))
-                    let desc = ""
-                    items.forEach(({fragment, suggestions}) => {
-                        desc += `~~${fragment}~~ → **${suggestions.join("**, **")}**\n`
-                    });
-                    console.log(items)
-                    const mbed = new Discord.MessageEmbed()
+                if (args.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"))
+                if (args?.length < 1) return message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"))
+
+                const { items } = await splchecker.checkText(args.join(" "))
+                if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239))
+                let desc = ""
+                items.forEach(({ fragment, suggestions }) => {
+                    desc += `~~${fragment}~~ → **${suggestions.join("**, **") || "No suggestions"} **\n`
+                });
+                const mbed = new Discord.MessageEmbed()
                     .setDescription(desc)
                     .setColor(6765239)
                     .setTitle("Spell Check")
-                    message.reply(mbed)
-                } else {
-                    message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"))
-                }
+                return message.reply(mbed)
             })()
             break;
         default:
