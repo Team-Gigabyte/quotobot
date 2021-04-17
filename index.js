@@ -11,6 +11,7 @@ const chalk = require("chalk");
 let LeagueAPI = require("leagueapiwrapper");
 const { startCase, escapeRegExp } = require('lodash');
 const opggRegions = require("./data/opggRegions.json")
+const { Config: SpellCfg, SpellChecker } = require('spech');
 const bot = new Discord.Client();
 require("dotenv").config();
 // config stuff
@@ -217,6 +218,8 @@ process.on("uncaughtException", async (err) => {
     }
     process.exit(1);
 })
+const splchecker = new SpellChecker(new SpellCfg({ ignoreCase: false, languages: ['en-us'] }));
+splchecker.addProviderByConfig({ name: 'hunspell' });
 bot.login(token);
 bot.on("warn", m => console.warn(chalk`{orange Warning: ${m}}`));
 bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
@@ -532,6 +535,26 @@ bot.on("message", message => {
                 usedLeagueRecently.delete(message.author.id);
             }, timeout);
         }
+            break;
+        case "spellcheck":
+            (async () => {
+                if (args.length > 0) {
+                    const {items} = await splchecker.checkText(args.join(" "))
+                    if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239))
+                    let desc = ""
+                    items.forEach(({fragment, suggestions}) => {
+                        desc += `~~${fragment}~~ → **${suggestions.join("**, **")}**\n`
+                    });
+                    console.log(items)
+                    const mbed = new Discord.MessageEmbed()
+                    .setDescription(desc)
+                    .setColor(6765239)
+                    .setTitle("Spell Check")
+                    message.reply(mbed)
+                } else {
+                    message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"))
+                }
+            })()
             break;
         default:
             break;

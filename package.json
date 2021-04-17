@@ -35,6 +35,7 @@
     "leagueapiwrapper": "^2.3.1",
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
+    "spech": "^0.2.1",
     "sqlite3": "5.0.0"
   },
   "engines": {
