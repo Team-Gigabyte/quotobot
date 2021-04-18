@@ -9,7 +9,7 @@ const { promisify } = require("util");
 const { version: qbVersion } = require("./package.json");
 const chalk = require("chalk");
 let LeagueAPI = require("leagueapiwrapper");
-const { startCase, escapeRegExp, camelCase } = require('lodash');
+const { startCase, escapeRegExp, camelCase, uniqBy } = require('lodash');
 const opggRegions = require("./data/opggRegions.json")
 const { Config: SpellCfg, SpellChecker } = require('spech');
 const bot = new Discord.Client();
@@ -543,15 +543,17 @@ bot.on("message", message => {
 
                 let { items } = await splchecker.checkText(args.join(" "))
                 if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239));
+                items = uniqBy(items, "fragment");
                 let desc = "";
                 const mbed = new Discord.MessageEmbed()
                     .setColor(6765239)
                     .setTitle("Spell Check");
                 items.some(({ fragment, suggestions }) => {
                     let addition = `~~${fragment}~~ → **${suggestions.join("**, **") || "No suggestions"} **\n`;
-                    if (desc.length + addition.length > 2000) { 
-                        mbed.setFooter("This spellcheck has been shortened.")
-                        return true }
+                    if (desc.length + addition.length > 2000) {
+                        mbed.setFooter("This spellcheck has been shortened.");
+                        return true;
+                    }
                     else desc += addition;
                 });
                 mbed.setDescription(desc);
