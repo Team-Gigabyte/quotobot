@@ -1,6 +1,6 @@
 # The Official Guide for Quotobot
 ## Use the prefix `~` or mention the bot (the bot works in DMs too)
-## List of Commands so far:
+## List of Commands:
 (capitalization doesn't matter)
 - `randomquote`, `randquote`, `rquote`, `quote`: Prints a random quote
 - `shortquote`, `longquote`: Prints a short or long quote respectively. The short quote will be ≤140 characters, and you can click the header to Tweet the quote.
@@ -17,11 +17,15 @@
   - You'll need to wait some time between stock queries (at the moment, it's 2 seconds for our host)
   - The data and timestamp are not guaranteed to be 100% accurate, so don't trade based on the info the bot returns.
 - `amiadmin`: Returns if you have the administrator permission in the current server. (Doesn't work in a DM, although you can try.)
-- `leaguestats`: Returns some stats for a certain League user. For example, assuming the prefix is `~`:
+- `league`, `lol`, `lolstats` or `leaguestats`: Returns some stats for a certain League user. For example, assuming the prefix is `~`:
   - `~leaguestats ExampleSummoner JP` (JP is equivalent to jp1)
   - `~leaguestats Some1234Summoner` (defaults to NA)
   - `~leaguestats Multiworded+summoner` (looks up `Multiworded summoner`)
   - You'll need to wait some time between League queries (at the moment, it's 5 seconds for our host)
+- `spellcheck`: Returns all the spelling mistakes in the text following this command and suggestions for what the correct word may be.
+  - Example, assuming the prefix is `~`: `~spellcheck helo ther, this is realy mispeled.`
+  - There's a limit of 500 characters.
+  - Currently this command only supports English (United States). Leave a GitHub issue if you want to see another language in the future.
 
 | Region | Equivalent to (the bot doesn't accept these) |
 |:--------:|---------------|
