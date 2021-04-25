@@ -224,6 +224,7 @@ bot.login(token);
 bot.on("warn", m => console.warn(chalk`{orange Warning: ${m}}`));
 bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
 bot.on("message", message => {
+    if (envVars.QBBAN && message.author.id == envVars.QBBAN) return;
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegExp(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
     const [matchedPrefix] = message.content.match(prefixRegex);
