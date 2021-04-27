@@ -561,6 +561,13 @@ bot.on("message", message => {
                 return message.reply(mbed);
             })()
             break;
+        case "github":
+            message.channel.send(new Discord.MessageEmbed()
+                .setTitle("Click here for the Github.")
+                .setColor("009688")
+                .setURL("https://github.com/Team-Gigabyte/quotobot")
+            )
+            break;
         default:
             break;
     }
