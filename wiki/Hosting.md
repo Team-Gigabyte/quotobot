@@ -1,4 +1,5 @@
 # How To Host Quotobot
+Advanced users not using Docker should use the [environment variable setup](#environment-variables-instead-of-configjson)
 ## How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
 
@@ -81,7 +82,7 @@ and replace 2.1.2 with whatever [version](https://github.com/Team-Gigabyte/quoto
 ```bash
 git checkout master
 ```
-We follow semver, so as long as the first number in the digit is the same as your old release, you shouldn't have to change anything to make the new release work.
+We follow semver, so as long as the first number in the version number is the same as your old release, you shouldn't have to change anything to make the new release work.
 ## Adding quotes
 - Don't modify anything in the quotes.db.csv or the .sql files, since those are auto-generated dumps.
 ### Bulk CSV method (recommended)
