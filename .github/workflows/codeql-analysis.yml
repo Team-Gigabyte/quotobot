@@ -63,7 +63,7 @@ jobs:
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
     - name: Notify if the code is broken
-      uses: sarisia/actions-status-discord@v1
+      uses: sarisia/actions-status-discord@v1.8.5
       if: failure()
       with:
         webhook: ${{ secrets.DISCORD_WEBHOOK }}

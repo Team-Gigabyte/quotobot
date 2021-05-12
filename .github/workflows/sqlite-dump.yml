@@ -22,7 +22,7 @@ jobs:
         commit_message: SQLite database dump
         file_pattern: db/*.db.* db/*.yml
     - name: Notify if the code is broken
-      uses: sarisia/actions-status-discord@v1
+      uses: sarisia/actions-status-discord@v1.8.5
       if: failure()
       with:
         webhook: ${{ secrets.DISCORD_WEBHOOK }}

@@ -22,7 +22,7 @@ jobs:
         commit_message: Update the wiki copy
         file_pattern: 'wiki/*'
     - name: Notify if the workflow is broken
-      uses: sarisia/actions-status-discord@v1
+      uses: sarisia/actions-status-discord@v1.8.5
       if: failure()
       with:
         webhook: ${{ secrets.DISCORD_WEBHOOK }}
