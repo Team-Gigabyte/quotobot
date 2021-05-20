@@ -539,8 +539,8 @@ bot.on("message", message => {
             break;
         case "spellcheck":
             (async () => {
-                if (args.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"));
                 if (args?.length < 1) return message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"));
+                if (args.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"));
 
                 let { items } = await splchecker.checkText(args.join(" "))
                 if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239));
