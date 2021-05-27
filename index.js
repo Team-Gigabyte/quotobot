@@ -538,6 +538,7 @@ bot.on("message", message => {
         }
             break;
         case "spellcheck":
+            if (envVars.QBSPELL != "off") {
             (async () => {
                 if (args?.length < 1) return message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"));
                 if (args.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"));
@@ -559,7 +560,7 @@ bot.on("message", message => {
                 });
                 mbed.setDescription(desc);
                 return message.reply(mbed);
-            })()
+            })() }
             break;
         case "github":
             message.channel.send(new Discord.MessageEmbed()
