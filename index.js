@@ -395,7 +395,7 @@ bot.on("message", message => {
                         let { country } = jd.sys;
                         country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
                         message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, displayCity, country, units, id, timestamp));
-                        // Adds the user to the set so that they can't talk for some time
+                        // Adds the user to the set so that they can't get weather for some time
                         usedWeatherRecently.add(message.author.id);
                         setTimeout(() => {
                             // Removes the user from the set after timeout
@@ -404,6 +404,7 @@ bot.on("message", message => {
                     } catch (err) {
                         message.reply(embed.error("There was an error getting the weather.", `${err.toString().replaceAll(configFile["weather-token"] || envVars.QBWEATHER, "")}`));
                     }
+                    if (city && typeof city == "string" && city.toLowerCase() == "constantinople") message.channel.send("https://youtube.com/watch?v=vsQrKZcYtqg");
                 })();
             }
             break;
