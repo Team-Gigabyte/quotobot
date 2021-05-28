@@ -12,7 +12,7 @@
   - `~weather Arlington,va,us` (gets the weather for Arlington in Virginia, not the one in Texas)
   - You'll need to wait some time between weather queries (at the moment, it's 2 seconds for our host)
 - `stock ABCD`, `stocks ABCD`: Pulls up the stock price for whatever stock (in this example, ABCD).
-  - Note that non-US stocks and CFD indices (such as `^N225`) aren't supported, and support for crypto prices and other stuff is also not supported but planned for a future release.
+  - Note that non-US stocks and CFD indices (such as `^N225`) aren't supported.
   - Clicking the title of the bot's message will take you to Yahoo! Finance for that stock.
   - You'll need to wait some time between stock queries (at the moment, it's 2 seconds for our host)
   - The data and timestamp are not guaranteed to be 100% accurate, so don't trade based on the info the bot returns.
@@ -22,10 +22,8 @@
   - `~leaguestats Some1234Summoner` (defaults to NA)
   - `~leaguestats Multiworded+summoner` (looks up `Multiworded summoner`)
   - You'll need to wait some time between League queries (at the moment, it's 5 seconds for our host)
-- `spellcheck`: Returns all the spelling mistakes in the text following this command and suggestions for what the correct word may be.
-  - Example, assuming the prefix is `~`: `~spellcheck helo ther, this is realy mispeled.`
-  - There's a limit of 500 characters.
-  - Currently this command only supports English (United States). Leave a GitHub issue if you want to see another language in the future.
+
+
 
 | Region | Equivalent to (the bot doesn't accept these) |
 |:--------:|---------------|
@@ -42,3 +40,8 @@
 | RU | |
 
 - `help`: Brings up a hyperlink to this commands list
+
+- ~~`spellcheck`: Returns all the spelling mistakes in the text following this command and suggestions for what the correct word may be.~~
+  - ~~Example, assuming the prefix is `~`: `~spellcheck helo ther, this is realy mispeled.`~~
+  - ~~There's a limit of 500 characters.~~
+  - ~~Currently this command only supports English (United States). Leave a GitHub issue if you want to see another language in the future.~~
