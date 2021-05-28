@@ -404,7 +404,7 @@ bot.on("message", message => {
                     } catch (err) {
                         message.reply(embed.error("There was an error getting the weather.", `${err.toString().replaceAll(configFile["weather-token"] || envVars.QBWEATHER, "")}`));
                     }
-                    if (args[0] == "constantinople") message.channel.send("https://youtube.com/watch?v=vsQrKZcYtqg");
+                    if (args[0] == "constantinople") message.reply("https://youtube.com/watch?v=vsQrKZcYtqg");
                 })();
             }
             break;
