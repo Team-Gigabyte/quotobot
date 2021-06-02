@@ -403,8 +403,9 @@ bot.on("message", message => {
                         }, timeout);
                     } catch (err) {
                         message.reply(embed.error("There was an error getting the weather.", `${err.toString().replaceAll(configFile["weather-token"] || envVars.QBWEATHER, "")}`));
+                    } finally {
+                        if (city == "constantinople") message.reply("https://youtube.com/watch?v=vsQrKZcYtqg");
                     }
-                    if (args[0] == "constantinople") message.reply("https://youtube.com/watch?v=vsQrKZcYtqg");
                 })();
             }
             break;
@@ -540,28 +541,29 @@ bot.on("message", message => {
             break;
         case "spellcheck":
             if (envVars.QBSPELL != "off") {
-            (async () => {
-                if (args?.length < 1) return message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"));
-                if (args.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"));
+                (async () => {
+                    if (args?.length < 1) return message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"));
+                    if (args.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"));
 
-                let { items } = await splchecker.checkText(args.join(" "))
-                if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239));
-                items = uniqBy(items, "fragment");
-                let desc = "";
-                const mbed = new Discord.MessageEmbed()
-                    .setColor(6765239)
-                    .setTitle("Spell Check");
-                items.some(({ fragment, suggestions }) => {
-                    let addition = `~~${fragment}~~ → **${suggestions.join("**, **") || "No suggestions"} **\n`;
-                    if (desc.length + addition.length > 2000) {
-                        mbed.setFooter("This spellcheck has been shortened.");
-                        return true;
-                    }
-                    else desc += addition;
-                });
-                mbed.setDescription(desc);
-                return message.reply(mbed);
-            })() }
+                    let { items } = await splchecker.checkText(args.join(" "))
+                    if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239));
+                    items = uniqBy(items, "fragment");
+                    let desc = "";
+                    const mbed = new Discord.MessageEmbed()
+                        .setColor(6765239)
+                        .setTitle("Spell Check");
+                    items.some(({ fragment, suggestions }) => {
+                        let addition = `~~${fragment}~~ → **${suggestions.join("**, **") || "No suggestions"} **\n`;
+                        if (desc.length + addition.length > 2000) {
+                            mbed.setFooter("This spellcheck has been shortened.");
+                            return true;
+                        }
+                        else desc += addition;
+                    });
+                    mbed.setDescription(desc);
+                    return message.reply(mbed);
+                })()
+            }
             break;
         case "github":
             message.channel.send(new Discord.MessageEmbed()
