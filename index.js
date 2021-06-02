@@ -161,10 +161,10 @@ bot.once("ready", () => {
     else if (leagueEnabled) leagueText = "✅";
     else leagueText = "💬 Still trying to start the League API";
     console.table({
-        "bot version": qbVersion,
-        "prefix": prefix,
+        "bot version": qbVersion, prefix,
         "username": "@" + bot.user.username + "#" + bot.user.discriminator,
-        "invite link": invText, "status": helpDomain,
+        "invite link": invText,
+        "status": `${prefix}help • ${helpDomain}`,
         "server count": bot.guilds.cache.size,
         "weather key defined?": (configFile["weather-token"] || envVars.QBWEATHER ? "✅" : "🚫 weather will not work"),
         "help link": (configFile.helpURL || "default"),
@@ -173,7 +173,7 @@ bot.once("ready", () => {
         "league enabled?": leagueText
     })
     if (helpDomain) {
-        bot.user.setActivity(helpDomain, { type: "WATCHING" }); // Custom status "Watching example.qb"
+        bot.user.setActivity(`${prefix}help • ${helpDomain}`, { type: "WATCHING" }); // Custom status "Watching example.qb"
     }
 });
 if (!token) {
