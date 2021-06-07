@@ -1,5 +1,8 @@
 # The Official Guide for Quotobot
 ## Use the prefix `~` or mention the bot (the bot works in DMs too)
+**How to type `~` on US keyboards:**
+
+![To get ~, press Shift and grave accent (under the esc key on US keyboards).](https://github.com/Team-Gigabyte/quotobot/raw/master/img/Tilde.png)
 ## List of Commands:
 (capitalization doesn't matter)
 - `randomquote`, `randquote`, `rquote`, `quote`: Prints a random quote
