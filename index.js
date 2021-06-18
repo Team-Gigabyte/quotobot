@@ -86,7 +86,7 @@ const urlPattern = /^(http|https):\/\/[^ "]+$/;
 const icons = require("./db/icons.js");
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const randQuoteQuery = "SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);";
-const usedWeatherRecently = new Set(), usedStocksRecently = new Set(), usedLeagueRecently = new Set();
+const usedWeatherRecently = new Set(), usedStocksRecently = new Set(), usedLeagueRecently = new Set(), usedSpellingRecently = new Set();
 const asciiLogo = chalk`{blueBright
  ____            __       __        __ 
 / __ \\__ _____  / /____  / /  ___  / /_
@@ -542,10 +542,16 @@ bot.on("message", message => {
         case "spellcheck":
             if (envVars.QBSPELL != "off") {
                 (async () => {
+                    let timeout = envVars.QBSPTIMEOUT || 10000;
+                    if (usedSpellingRecently.has(message.author.id)) return message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for the weather again.`, "ERR_RATE_LIMIT", "Slow down!"));
                     if (args?.length < 1) return message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"));
-                    if (args.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"));
+                    if (args?.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"));
 
-                    let { items } = await splchecker.checkText(args.join(" "))
+                    usedSpellingRecently.add(message.author.id);
+                    setTimeout(() => {
+                        usedSpellingRecently.delete(message.author.id);
+                    }, timeout);
+                    let { items } = await splchecker.checkText(args.join(" "));
                     if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239));
                     items = uniqBy(items, "fragment");
                     let desc = "";
