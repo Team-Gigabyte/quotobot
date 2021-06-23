@@ -36,7 +36,7 @@ try {
     picturesEnabled = false;
     console.warn("Warning: No db/portraits.json file was found. Quotes will not have pictures of the author.")
 }
-let token = undefined;
+let token;
 if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
 } else if (!configFile.token) { token = envVars.QBTOKEN; }
