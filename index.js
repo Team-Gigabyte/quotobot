@@ -543,7 +543,7 @@ bot.on("message", message => {
             if (envVars.QBSPELL != "off") {
                 (async () => {
                     let timeout = envVars.QBSPTIMEOUT || 10000;
-                    if (usedSpellingRecently.has(message.author.id)) return message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for the weather again.`, "ERR_RATE_LIMIT", "Slow down!"));
+                    if (usedSpellingRecently.has(message.author.id)) return message.reply(embed.error(`You need to wait ${timeout / 1000} seconds before asking for spellcheck again.`, "ERR_RATE_LIMIT", "Slow down!"));
                     if (args?.length < 1) return message.reply(embed.error("You didn't include any text to spell check.", "ERR_NO_TEXT", "Where's the text?"));
                     if (args?.join().length > 500) return message.reply(embed.error("You can only spellcheck 500 characters at most.", "ERR_500_EXCEEDED", "Too long!"));
 
