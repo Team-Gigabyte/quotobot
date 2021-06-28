@@ -202,15 +202,15 @@ process.on("uncaughtException", async (err) => {
     console.log(err);
     try {
         if (envVars.QBEXITHOOK) {
-            const [id, token] = envVars.QBEXITHOOK.split("/");
-            const hook = new Discord.WebhookClient(id, token);
-            const embed = new Discord.MessageEmbed()
+            const [id, tokn] = envVars.QBEXITHOOK.split("/");
+            const hook = new Discord.WebhookClient(id, tokn);
+            const mbed = new Discord.MessageEmbed()
                 .setDescription(err.stack)
                 .setTitle("Exception")
                 .setColor("RED")
                 .setTimestamp();
             await hook.send("Quotobot had an error and is shutting down.", {
-                embeds: [embed],
+                embeds: [mbed],
             });
         }
     } catch (cerr) {
