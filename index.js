@@ -82,7 +82,7 @@ const norm = text => text
     .trim()
     .toLowerCase()
     .replace(/\s+/, " "); //"normalize" text
-const urlPattern = /^(http|https):\/\/[^ "]+$/;
+const urlPattern = /^(?:http|https):\/\/[^ "]+$/;
 const icons = require("./db/icons.js");
 const sp = "📕 Scarlet Pimpernel by Baroness Orczy";
 const randQuoteQuery = "SELECT quote, source FROM Quotes WHERE id IN (SELECT id FROM Quotes ORDER BY RANDOM() LIMIT 1);";
