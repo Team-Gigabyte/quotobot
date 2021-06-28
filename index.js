@@ -182,14 +182,14 @@ if (!token) {
 process.on("SIGTERM", async () => {
     try {
         if (envVars.QBEXITHOOK) {
-            const [id, token] = envVars.QBEXITHOOK.split("/");
-            const hook = new Discord.WebhookClient(id, token);
-            const embed = new Discord.MessageEmbed()
+            const [id, tokn] = envVars.QBEXITHOOK.split("/");
+            const hook = new Discord.WebhookClient(id, tokn);
+            const mbed = new Discord.MessageEmbed()
                 .setTitle("Shutdown")
                 .setColor("BLUE")
                 .setTimestamp();
             await hook.send("Quotobot is shutting down.", {
-                embeds: [embed],
+                embeds: [mbed],
             });
         }
         process.exit(0);
