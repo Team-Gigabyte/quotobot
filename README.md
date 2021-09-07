@@ -25,10 +25,6 @@
 ## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help) <sub>([Alternate Link](https://github.com/Team-Gigabyte/quotobot/wiki/Help))</sub>
 ## 👨‍💻 [Do you want to host and tweak the bot yourself? Click here.](../../wiki/Hosting) <sub>([Alternate Link](https://github.com/Team-Gigabyte/quotobot/wiki/Hosting))</sub>
 
-# Tentative Timeline
-~~Publish v1.0 of the bot: **August 30** (by the latest): **70+ QUOTES! The quotes will be nice and embedded!**~~
-
-Future releases of the bot: **We might periodically add more quotes and features, including general features unrelated to quotes! This is not certain to happen as school will restart and time to work on this project will be limited.**
 # Technical Notes
 ![Built with JS](https://img.shields.io/static/v1?label=built%20with&message=JS&color=yellow&logo=javascript)
 
