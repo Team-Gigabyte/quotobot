@@ -3,7 +3,7 @@
 
 [![top.gg stats](https://top.gg/api/widget/746889272992464958.svg)](https://top.gg/bot/746889272992464958)
 
-[![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](http://quotobot.ml) 
+[![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)](https://discord.com/oauth2/authorize?client_id=746889272992464958&permissions=18432&scope=bot) 
 [![Number of quotes](https://img.shields.io/badge/dynamic/yaml?color=blue&label=quotes&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2FTeam-Gigabyte%2Fquotobot%2Fmaster%2Fdb%2Fquotes.count.yml)](https://github.com/Team-Gigabyte/quotobot/blob/master/db/quotes.db.csv)
 
 
@@ -21,7 +21,7 @@
 ![Stock screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/img/Stock%20Demo.png)
 
 
-# 🤖 [INVITE THE BOT TO YOUR SERVER!](http://quotobot.ml)
+# 🤖 [INVITE THE BOT TO YOUR SERVER!](https://discord.com/oauth2/authorize?client_id=746889272992464958&permissions=18432&scope=bot)
 ## 🤔 [Need to see a list of commands? Click here.](../../wiki/Help) <sub>([Alternate Link](https://github.com/Team-Gigabyte/quotobot/wiki/Help))</sub>
 ## 👨‍💻 [Do you want to host and tweak the bot yourself? Click here.](../../wiki/Hosting) <sub>([Alternate Link](https://github.com/Team-Gigabyte/quotobot/wiki/Hosting))</sub>
 
