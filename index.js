@@ -498,7 +498,7 @@ bot.on("message", message => {
                         .setFooter('Click the "League Info" title above to go to this summoner\'s OP.GG page.', icons.bulb)
                         .setThumbnail(profile)
                         .addField("Summoner Level", acctObj.summonerLevel, false);
-                    let exclKeys = ["summonerName", "wins", "losses"];
+                    const exclKeys = ["summonerName", "wins", "losses"];
                     addlData.forEach((_ranked, idx) => { // Iterate over each ranked data set
                         const fields = addlData[idx];
                         Object.keys(fields).forEach((key) => { // iterate over each field
