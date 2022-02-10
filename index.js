@@ -291,8 +291,8 @@ bot.on("message", message => {
                         if (authorPictures[source.trim()] && urlPattern.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
                             em.setFooter(`—${source}`, authorPictures[source.trim()]);
-                            em.setAuthor("Click here to tweet this quote!", icons.quote, `https://twitter.com/intent/tweet?text=${encodeURIComponent(`As ${source} once said, "${quote}" (from Quotobot <${envVars.QBSTATUS || configFile.helpDomain || "quotobot.js.org"}>)`)}`);
                         }
+                        em.setAuthor("Click here to tweet this quote!", icons.quote, `https://twitter.com/intent/tweet?text=${encodeURIComponent(`As ${source} once said, "${quote}" (from Quotobot <${envVars.QBSTATUS || configFile.helpDomain || "quotobot.js.org"}>)`)}`);
                         message.channel.send(em);
                     } catch (err) {
                         message.reply(embed.error("There was an error on our end. Try again later.", "ERR_DATABASE"));
