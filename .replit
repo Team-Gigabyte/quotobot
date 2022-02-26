@@ -1,3 +1,3 @@
 run="npm start"
 language="nodejs"
-onBoot="echo Booting up!"
+onBoot="echo Booting up! Make sure to set your environment variables."
