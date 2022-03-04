@@ -28,7 +28,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "country-flag-emoji": "^1.0.3",
     "discord.js": "^12.5.3",
     "dotenv": "^16.0.0",
