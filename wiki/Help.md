@@ -1,6 +1,6 @@
 # The Official Guide for Quotobot
 ## Use the prefix `~` or mention the bot (the bot works in DMs too)
-**How to type `~` on US keyboards:**
+**How to type `~` (tilde) on US keyboards:**
 
 ![To get ~, press Shift and grave accent (under the esc key on US keyboards).](https://github.com/Team-Gigabyte/quotobot/raw/master/img/Tilde.png)
 ## List of Commands:
@@ -48,3 +48,6 @@
   - ~~Example, assuming the prefix is `~`: `~spellcheck helo ther, this is realy mispeled.`~~
   - ~~There's a limit of 500 characters.~~
   - ~~Currently this command only supports English (United States). Leave a GitHub issue if you want to see another language in the future.~~
+
+## Are the messages blank?
+If Quotobot's messages appear blank, you may have embeds off. Fix it by going to Discord Settings → Text and Images → Show embeds and preview website links pasted into chat.
