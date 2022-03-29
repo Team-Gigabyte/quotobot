@@ -50,6 +50,7 @@ if (!stocksEnabled) {
     console.log("Your stock API key is falsy (usually undefined). Stock lookups will not work.")
 }
 const helpDomain = envVars.QBSTATUS || configFile["help-domain"] || undefined;
+let helpMessage;
 // handle starting up the League API
 let leagueEnabled;
 try {
@@ -175,6 +176,7 @@ bot.once("ready", () => {
     if (helpDomain) {
         bot.user.setActivity(`${prefix}help • ${helpDomain}`, { type: "WATCHING" }); // Custom status "Watching example.qb"
     }
+    helpMessage = `See this link for the commands: ${envVars.QBHELPURL || configFile.helpURL || "https://quotobot.js.org/wiki/Help"} (v${qbVersion}~${bot.guilds.cache.size})`;
 });
 if (!token) {
     throw new Error("The token is falsy (usually undefined). Make sure you actually put a token in the config file or in the environment variable QBTOKEN.");
@@ -245,11 +247,12 @@ bot.on("message", message => {
                 });
             break;
         case "help":
-            message.channel.send(new Discord.MessageEmbed()
-                .setTitle("⁉️ Click here for the commands.")
-                .setColor("009688")
-                .setURL(envVars.QBHELPURL || configFile.helpURL || "https://quotobot.js.org/wiki/Help")
-                .setFooter(`v${qbVersion}~${bot.guilds.cache.size}`));
+            // message.channel.send(new Discord.MessageEmbed()
+            //     .setTitle("⁉️ Click here for the commands.")
+            //     .setColor("009688")
+            //     .setURL(envVars.QBHELPURL || configFile.helpURL || "https://quotobot.js.org/wiki/Help")
+            //     .setFooter(`v${qbVersion}~${bot.guilds.cache.size}`));
+            message.channel.send(helpMessage);
             break;
         case "ping":
             message.channel.send("Pong!");
