@@ -223,7 +223,7 @@ process.on("uncaughtException", async (err) => {
 const splchecker = new SpellChecker(new SpellCfg({ ignoreCase: false, languages: ['en-us'] }));
 splchecker.addProviderByConfig({ name: 'hunspell' });
 bot.login(token);
-bot.on("warn", m => console.warn(chalk`{orange Warning: ${m}}`));
+bot.on("warn", m => console.warn(chalk`{yellow Warning: ${m}}`));
 bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
 bot.on("message", message => {
     if (envVars.QBBAN && message.author.id == envVars.QBBAN) return;
