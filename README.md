@@ -37,6 +37,7 @@ Thank you to:
 * Riot Games, for approving our API key.
   * This bot isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
 * The OpenWeatherMap and Finnhub APIs, which power some of the bot functions.
+* [Material Design Icons](https://materialdesignicons.com/), for the quote icon we used to make the bot's logo.
 * All the contributors to this project.
 
 # Contribute
