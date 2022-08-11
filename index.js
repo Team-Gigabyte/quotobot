@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 // NPM modules and stuff
 const Discord = require("discord.js");
 const { env: envVars } = require("process");
