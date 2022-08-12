@@ -1,5 +1,5 @@
 # How To Host Quotobot
-Advanced users not using Docker should use the [environment variable setup](#environment-variables-instead-of-configjson)
+Advanced users not using Docker should use the [environment variable setup](#environment-variables-instead-of-configjson).
 ## How to set up the config.json
 - Make a copy of config-example.json and call it config.json. 
 
@@ -50,7 +50,7 @@ You can also use a .env file to set environment variables. Just copy the lines y
 
 Note that there is currently no way to change stuff like the client ID this way.
 ## Run the bot
-Make sure you have [Node.js >= 14](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:
+Make sure you have [the latest LTS version of Node.js](https://nodejs.org/) installed and open a command prompt/terminal in the folder where these files are. Then run:
 ```bash
 npm install
 node index.js
