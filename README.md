@@ -28,7 +28,7 @@
 # Technical Notes
 ![Built with JS](https://img.shields.io/static/v1?label=built%20with&message=JS&color=yellow&logo=javascript)
 
-This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from OpenWeatherMap, stock data comes from Finnhub, and League stats come from the official Riot API. (If you want to see the quotes without using SQLite, take a look at the [quotes.db.csv](./db/quotes.db.csv) file.)
+This bot mainly uses Node.js and Discord.js. The quotes are stored in an SQLite database and accessed using the `sqlite3` module. The weather comes from [OpenWeatherMap](https://openweathermap.org/), stock data comes from [Finnhub](https://finnhub.io/), and League stats come from the [official Riot API](https://developer.riotgames.com/). (If you want to see the quotes without using SQLite, take a look at the [quotes.db.csv](./db/quotes.db.csv) file.)
 
 # Acknowledgements
 Thank you to:
