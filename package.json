@@ -36,7 +36,7 @@
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.9",
     "spech": "^0.2.1",
-    "sqlite3": "^5.1.5"
+    "sqlite3": "^5.1.6"
   },
   "engines": {
     "node": "16.x"
