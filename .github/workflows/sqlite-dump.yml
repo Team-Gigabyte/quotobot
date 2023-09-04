@@ -8,7 +8,7 @@ jobs:
   sqlitedump:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Dump the SQLite to a SQL File
       run: for i in ./db/*.db; do sqlite3 $i .dump > $i.sql; done
     - name: Dump the SQLite to CSV
