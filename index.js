@@ -25,7 +25,6 @@ try {
     configFile = { "help-domain": "quotobot.js.org" };
 }
 const authorPictures = require("./db/portraits.js");
-const picturesEnabled = true;
 let token;
 if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
