@@ -563,11 +563,7 @@ bot.on("message", message => {
             }
             break;
         case "github":
-            message.channel.send(new Discord.MessageEmbed()
-                .setTitle("Click here for the GitHub repo.")
-                .setColor("009688")
-                .setURL("https://github.com/Team-Gigabyte/quotobot")
-            )
+            message.channel.send("https://github.com/Team-Gigabyte/quotobot")
             break;
         default:
             break;
