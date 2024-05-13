@@ -214,7 +214,7 @@ bot.login(token);
 bot.on("warn", m => console.warn(chalk`{yellow Warning: ${m}}`));
 bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
 bot.on("message", message => {
-    if (envVars.QBBAN && message.author.id == envVars.QBBAN) return;
+    if (message.author.id == envVars?.QBBAN) return;
     const prefixRegex = new RegExp(`^(<@!?${bot.user.id}>|${escapeRegExp(prefix)})\\s*`);
     if ((!prefixRegex.test(message.content)) || message.author.bot) return;
     const [matchedPrefix] = message.content.match(prefixRegex);
@@ -380,12 +380,12 @@ bot.on("message", message => {
                         let maxTemp = Math.round(temp_max);
                         let minTemp = Math.round(temp_min);
                         let wind = jd.wind.speed + " " + windUnits;
-                        let { username: author } = message.author;
+                        let { username } = message.author;
                         let { icon, description: cloudness } = jd.weather[0];
                         let { id, name: displayCity, dt: timestamp } = jd;
                         let { country } = jd.sys;
                         country += cFlags.get(country).emoji ? " " + cFlags.get(country).emoji : "";
-                        message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, author, displayCity, country, units, id, timestamp));
+                        message.reply(embed.currWeather(currentTemp, maxTemp, minTemp, pressure, humidity, wind, cloudness, icon, username, displayCity, country, units, id, timestamp));
                         // Adds the user to the set so that they can't get weather for some time
                         usedWeatherRecently.add(message.author.id);
                         setTimeout(() => {
