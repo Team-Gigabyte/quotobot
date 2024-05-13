@@ -37,6 +37,8 @@ Thank you to:
 * [Material Design Icons](https://materialdesignicons.com/), for the quote icon we used to make the bot's logo.
 * All the original photographers of the quote author pictures used. All required credits are in [`db/portraits.js`](/db/portraits.js).
 * All the contributors to this project.
+* Every person who said the quotes in our database.
+  * Inclusion of a person's quotes in our database does not imply our endorsement of said person's opinions.
 
 # Contribute
 Any pull requests are appreciated. If you want to add quotes, you can follow [the quote-adding process](https://github.com/Team-Gigabyte/quotobot/wiki/Hosting#bulk-csv-method-recommended) on a fork, but only do step 1 and submit the pull request. Or, if you have problems with that process, open a GitHub issue with the quote, author, and a source (website that has the quote).
