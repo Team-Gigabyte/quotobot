@@ -25,6 +25,7 @@ try {
     configFile = { "help-domain": "quotobot.js.org" };
 }
 const authorPictures = require("./db/portraits.js");
+const authorWikis = require("./db/wikis.js")
 let token;
 if (configFile.token == "your-token-here-inside-these-quotes") {
     token = envVars.QBTOKEN;
@@ -258,6 +259,12 @@ bot.on("message", message => {
                             em.setThumbnail(authorPictures[source.trim()]);
                             em.setFooter(`—${source}`, authorPictures[source.trim()]);
                         }
+                        if (source.trim() in authorWikis) {
+                            if (authorWikis[source.trim()] !== null)
+                                em.setAuthor("Click here for author's wiki", icons.quote, "https://en.wikipedia.org/wiki/" + encodeURIComponent(authorWikis[source.trim()]));
+                        } else {
+                            em.setAuthor("Click here for author's wiki", icons.quote, "https://en.wikipedia.org/wiki/" + encodeURIComponent(source.trim()));
+                        }
                         message.channel.send(em);
                     } catch (err) {
                         message.reply(embed.error("There was an error on our end. Try again later.", "ERR_DATABASE"));
@@ -302,6 +309,12 @@ bot.on("message", message => {
                         if (authorPictures[source.trim()] && urlPattern.test(authorPictures[source.trim()])) {
                             em.setThumbnail(authorPictures[source.trim()]);
                             em.setFooter(`—${source}`, authorPictures[source.trim()]);
+                        }
+                        if (source.trim() in authorWikis) {
+                            if (authorWikis[source.trim()] !== null)
+                                em.setAuthor("Click here for author's wiki", icons.quote, "https://en.wikipedia.org/wiki/" + encodeURIComponent(authorWikis[source.trim()]));
+                        } else {
+                            em.setAuthor("Click here for author's wiki", icons.quote, "https://en.wikipedia.org/wiki/" + encodeURIComponent(source.trim()));
                         }
                         message.channel.send(em);
                     } catch (err) {
