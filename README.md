@@ -1,8 +1,11 @@
 <h1 align="center">Quotobot</h1>
-<p align="center"><i>(KWO-toe-bot)</i><br/> An open source Discord bot that displays 200+ hand-curated quotes, tells you the weather, fetches stock and League info, and more!</p>
+<p align="center"><i>(KWO-toe-bot)</i><br/> An open source Discord bot that displays 200+ hand-curated quotes, tells you the weather, fetches stock and League info, and more!<br/>
+</p>
 
-[![Click to invite to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=7289DA&logo=Discord)][inv]
-[![Number of quotes](https://img.shields.io/badge/dynamic/yaml?color=blue&label=quotes&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2FTeam-Gigabyte%2Fquotobot%2Fmaster%2Fdb%2Fquotes.count.yml)](https://github.com/Team-Gigabyte/quotobot/blob/master/db/quotes.db.csv)
+
+[![Invite Quotobot to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=3a57c1&logo=Discord&style=for-the-badge&logoColor=white)][inv]
+[![View the command list](https://img.shields.io/badge/%E2%9D%94%20Help%20and-Command%20List-347534?style=for-the-badge)](../../wiki/Help)
+[![Number of quotes](https://img.shields.io/badge/dynamic/yaml?color=c13a3a&label=quotes&query=%24.count&url=https%3A%2F%2Fraw.githubusercontent.com%2FTeam-Gigabyte%2Fquotobot%2Fmaster%2Fdb%2Fquotes.count.yml&style=for-the-badge)](https://github.com/Team-Gigabyte/quotobot/blob/master/db/quotes.db.csv)
 
 ![Quotes screenshot](https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/img/Demo%20Picture.png)
 
