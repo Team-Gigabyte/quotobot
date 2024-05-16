@@ -190,6 +190,8 @@ process.on("SIGTERM", async () => {
     }
 })
 process.on("uncaughtException", async (err) => {
+    if (err.name == "DiscordAPIError" && err.message == "Missing Permissions") return;
+
     console.log(err);
     try {
         if (envVars.QBEXITHOOK) {
