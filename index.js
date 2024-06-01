@@ -212,6 +212,8 @@ process.on("uncaughtException", async (err) => {
     process.exit(1);
 })
 const splchecker = new SpellChecker(new SpellCfg({ ignoreCase: false, languages: ['en-us'] }));
+splchecker.addDictionaryPhrase('Quotobot');
+splchecker.addDictionaryPhrase('quotobot');
 splchecker.addProviderByConfig({ name: 'hunspell' });
 bot.login(token);
 bot.on("warn", m => console.warn(chalk`{yellow Warning: ${m}}`));
