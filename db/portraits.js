@@ -1,19 +1,15 @@
-/*
-[1] https://www.loc.gov/rr/print/list/057_intr.html
-Note: imgur hosting is not for commercial use
-*/
 module.exports = {
-  "George Washington": "https://cdn.discordapp.com/attachments/746526474131210281/756892295693074542/Screen_Shot_2020-09-19_at_10.59.27_AM.png", // 1
-  "John Adams": "https://cdn.discordapp.com/attachments/746526474131210281/756892492301074442/Screen_Shot_2020-09-19_at_11.00.24_AM.png", // 1
-  "Thomas Jefferson": "https://cdn.discordapp.com/attachments/746526474131210281/756892685880524992/Screen_Shot_2020-09-19_at_11.01.13_AM.png", // 1
-  "James Madison": "https://cdn.discordapp.com/attachments/746526474131210281/756892775559200839/Screen_Shot_2020-09-19_at_11.01.35_AM.png", // 1
-  "*The Scarlet Pimpernel* by Baroness Orczy": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Thescarletpimpernel1908.jpg", // https://commons.wikimedia.org/wiki/File:Thescarletpimpernel1908.jpg public domain
-  "John F. Kennedy": "https://cdn.discordapp.com/attachments/746526474131210281/756893393581506640/Screen_Shot_2020-09-19_at_11.04.02_AM.png", // 1
-  "Barack Obama": "https://i.imgur.com/I6IPA6V.jpg", // https://commons.wikimedia.org/wiki/File:Official_portrait_of_Barack_Obama.jpg public domain since from federal govt
-  "Alexander Hamilton": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Alexander_Hamilton_portrait_by_John_Trumbull_1806,_detail.jpg", // https://commons.wikimedia.org/wiki/File:Alexander_Hamilton_portrait_by_John_Trumbull_1806.jpg public domain
-  "Abraham Lincoln": "https://cdn.discordapp.com/attachments/746526474131210281/756894035473465414/Screen_Shot_2020-09-19_at_11.06.35_AM.png", // 1
+  "George Washington": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg", // https://commons.wikimedia.org/wiki/File:Gilbert_Stuart_Williamstown_Portrait_of_George_Washington.jpg 
+  "John Adams": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Gilbert_Stuart,_John_Adams,_c._1800-1815,_NGA_42933.jpg", // https://commons.wikimedia.org/wiki/File:Gilbert_Stuart,_John_Adams,_c._1800-1815,_NGA_42933.jpg 
+  "Thomas Jefferson": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Thomas_Jefferson_by_Rembrandt_Peale,_1800.jpg", // https://commons.wikimedia.org/wiki/File:Thomas_Jefferson_by_Rembrandt_Peale,_1800.jpg 
+  "James Madison": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:James_Madison_(cropped_3x4_close).jpg", // https://commons.wikimedia.org/wiki/File:James_Madison_(cropped_3x4_close).jpg 
+  "*The Scarlet Pimpernel* by Baroness Orczy": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Thescarletpimpernel1908.jpg", // https://commons.wikimedia.org/wiki/File:Thescarletpimpernel1908.jpg 
+  "John F. Kennedy": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:John_F._Kennedy,_White_House_color_photo_portrait.jpg", // https://commons.wikimedia.org/wiki/File:John_F._Kennedy,_White_House_color_photo_portrait.jpg 
+  "Barack Obama": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Official_portrait_of_Barack_Obama.jpg", // https://commons.wikimedia.org/wiki/File:Official_portrait_of_Barack_Obama.jpg
+  "Alexander Hamilton": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Alexander_Hamilton_portrait_by_John_Trumbull_1806,_detail.jpg", // https://commons.wikimedia.org/wiki/File:Alexander_Hamilton_portrait_by_John_Trumbull_1806.jpg 
+  "Abraham Lincoln": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Abraham_Lincoln_head_on_shoulders_photo_portrait.jpg", // https://commons.wikimedia.org/wiki/File:Abraham_Lincoln_head_on_shoulders_photo_portrait.jpg 
   "Elon Musk": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Elon_Musk,_2018_(cropped).jpg", // The Royal Society CC BY-SA https://commons.wikimedia.org/wiki/File:Elon_Musk_Royal_Society.jpg
-  "Eleanor Roosevelt": "https://cdn.discordapp.com/attachments/746526474131210281/756894467893624912/Eleanor_Roosevelt_portrait_1933.jpg", // https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_portrait_1933.jpg
+  "Eleanor Roosevelt": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Eleanor_Roosevelt_portrait_1933.jpg", // https://commons.wikimedia.org/wiki/File:Eleanor_Roosevelt_portrait_1933.jpg
   "QB Devs": "https://raw.githubusercontent.com/Team-Gigabyte/quotobot/master/img/Logo.png", // https://materialdesignicons.com/icon/comment-quote SIL OFL
   "Martin Luther King Jr.": "https://commons.wikimedia.org/w/index.php?title=Special:Redirect/file&wpvalue=File:Martin_Luther_King,_Jr..jpg", // https://commons.wikimedia.org/wiki/File:Martin_Luther_King,_Jr..jpg
   "Anonymous": "https://cdn.discordapp.com/attachments/449680513683292162/771446646327476274/incognito-2231825_1920.png" // by [Nikin](https://pixabay.com/users/nikin-253338/) from [Pixabay](https://pixabay.com/)
