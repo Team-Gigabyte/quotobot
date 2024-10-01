@@ -59,7 +59,7 @@ Thank you for reading to the end. If you learned something from the bot, or have
 fetch("https://quotoserve.vercel.app/randquote")
  .then(res => res.json())
  .then(res => {
-	document.getElementById("randquote").innerHTML = res.quote + " —" + res.author
+	document.getElementById("randquote").innerHTML = "<blockquote>" + res.quote + "<br/>—" + res.author + "</blockquote>"
 })
  .catch()
 </script>
