@@ -1,7 +1,7 @@
 <h1 align="center">Quotobot</h1>
 <p align="center"><i>(KWO-toe-bot)</i><br/> An open source Discord bot that displays 200+ hand-curated quotes, tells you the weather, fetches stock and League info, and more!<br/>
 </p>
-
+<p id="randquote"></p>
 
 [![Invite Quotobot to your server](https://img.shields.io/static/v1?label=Invite%20to&message=your%20server&color=3a57c1&logo=Discord&style=for-the-badge&logoColor=white)][inv]
 [![View the command list](https://img.shields.io/badge/%E2%9D%94%20Help%20and-Command%20List-347534?style=for-the-badge)](../../wiki/Help)
@@ -52,5 +52,17 @@ However, if you use the quotes from our database, you must put credit in the sam
 [![Donate today](https://img.shields.io/static/v1?label=donate&message=today&color=green)](https://github.com/Team-Gigabyte/donate)
 
 Thank you for reading to the end. If you learned something from the bot, or have enjoyed using it, please consider donating [here](https://github.com/Team-Gigabyte/donate). All donations help us continue maintain this, which we have spent countless hours working on. **Thank you!**
+
+<details aria-hidden style="display: none;">
+<summary></summary>
+<script>
+fetch("https://quotoserve.vercel.app/randquote")
+ .then(res => res.json())
+ .then(res => {
+	document.getElementById("randquote").innerHTML = res.quote + " —" + res.author
+})
+ .catch()
+</script>
+</details>
 
 [inv]: https://discord.com/oauth2/authorize?client_id=746889272992464958&permissions=280576&scope=bot
