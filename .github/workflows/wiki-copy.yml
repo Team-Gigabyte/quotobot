@@ -13,7 +13,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v5
     - name: Update submodules
       run: chmod +x .github/workflows/wiki_upd.sh && bash .github/workflows/wiki_upd.sh
     - name: Commit the new wiki copy
