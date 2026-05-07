@@ -214,7 +214,9 @@ process.on("uncaughtException", async (err) => {
 const splchecker = new SpellChecker(new SpellCfg({ ignoreCase: false, languages: ['en-us'] }));
 splchecker.addDictionaryPhrase('Quotobot');
 splchecker.addDictionaryPhrase('quotobot');
+const splchecker_ko = new SpellChecker(new SpellCfg({ ignoreCase: false, languages: ['ko'] }));
 splchecker.addProviderByConfig({ name: 'hunspell' });
+splchecker_ko.addProviderByConfig({ name: 'hunspell' });
 bot.login(token);
 bot.on("warn", m => console.warn(chalk`{yellow Warning: ${m}}`));
 bot.on("error", m => console.error(chalk`{redBright Error: ${m}}`));
@@ -559,15 +561,17 @@ bot.on("message", message => {
                     setTimeout(() => {
                         usedSpellingRecently.delete(message.author.id);
                     }, timeout);
-                    let { items } = await splchecker.checkText(args.join(" "));
+                    const spellcheckLanguage = message.content.match(/[\u3131-\uD79D]/) ? "ko" : "en-us";
+                    let { items } = await (spellcheckLanguage == "ko" ? splchecker_ko : splchecker).checkText(args.join(" "));
                     if (!items || items.length < 1) return message.reply(new Discord.MessageEmbed().setTitle("No errors found.").setColor(6765239));
                     items = uniqBy(items, "fragment");
                     let desc = "";
                     const mbed = new Discord.MessageEmbed()
                         .setColor(6765239)
                         .setTitle("Spell Check");
+                    const strikethrough = spellcheckLanguage == "ko" ? "" : "~~"; // don't strikethrough Korean
                     items.some(({ fragment, suggestions }) => {
-                        let addition = `~~${fragment}~~ → **${suggestions.join("**, **") || "No suggestions"} **\n`;
+                        let addition = `${strikethrough + fragment + strikethrough} → **${suggestions.join("**, **") || "No suggestions"} **\n`;
                         if (desc.length + addition.length > 2000) {
                             mbed.setFooter("This spellcheck has been shortened.");
                             return true;
